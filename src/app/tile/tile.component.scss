@@ -1,0 +1,52 @@
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+}
+
+.box {
+  background: url('../../assets/box.png');
+}
+
+.floor {
+  background: transparent;
+}
+
+.wall {
+  background: url('../../assets/wall.png');
+}
+
+.target {
+  background: url('../../assets/target.png');
+}
+
+.targetWithBox {
+  background: url('../../assets/boxInTarget.png');
+}
+
+.cursor {
+  position: absolute;
+  background: url('../../assets/player.png');
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  z-index: 2;
+  &.win {
+    background: url('../../assets/player_win2.png');
+    background-size: cover;
+    height: 40px;
+    width: 40px;
+    z-index: 2;
+  }
+}
+
+.cursor:hover:not(.win) {
+  position: absolute;
+  background: url('../../assets/player_wink.png');
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  z-index: 2;
+}
