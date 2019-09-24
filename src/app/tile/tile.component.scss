@@ -7,7 +7,7 @@ div {
 }
 
 .box {
-  background: url('../../assets/box.png');
+  background: url('../../assets/box_transparent.png');
 }
 
 .floor {
@@ -15,7 +15,7 @@ div {
 }
 
 .wall {
-  background: url('../../assets/wall.png');
+  background: url('../../assets/wall_orange_transparent.png');
 }
 
 .target {
@@ -28,13 +28,13 @@ div {
 
 .cursor {
   position: absolute;
-  background: url('../../assets/player.png');
+  background: url('../../assets/player_transparent.png');
   background-size: cover;
   height: 40px;
   width: 40px;
   z-index: 2;
   &.win {
-    background: url('../../assets/player_win2.png');
+    background: url('../../assets/player_win2_transparent.png');
     background-size: cover;
     height: 40px;
     width: 40px;
@@ -44,7 +44,7 @@ div {
 
 .cursor:hover:not(.win) {
   position: absolute;
-  background: url('../../assets/player_wink.png');
+  background: url('../../assets/player_wink_transparent.png');
   background-size: cover;
   height: 40px;
   width: 40px;
