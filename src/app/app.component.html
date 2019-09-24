@@ -1,5 +1,5 @@
 <div class="content">
-  <div class="header">
+  <div class="bar header">
     <button class="btn btn-outline-primary" title="Previous Level" (click)="previous()">Previous</button>
     <span class="header-span">{{level.name}}</span>
     <button class="btn btn-outline-primary" title="Next Level" (click)="next()">Next</button>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <span *ngIf="isWin">Well done, YOU WIN!</span>
-  <div class="header">
+  <div class="bar footer">
     <button class="btn btn-outline-primary" title="Undo" (click)="undo()" [disabled]="!history.length">Undo</button>
     <span class="header-span">Moves: {{counter}}</span>
     <button class="btn btn-outline-primary" title="Reset" (click)="reset()">Reset</button>
