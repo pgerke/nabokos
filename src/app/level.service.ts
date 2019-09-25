@@ -37,38 +37,46 @@ export class LevelService {
     return this.getCurrentLevel();
   }
 
-  private loadLevels() {
+  loadLevel(serializedLevel: string, name: string): Level {
+    const level = new Level();
+    level.name = name;
+    level.tiles = [];
+    level.serialized = serializedLevel;
+    const lines = serializedLevel.split('\n');
     let lineNumber = 0;
-    const separateLevels = levelData.split('\n\n');
-    separateLevels.forEach((serializedLevel: string, index: number) => {
-      const level = new Level();
-      level.name = 'Level ' + (index + 1);
-      level.tiles = [];
-      level.serialized = serializedLevel;
-      const lines = serializedLevel.split('\n');
-      lineNumber = 0;
-      let colNumber = 0;
-      lines.forEach(line => {
-        colNumber = 0;
-        const tiles: Tile[] = [];
-        for (const c of line) {
-          switch (c) {
-            case '#': tiles.push(Tile.wall); break;
-            case '*': tiles.push(Tile.targetWithBox); break;
-            case ' ': tiles.push(Tile.floor); break;
-            case '.': tiles.push(Tile.target); break;
-            case '$': tiles.push(Tile.box); break;
-            case '@':
-              tiles.push(Tile.floor);
+    let colNumber = 0;
+    lines.forEach(line => {
+      colNumber = 0;
+      const tiles: Tile[] = [];
+      for (const c of line) {
+        switch (c) {
+          case '#': tiles.push(Tile.wall); break;
+          case '*': tiles.push(Tile.targetWithBox); break;
+          case ' ': tiles.push(Tile.floor); break;
+          case '.': tiles.push(Tile.target); break;
+          case '$': tiles.push(Tile.box); break;
+          case '@':
+            tiles.push(Tile.floor);
+            level.cursor = new Coordinate(colNumber, lineNumber);
+            break;
+          case '+':
+              tiles.push(Tile.target);
               level.cursor = new Coordinate(colNumber, lineNumber);
               break;
-            default: continue;
-          }
-          colNumber++;
+          default: continue;
         }
-        level.tiles.push(tiles);
-        lineNumber++;
-      });
+        colNumber++;
+      }
+      level.tiles.push(tiles);
+      lineNumber++;
+    });
+    return level;
+  }
+
+  private loadLevels() {
+    const separateLevels = levelData.split('\n\n');
+    separateLevels.forEach((serializedLevel: string, index: number) => {
+      const level = this.loadLevel(serializedLevel, 'Level ' + (index + 1));
       this.levels.push(level);
     });
   }

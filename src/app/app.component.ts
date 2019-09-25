@@ -93,7 +93,7 @@ export class AppComponent implements OnInit {
       case 'Z':
       case 'Backspace':
         this.undo();
-        break;
+        return;
       default: return;
     }
     this.run(direction);
@@ -122,7 +122,7 @@ export class AppComponent implements OnInit {
   pushBox(coordinate: Coordinate, direction: Direction): boolean {
     const tile = this.level.tiles[coordinate.y][coordinate.x];
     if (tile !== Tile.box && tile !== Tile.targetWithBox) {
-      return;
+      return false;
     }
 
     const newBoxCoordinate = this.getNextCoordinate(coordinate, direction);
