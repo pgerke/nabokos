@@ -1,9 +1,10 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { LevelService } from './level.service';
 import { Coordinate } from './models/coordinate';
 import { Direction } from './models/direction';
 import { Tile } from './models/tile';
 import { Level } from './models/level';
+import { interval, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
@@ -11,24 +12,36 @@ import * as _ from 'lodash';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   private readonly historyLimit = 1000;
   private internalLevel: Level;
 
   isWin: boolean;
+  levelTime: number;
+  levelStarted: boolean;
   title = 'nabokos';
   totalMoves: number;
   history: Level[] = [];
   counter: number;
   level: Level;
+  subscription: Subscription;
 
   constructor(public levelService: LevelService) {}
 
   ngOnInit() {
+    this.subscription = interval(1000).subscribe(() => {
+      if (this.levelStarted && !this.isWin) {
+        this.levelTime += 1000;
+      }
+    });
     this.internalLevel = this.levelService.getCurrentLevel();
     this.reset();
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    this.subscription = null;
+  }
 
   checkWin() {
     this.isWin = this.level.tiles.every(line => !line.some(tile => tile === Tile.target || tile === Tile.box));
@@ -149,6 +162,7 @@ export class AppComponent implements OnInit {
     const levelCopy = _.cloneDeep(this.level);
 
     if (this.moveCursor(newCoordinate) || this.pushBox(newCoordinate, direction)) {
+      this.levelStarted = true;
       this.saveHistory(levelCopy);
       this.checkWin();
     }
@@ -158,6 +172,8 @@ export class AppComponent implements OnInit {
     this.level = _.cloneDeep(this.internalLevel);
     this.history = [];
     this.counter = 0;
+    this.levelTime = 0;
+    this.levelStarted = false;
     this.isWin = false;
   }
 
