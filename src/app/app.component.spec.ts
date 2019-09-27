@@ -1,10 +1,28 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, fakeAsync, tick, flush } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { LevelService } from './level.service';
 import { TileComponent } from './tile/tile.component';
-import { Level } from './models/level';
 import { Direction } from './models/direction';
 import { Coordinate } from './models/coordinate';
+
+describe('AppComponent (shallow)', () => {
+  it('should processs timer', fakeAsync(() => {
+    const service = new LevelService();
+    const app = new AppComponent(service);
+    app.ngOnInit();
+    expect(app.subscription).toBeDefined();
+    expect(app.levelStarted).toBeFalsy();
+    expect(app.levelTime).toBe(0);
+    tick(2500);
+    expect(app.levelStarted).toBeFalsy();
+    expect(app.levelTime).toBe(0);
+    app.run(Direction.Left);
+    expect(app.levelStarted).toBeTruthy();
+    tick(2500);
+    expect(app.levelTime).toBeGreaterThan(0);
+    app.ngOnDestroy();
+  }));
+});
 
 describe('AppComponent', () => {
   let app: AppComponent;
