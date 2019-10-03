@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Level } from './models/level';
-import { Tile } from './models/tile';
-import { Coordinate } from './models/coordinate';
-import { levels as levelData } from './levels';
+import { Level } from '../models/level';
+import { Tile } from '../models/tile';
+import { Coordinate } from '../models/coordinate';
+import { levels as levelData } from '../levels';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,6 @@ export class LevelService {
   }
 
   getCurrentLevel(): Level {
-    // console.log(this.levels[this.index].serialized);
-    // console.log(this.levels[this.index].tiles);
     return this.levels[this.index];
   }
 
@@ -60,9 +58,9 @@ export class LevelService {
             level.cursor = new Coordinate(colNumber, lineNumber);
             break;
           case '+':
-              tiles.push(Tile.target);
-              level.cursor = new Coordinate(colNumber, lineNumber);
-              break;
+            tiles.push(Tile.target);
+            level.cursor = new Coordinate(colNumber, lineNumber);
+            break;
           default: continue;
         }
         colNumber++;

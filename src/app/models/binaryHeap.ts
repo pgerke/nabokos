@@ -44,7 +44,7 @@ export class BinaryHeap {
    * Adds an given element to the tree and sorts it to the right spot.
    * @param newElement element to add to the tree
    */
-  insert(newElement: [number, Coordinate, Coordinate]): void {
+  insert(newElement: [number, Coordinate, Coordinate, number]): void {
     const length = this.heap.length;
     // adds element to the end of the array
     this.heap.push(newElement);
@@ -87,8 +87,12 @@ export class BinaryHeap {
   /**
    * Returns the first Element of the tree, which is the next target.
    */
-  getNextTarget(): Coordinate {
-    return this.heap[0][1];
+  getNextTarget(): [number, Coordinate, Coordinate, number] {
+    if (this.heap.length) {
+      return this.heap[0];
+    } else {
+      return null;
+    }
   }
 
   /**
