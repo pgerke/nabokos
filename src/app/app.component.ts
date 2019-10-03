@@ -1,10 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { LevelService } from './level.service';
+import { LevelService } from './services/level.service';
 import { Coordinate } from './models/coordinate';
 import { Direction } from './models/direction';
 import { Tile } from './models/tile';
 import { Level } from './models/level';
 import * as _ from 'lodash';
+import { PathFinderService } from './services/pathFinder.service';
 
 @Component({
   selector: 'app-root',
@@ -21,8 +22,12 @@ export class AppComponent implements OnInit {
   history: Level[] = [];
   counter: number;
   level: Level;
+  isWalking: boolean;
 
-  constructor(public levelService: LevelService) {}
+  constructor(
+    public levelService: LevelService,
+    public pathFinderService: PathFinderService
+    ) {}
 
   ngOnInit() {
     this.internalLevel = this.levelService.getCurrentLevel();
@@ -47,7 +52,7 @@ export class AppComponent implements OnInit {
   }
 
   getNextCoordinate(coordinate: Coordinate, direction: Direction): Coordinate {
-    const next = {...coordinate};
+    const next = new Coordinate(coordinate.x, coordinate.y);
     switch (direction) {
       case Direction.Up:
         next.y--;
@@ -175,4 +180,71 @@ export class AppComponent implements OnInit {
     this.level = this.history.pop();
     this.counter++;
   }
+
+  /**
+   * Function providing navigation through touch and mouse clicks.
+   * @param tile kind of the clicked element
+   * @param x x coordinate of the clicked element
+   * @param y y coordinate of the clicked element
+   */
+  async moveToClick(tile: string, x: number, y: number) {
+    // Doesn't do anything if the clicked element is a wall, or the cursor is already moving.
+    if (tile === Tile.wall || this.isWalking) {
+      return;
+    }
+
+    // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
+    if (tile === Tile.box || tile === Tile.targetWithBox) {
+      const direction = this.getBoxMoveDirection(new Coordinate(x, y));
+      if (direction) {
+        this.run(direction);
+        return;
+      }
+    }
+
+    // Gets the array of coordinates, which is the path from the cursor to the clicked ndoe.
+    let path = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
+
+    if (path.length) {
+      this.isWalking = true;
+      
+      // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
+      // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
+      for (let item of path) {
+        const levelCopy = _.cloneDeep(this.level);
+        if (this.moveCursor(item)) {
+          this.saveHistory(levelCopy);
+          await this.delay(200);
+        }
+      }
+  
+      this.checkWin();
+      this.isWalking = false;
+    }
+  }
+
+  /**
+   * Provides possiblity to wait for a given number of milliseconds.
+   * @param ms number of milliseconds to wait for
+   */
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
+  /**
+   * Checks if the cursor is standing next to the given node (box) and according to where the cursor stands, returns the direction.
+   */
+  getBoxMoveDirection(box: Coordinate) {
+    if (this.level.cursor.isEqual(new Coordinate(box.x, box.y - 1))) {
+      return Direction.Down;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x + 1, box.y))) {
+      return Direction.Left;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x, box.y + 1))) {
+      return Direction.Up;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x - 1, box.y))) {
+      return Direction.Right;
+    }
+    return null;
+  }
+
 }
