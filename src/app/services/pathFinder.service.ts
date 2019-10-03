@@ -123,7 +123,7 @@ export class PathFinderService {
       }
     }
 
-    // Updates entry on open list, it the hops are lower.
+    // Updates entry on open list, if the hops are lower.
     if (foundElement_openList && nodeElement[3] < this._openList.heap[row][3]) {
       this._openList.heap[row][2] = nodeElement[2];
       this._openList.heap[row][3] = nodeElement[3];
@@ -152,7 +152,7 @@ export class PathFinderService {
    * @param nodeElement element from the open list
    */
   private moveToClosedList(nodeElement: [number, Coordinate, Coordinate, number]) : void {
-    // The first element are the coordinates of the node, the second are the coordinates from the previous node.
+    // The first element contains the coordinates of the node, the second contains the coordinates from the previous node.
     this._closedList.push([nodeElement[1], nodeElement[2]]);
   }
 
