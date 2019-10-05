@@ -9,7 +9,7 @@ import { Savegame } from '../models/savegame';
 })
 export class MenuComponent implements OnInit {
 
-  readonly appVersion = '1.0.0';
+  readonly appVersion = '1.1.0';
   canContinue: boolean;
   private savegame: Savegame;
   constructor(private router: Router) {
