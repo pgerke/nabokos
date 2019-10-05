@@ -3,6 +3,7 @@ import { Level } from './models/level';
 import { Tile } from './models/tile';
 import { Coordinate } from './models/coordinate';
 import { levels as levelData } from './levels';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +13,17 @@ export class LevelService {
   private levels: Level[] = [];
   private index = 0;
 
-  constructor() {
+  constructor(private router: Router) {
     this.loadLevels();
     console.log(`Loaded ${this.getLevelCount()} levels.`);
   }
 
-  getCurrentLevel(): Level {
+  getLevel(index: number): Level | undefined {
+    if (index < 0 || index >= this.getLevelCount()) {
+      return undefined;
+    }
+
+    this.index = index;
     // console.log(this.levels[this.index].serialized);
     // console.log(this.levels[this.index].tiles);
     return this.levels[this.index];
@@ -27,14 +33,12 @@ export class LevelService {
     return this.levels.length;
   }
 
-  getNextLevel(): Level {
-    this.index = (this.index === this.getLevelCount() - 1) ? 0 : this.index + 1;
-    return this.getCurrentLevel();
+  getNextLevel(): void {
+    this.router.navigate(['level', (this.index === this.getLevelCount() - 1) ? 0 : this.index + 1]);
   }
 
-  getPreviousLevel(): Level {
-    this.index = ((!this.index) ? this.getLevelCount() : this.index) - 1;
-    return this.getCurrentLevel();
+  getPreviousLevel(): void {
+    this.router.navigate(['level', ((!this.index) ? this.getLevelCount() : this.index) - 1]);
   }
 
   loadLevel(serializedLevel: string, name: string): Level {
