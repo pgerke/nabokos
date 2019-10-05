@@ -1,0 +1,9 @@
+<span class="header-span">Nabokos</span>
+<div class="menu">
+  <button *ngIf="canContinue" class="btn btn-outline-primary" title="Continue" (click)="continueGame()" [disabled]="!canContinue">Continue</button>
+  <button class="btn btn-outline-primary" title="New Game" (click)="newGame()">New Game</button>
+  <button class="btn btn-outline-primary" title="Level Editor" (click)="loadCustomLevel()" disabled>Level Editor</button>
+  <button class="btn btn-outline-primary" title="Highscore" (click)="showHighScore()">Highscore</button>
+  <button class="btn btn-outline-primary" title="Credits" (click)="showCredits()" disabled>Credits</button>
+</div>
+<span class="footer-span">Nabokos v{{appVersion}} (c) 2019 - All rights reserved.</span>

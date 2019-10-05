@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="bar header">
+    <button class="btn btn-outline-primary" title="Menu" (click)="showMenu()">Menu</button>
+    <span class="header-span">{{level.name}}</span>
+    <div>
+      <button class="btn btn-outline-primary" title="Previous Level" (click)="previous()">Prev</button>
+      <button class="btn btn-outline-primary" title="Next Level" (click)="next()">Next</button>
+    </div>
+  </div>
+  <div>
+    <div class="level-row" *ngFor="let row of level.tiles; index as y">
+      <app-tile *ngFor="let tile of row; index as x" [tile]="tile" [isCursorHere]="isCursorHere(x, y)" [isWin]="isWin">
+      </app-tile>
+    </div>
+  </div>
+  <span *ngIf="isWin">Well done, YOU WIN!</span>
+  <div class="bar footer">
+    <button class="btn btn-outline-primary" title="Undo" (click)="undo()" [disabled]="!history.length">Undo</button>
+    <span class="header-span">Time: {{levelTime | date:'mm:ss'}}</span>
+    <span class="header-span">Moves: {{counter}}</span>
+    <button class="btn btn-outline-primary" title="Reset" (click)="reset()">Reset</button>
+  </div>
+</div>
