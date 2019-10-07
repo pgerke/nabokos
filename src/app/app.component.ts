@@ -22,12 +22,13 @@ export class AppComponent implements OnInit {
   history: Level[] = [];
   counter: number;
   level: Level;
-  isWalking: boolean;
+  stopWalking: boolean;
+  pathToWalkOn: Coordinate[];
 
   constructor(
     public levelService: LevelService,
     public pathFinderService: PathFinderService
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.internalLevel = this.levelService.getCurrentLevel();
@@ -160,6 +161,7 @@ export class AppComponent implements OnInit {
   }
 
   reset() {
+    this.pathToWalkOn = [];
     this.level = _.cloneDeep(this.internalLevel);
     this.history = [];
     this.counter = 0;
@@ -177,6 +179,7 @@ export class AppComponent implements OnInit {
       return;
     }
 
+    this.pathToWalkOn = [];
     this.level = this.history.pop();
     this.counter++;
   }
@@ -187,9 +190,9 @@ export class AppComponent implements OnInit {
    * @param x x coordinate of the clicked element
    * @param y y coordinate of the clicked element
    */
-  async moveToClick(tile: string, x: number, y: number) {
+  moveToClick(tile: string, x: number, y: number) {
     // Doesn't do anything if the clicked element is a wall, or the cursor is already moving.
-    if (tile === Tile.wall || this.isWalking) {
+    if (tile === Tile.wall) {
       return;
     }
 
@@ -203,23 +206,28 @@ export class AppComponent implements OnInit {
     }
 
     // Gets the array of coordinates, which is the path from the cursor to the clicked ndoe.
-    let path = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
+    this.pathToWalkOn = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
+    this.walkAlongPath(this.pathToWalkOn);
+  }
 
+  async walkAlongPath(path: Coordinate[]) {
     if (path.length) {
-      this.isWalking = true;
-      
+
       // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
       // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
       for (let item of path) {
-        const levelCopy = _.cloneDeep(this.level);
-        if (this.moveCursor(item)) {
-          this.saveHistory(levelCopy);
-          await this.delay(200);
+        // if user clicked again
+        if (this.pathToWalkOn !== path) {
+          return;
         }
+
+        const levelCopy = _.cloneDeep(this.level);
+        this.moveCursor(item);
+        this.saveHistory(levelCopy);
+        await this.delay(200);
       }
-  
+
       this.checkWin();
-      this.isWalking = false;
     }
   }
 
@@ -228,7 +236,7 @@ export class AppComponent implements OnInit {
    * @param ms number of milliseconds to wait for
    */
   delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**
