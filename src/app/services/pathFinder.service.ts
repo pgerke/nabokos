@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Coordinate } from '../models/coordinate';
 import { BinaryHeap } from '../models/binaryHeap';
-import { ClosedList } from '../models/ClosedList';
+import { ClosedList } from '../models/closedList';
 import { Level } from '../models/level';
 import { Tile } from '../models/tile';
 
@@ -9,7 +9,7 @@ import { Tile } from '../models/tile';
   providedIn: 'root'
 })
 export class PathFinderService {
-  constructor() {}
+  constructor() { }
 
   private _target: Coordinate;
   private _start: Coordinate;
