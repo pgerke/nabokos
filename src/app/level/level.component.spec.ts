@@ -1,35 +1,39 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
 import { Direction } from '../models/direction';
-import { LevelService } from '../level.service';
-import { HighscoreService } from '../highscore.service';
+import { LevelService } from '../services/level.service';
+import { HighscoreService } from '../services/highscore.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TileComponent } from '../tile/tile.component';
 import { Coordinate } from '../models/coordinate';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Savegame } from '../models/savegame';
 import { of } from 'rxjs';
+import { Tile } from '../models/tile';
+import { PathFinderService } from '../services/pathFinder.service';
 
 describe('LevelComponent (shallow)', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [RouterTestingModule],
       declarations: [
         LevelComponent,
         TileComponent
       ],
       providers: [
         LevelService,
-        HighscoreService
+        HighscoreService,
+        PathFinderService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   it('should processs timer', () => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
+    const pathFinderService = new PathFinderService();
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -46,7 +50,7 @@ describe('LevelComponent (shallow)', () => {
     route.params = of({
       level: 1
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route);
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
     lvl.ngOnInit();
     expect(lvl.levelTime).toBe(234000);
     expect(lvl.counter).toBe(567);
@@ -57,11 +61,12 @@ describe('LevelComponent (shallow)', () => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
+    const pathFinderService = new PathFinderService();
     const route = new ActivatedRoute();
     route.params = of({
       level: 0
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route);
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
     lvl.ngOnInit();
     expect(lvl.levelTimerSubscription).toBeDefined();
     expect(lvl.levelStarted).toBeFalsy();
@@ -81,20 +86,22 @@ describe('LevelComponent', () => {
   let component: LevelComponent;
   let fixture: ComponentFixture<LevelComponent>;
   let levelService: LevelService;
+  let pathFinderService: PathFinderService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [RouterTestingModule],
       declarations: [
         LevelComponent,
         TileComponent
       ],
       providers: [
         LevelService,
-        HighscoreService
+        HighscoreService,
+        PathFinderService
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -102,6 +109,7 @@ describe('LevelComponent', () => {
     fixture = TestBed.createComponent(LevelComponent);
     component = fixture.componentInstance;
     levelService = TestBed.get(LevelService);
+    pathFinderService = TestBed.get(PathFinderService);
     fixture.detectChanges();
   });
 
@@ -124,13 +132,13 @@ describe('LevelComponent', () => {
   it('should calculate next coordinate', () => {
     const original = new Coordinate(0, 0);
     let altered = component.getNextCoordinate(original, Direction.Up);
-    expect(altered).toEqual({x: 0, y: -1});
+    expect(altered).toEqual(new Coordinate(0, -1));
     altered = component.getNextCoordinate(original, Direction.Right);
-    expect(altered).toEqual({x: 1, y: 0});
+    expect(altered).toEqual(new Coordinate(1, 0));
     altered = component.getNextCoordinate(original, Direction.Down);
-    expect(altered).toEqual({x: 0, y: 1});
+    expect(altered).toEqual(new Coordinate(0, 1));
     altered = component.getNextCoordinate(original, Direction.Left);
-    expect(altered).toEqual({x: -1, y: 0});
+    expect(altered).toEqual(new Coordinate(-1, 0));
   });
 
   it('should process direction keyboard events', () => {
@@ -150,7 +158,7 @@ describe('LevelComponent', () => {
       { input: 'ArrowLeft', direction: Direction.Left },
       { input: 'ArrowRight', direction: Direction.Right },
     ];
-    values.forEach(({input, direction}, _) => {
+    values.forEach(({ input, direction }, _) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
       expect(undoSpy).not.toHaveBeenCalled();
       expect(runSpy).toHaveBeenCalledWith(direction);
@@ -165,7 +173,7 @@ describe('LevelComponent', () => {
   it('should process undo keyboard events', () => {
     const undoSpy = spyOn(component, 'undo');
     const runSpy = spyOn(component, 'run');
-    const values = [ 'z', 'Z', 'Backspace' ];
+    const values = ['z', 'Z', 'Backspace'];
     values.forEach((input, x) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
       expect(undoSpy).toHaveBeenCalledTimes(x + 1);
@@ -300,5 +308,131 @@ describe('LevelComponent', () => {
     expect(component.loadSaveGame()).toBeTruthy();
     expect(component.levelTime).toBe(savegame.levelTime);
 
+  });
+
+  it('should do nothing on click, when the clicked element is a wall', fakeAsync(() => {
+    const cursor = component.level.cursor;
+    component.moveToClick('wall', cursor.x + 1, cursor.y);
+    tick(200);
+    expect(component.level.cursor).toBe(cursor);
+  }));
+
+  it('should move the cursor and box, when the cursor is next to a box and the box is clicked', fakeAsync(() => {
+    const cursor = component.level.cursor;
+    const box = new Coordinate(cursor.x + 1, cursor.y);
+    component.level.tiles[box.y][box.x] = Tile.box;
+
+    const spyRun = spyOn(component, 'run');
+    spyRun.and.callThrough();
+
+    component.moveToClick('box', box.x, box.y);
+    tick(400);
+    expect(component.level.cursor).toEqual(box);
+    expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.box);
+    expect(spyRun).toHaveBeenCalled();
+
+    component.level.tiles[box.y][box.x + 1] = Tile.targetWithBox;
+    component.level.cursor = cursor;
+    spyRun.and.callThrough();
+
+    component.moveToClick('targetWithBox', box.x, box.y);
+    tick(400);
+    expect(component.level.cursor).toEqual(box);
+    expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.targetWithBox);
+    expect(spyRun).toHaveBeenCalled();
+  }));
+
+  it('should only move the cursor not the box, when the cursor is not next to a box and the box is clicked', fakeAsync(() => {
+    const serialized = `####
+  #   #
+  #   #
+  #@  #
+  ####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+    const cursor = component.level.cursor;
+    const box = new Coordinate(cursor.x + 2, cursor.y);
+    component.level.tiles[box.y][box.x] = Tile.box;
+
+    component.moveToClick('box', box.x, box.y);
+    tick(400);
+    expect(component.level.cursor).toEqual(new Coordinate(cursor.x + 1, cursor.y));
+    expect(component.level.tiles[box.y][box.x]).toBe(Tile.box);
+  }));
+
+  it('should move the cursor to the clicked target, if a path was found', fakeAsync(() => {
+    const serialized = `####
+#   #
+#   #
+#@  #
+####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+    spyOn(pathFinderService, 'findPath').and.returnValue([new Coordinate(2, 1), new Coordinate(1, 1)]);
+    spyOn(component, 'walkAlongPath').and.callThrough();
+    component.moveToClick('floor', 1, 1);
+    tick(400);
+    expect(component.walkAlongPath).toHaveBeenCalled();
+    expect(component.level.cursor).toEqual(new Coordinate(1, 1));
+    expect(pathFinderService.findPath).toHaveBeenCalled();
+  }));
+
+  it('should not move the cursor to the clicked target, if no path was found', fakeAsync(() => {
+    const cursor = component.level.cursor;
+    spyOn(pathFinderService, 'findPath').and.returnValue([]);
+    component.moveToClick('floor', 1, 1);
+    tick(200);
+    expect(component.level.cursor).toEqual(cursor);
+    expect(pathFinderService.findPath).toHaveBeenCalled();
+  }));
+
+  it('should move the cursor to the new target, if clicked again', fakeAsync(() => {
+    const serialized = `####
+#   #
+#   #
+#@  #
+####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+
+    component.moveToClick('floor', 1, 1);
+    tick(100);
+    component.moveToClick('floor', 3, 2);
+    tick(600);
+
+    expect(component.level.cursor).toEqual(new Coordinate(3, 2));
+  }));
+
+  it('should get the right direction for moving a box by click, when the cursor stands next to it', () => {
+    const serialized = `####
+#   #
+#@. #
+#   #
+####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+    const box = new Coordinate(2, 2);
+    let result = component.getBoxMoveDirection(box);
+    expect(result).toBe(Direction.Right);
+
+    component.level.cursor = new Coordinate(box.x, box.y + 1);
+    result = component.getBoxMoveDirection(box);
+    expect(result).toBe(Direction.Up);
+
+    component.level.cursor = new Coordinate(box.x + 1, box.y);
+    result = component.getBoxMoveDirection(box);
+    expect(result).toBe(Direction.Left);
+
+    component.level.cursor = new Coordinate(box.x, box.y - 1);
+    result = component.getBoxMoveDirection(box);
+    expect(result).toBe(Direction.Down);
+  });
+
+  it('should not get a direction for moving a box by click, when the cursor does not stand next to it', () => {
+    const serialized = `####
+#   #
+# . #
+#@  #
+####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+    const box = new Coordinate(2, 2);
+    let result = component.getBoxMoveDirection(box);
+    expect(result).toBe(null);
   });
 });

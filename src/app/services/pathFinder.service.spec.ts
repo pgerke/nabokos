@@ -4,6 +4,7 @@ import { LevelService } from './level.service';
 import { Coordinate } from '../models/coordinate';
 import { Level } from '../models/level';
 import { BinaryHeap } from '../models/binaryHeap';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PathFinderService', () => {
   let pathFinderService: PathFinderService;
@@ -11,7 +12,9 @@ describe('PathFinderService', () => {
   let level: Level;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule]
+    });
     pathFinderService = TestBed.get(PathFinderService);
     levelService = TestBed.get(LevelService);
 
