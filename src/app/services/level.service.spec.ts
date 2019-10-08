@@ -1,11 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { LevelService } from './level.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 describe('LevelService', () => {
   let service: LevelService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ RouterTestingModule ]
+    });
     service = TestBed.get(LevelService);
   });
 
@@ -13,7 +17,13 @@ describe('LevelService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should get current level', () => {
+  it ('should return undefined level for out of bounds index', () => {
+    expect(service.getLevel(-1)).toBeUndefined();
+    expect(service.getLevel(service.getLevelCount() + 1));
+  });
+
+
+  it('should get level by index', () => {
     const refLevel = `   ###
   ## # ####
  ##  ###  #
@@ -25,75 +35,34 @@ describe('LevelService', () => {
  #      ##
  #     ##
  #######`;
-    const level = service.getCurrentLevel();
+    const level = service.getLevel(0);
     expect(level.name).toBe('Level 1');
     expect(level.serialized).toBe(refLevel);
   });
 
-  it('should get next and previous level', () => {
-    const refLevel1 = `   ###
-  ## # ####
- ##  ###  #
-## $      #
-#   @$ #  #
-### $###  #
-  #  #..  #
- ## ##.# ##
- #      ##
- #     ##
- #######`;
-    const refLevel2 = ` ## #####
-## ## . #
-# ## $. #
- ## $   #
-## $@ ###
-# $  ##
-#.. ## ##
-#   # ##
-##### #^`;
-    let level = service.getNextLevel();
-    expect(level.name).toBe('Level 2');
-    expect(level.serialized).toBe(refLevel2);
-    level = service.getPreviousLevel();
-    expect(level.name).toBe('Level 1');
-    expect(level.serialized).toBe(refLevel1);
-  });
+  it('should get next and previous level', inject([Router], (router) => {
+    const spy = spyOn(router, 'navigate');
 
-  it('should get next and previous level with wrap around', () => {
-    const refLevel1 = `   ###
-  ## # ####
- ##  ###  #
-## $      #
-#   @$ #  #
-### $###  #
-  #  #..  #
- ## ##.# ##
- #      ##
- #     ##
- #######`;
-    const refLevel2 = `##############################
-# .$ ## $. ## .$ ## $. ## .$ #
-#$  .  .  $##$  .  .  $##$  .#
-#.  $##$  .  .  $##$  .  .  $#
-# $. ## .$ ## $. ## .$ ## $. #
-### #  # ##  ## #  # ##  ## ##
-### #  # ## #  . # # ##  ## ##
-# $. ## .$ #   $  # .$ ## $. #
-#.  $##$  . .$##  #$  .  .  $#
-#$  .  .  $#  @#$. .  $##$  .#
-# .$ ## $. #  $   # $. ## .$ #
-## ##  ## # # .  # ## #  # ###
-## ##  ## #  # ##  ## #  # ###
-# .$ ## $. ## .$ ## $. ## .$ #
-#$  .  .  $##$  .  .  $##$  .#
-#.  $##$  .  .  $##$  .  .  $#
-# $. ## .$ ## $. ## .$ ## $. #
-##############################`;
-    let level = service.getPreviousLevel();
-    expect(level.name).toBe('Level 355');
-    expect(level.serialized).toBe(refLevel2);
-    level = service.getNextLevel();
-    expect(level.name).toBe('Level 1');
-    expect(level.serialized).toBe(refLevel1);
-  });
+    // Simple increment
+    service.getNextLevel();
+    expect(spy).toHaveBeenCalledWith(['level', 1]);
+    spy.calls.reset();
+
+    // Decrement with wrap around
+    service.getPreviousLevel();
+    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 1]);
+    spy.calls.reset();
+
+    // Set last level
+    service.getLevel(service.getLevelCount() - 1);
+
+    // Increment with wrap around
+    service.getNextLevel();
+    expect(spy).toHaveBeenCalledWith(['level', 0]);
+    spy.calls.reset();
+
+    // Simple decrement
+    service.getPreviousLevel();
+    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 2]);
+  }));
 });

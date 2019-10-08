@@ -4,15 +4,23 @@ import { AppComponent } from './app.component';
 import { TileComponent } from './tile/tile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LevelComponent } from './level/level.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HighscoreComponent } from './highscore/highscore.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TileComponent
+    TileComponent,
+    LevelComponent,
+    HighscoreComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

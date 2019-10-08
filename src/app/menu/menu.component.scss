@@ -1,0 +1,27 @@
+:host {
+  display: block; 
+}
+
+.menu {
+  display: grid;
+  justify-content: center;
+
+  .btn {
+    margin: 5px 10px;
+    width: 400px;
+  }
+}
+
+.header-span {
+  text-align: center;
+  display: block;
+  margin: 50px;
+  font-size: 36px;
+  color: white;
+}
+
+.footer-span {
+  text-align: center;
+  display: block;
+  margin-top: 50px;
+}
