@@ -264,6 +264,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // tslint:disable-next-line: max-line-length
     // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
     if (tile === Tile.box || tile === Tile.targetWithBox) {
       const direction = this.getBoxMoveDirection(new Coordinate(x, y));
@@ -282,7 +283,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     if (path.length) {
       // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
       // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
-      for (let item of path) {
+      for (const item of path) {
         // if user clicked again
         if (this.pathToWalkOn !== path) {
           return;

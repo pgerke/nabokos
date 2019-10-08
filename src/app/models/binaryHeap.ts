@@ -32,7 +32,7 @@ export class BinaryHeap {
       indexCurrentMinimum = this.right(index);
     }
 
-    if (indexCurrentMinimum != index) {
+    if (indexCurrentMinimum !== index) {
       this.swap(indexCurrentMinimum, index);
       // checks if the given element is now on the right spot
       this.heapify(indexCurrentMinimum);
@@ -59,7 +59,7 @@ export class BinaryHeap {
     // removes the element at the given index and reduces the length of the array
     this.heap.splice(index, 1);
     // if the element was on the last position, nothing has to be changed
-    if (index != this.heap.length) {
+    if (index !== this.heap.length) {
       // depending on how the tree has changed (the values that moved up and are now head of a different branch)
       // the elements either have to move up (decrease) or to move down (heapify)
       if (index === 0 || this.heap[index][0] > this.heap[this.parent(index)][0]) {
