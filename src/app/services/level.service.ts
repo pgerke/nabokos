@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LevelService {
-
   private levels: Level[] = [];
   private index = 0;
 
@@ -34,11 +33,11 @@ export class LevelService {
   }
 
   getNextLevel(): void {
-    this.router.navigate(['level', (this.index === this.getLevelCount() - 1) ? 0 : this.index + 1]);
+    this.router.navigate(['level', this.index === this.getLevelCount() - 1 ? 0 : this.index + 1]);
   }
 
   getPreviousLevel(): void {
-    this.router.navigate(['level', ((!this.index) ? this.getLevelCount() : this.index) - 1]);
+    this.router.navigate(['level', (!this.index ? this.getLevelCount() : this.index) - 1]);
   }
 
   loadLevel(serializedLevel: string, name: string): Level {
@@ -54,11 +53,21 @@ export class LevelService {
       const tiles: Tile[] = [];
       for (const c of line) {
         switch (c) {
-          case '#': tiles.push(Tile.wall); break;
-          case '*': tiles.push(Tile.targetWithBox); break;
-          case ' ': tiles.push(Tile.floor); break;
-          case '.': tiles.push(Tile.target); break;
-          case '$': tiles.push(Tile.box); break;
+          case '#':
+            tiles.push(Tile.wall);
+            break;
+          case '*':
+            tiles.push(Tile.targetWithBox);
+            break;
+          case ' ':
+            tiles.push(Tile.floor);
+            break;
+          case '.':
+            tiles.push(Tile.target);
+            break;
+          case '$':
+            tiles.push(Tile.box);
+            break;
           case '@':
             tiles.push(Tile.floor);
             level.cursor = new Coordinate(colNumber, lineNumber);
@@ -67,7 +76,8 @@ export class LevelService {
             tiles.push(Tile.target);
             level.cursor = new Coordinate(colNumber, lineNumber);
             break;
-          default: continue;
+          default:
+            continue;
         }
         colNumber++;
       }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Coordinate } from '../models/coordinate';
 import { BinaryHeap } from '../models/binaryHeap';
-import { ClosedList } from '../models/ClosedList';
+import { ClosedList } from '../models/closedList';
 import { Level } from '../models/level';
 import { Tile } from '../models/tile';
 
@@ -9,7 +9,6 @@ import { Tile } from '../models/tile';
   providedIn: 'root'
 })
 export class PathFinderService {
-
   constructor() { }
 
   private _target: Coordinate;
@@ -43,7 +42,7 @@ export class PathFinderService {
     let nextNode = this.getNextTarget();
     hops = nextNode[3];
 
-    // Processes the node that has currently the lowest value. 
+    // Processes the node that has currently the lowest value.
     // Stops when there are no elements left to inspect or the target is found.
     while (nextNode) {
       hops++;
@@ -99,7 +98,7 @@ export class PathFinderService {
 
   /**
    * Takes a node with it's previous node, his value and his count of jumps and adds it for the open list.
-   * If the node is already on the open list and the count of jumps is now lower, the element gets an update on the open list. 
+   * If the node is already on the open list and the count of jumps is now lower, the element gets an update on the open list.
    * If the node is already on the closed list it won't be added again.
    * @param nodeElement a node with it's value, coordinates, coordinates of the previous node and his count of jumps since the start node
    */
@@ -110,11 +109,13 @@ export class PathFinderService {
     // Check if element exists on open list.
     let row = 0;
     for (let column of this._openList.heap) {
-      if (column.find(x => {
-        if (x instanceof Coordinate) {
-          return x.isEqual(nodeElement[1]);
-        }
-      })) {
+      if (
+        column.find(x => {
+          if (x instanceof Coordinate) {
+            return x.isEqual(nodeElement[1]);
+          }
+        })
+      ) {
         foundElement_openList = true;
         break;
       }
@@ -163,8 +164,8 @@ export class PathFinderService {
   }
 
   /**
-   * Loops through the closed list, beginning from the cursor node, after finding the entry, adds it to the path, 
-   * then it takes the previous node coordinates of this entry, search for that entry and so on until the list is empty, 
+   * Loops through the closed list, beginning from the cursor node, after finding the entry, adds it to the path,
+   * then it takes the previous node coordinates of this entry, search for that entry and so on until the list is empty,
    * or the target is found. After all it returns the path.
    */
   private getPathFromClosedList(): Array<Coordinate> {
@@ -181,7 +182,7 @@ export class PathFinderService {
       if (findElement && findElement[1]) {
         nextTarget = findElement[1];
         indexToDelete = this._closedList.indexOf(findElement);
-        this._closedList.splice(indexToDelete, 1)
+        this._closedList.splice(indexToDelete, 1);
         path.push(nextTarget);
       }
       // When the target element is not found, something went wrong.
@@ -201,7 +202,7 @@ export class PathFinderService {
    */
   private calcValue(node: Coordinate, hops: number): number {
     // Formula euclidean distance: squareroot of ((x1-x2)²+(y1-y2)²)
-    const distance = Math.sqrt(Math.pow((node.x - this._target.x), 2) + Math.pow((node.y - this._target.y), 2))
+    const distance = Math.sqrt(Math.pow(node.x - this._target.x, 2) + Math.pow(node.y - this._target.y, 2));
     return hops + distance;
   }
 
@@ -212,5 +213,4 @@ export class PathFinderService {
   private isWalkable(node: Coordinate): boolean {
     return this._currentLevel.tiles[node.y][node.x] === Tile.target || this._currentLevel.tiles[node.y][node.x] === Tile.floor;
   }
-
 }

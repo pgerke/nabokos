@@ -9,11 +9,11 @@ const routes: Routes = [
   { path: 'highscore/:level', component: HighscoreComponent },
   { path: 'menu', component: MenuComponent },
   { path: '', redirectTo: '/menu', pathMatch: 'full' },
-  { path: '**', redirectTo: '/menu'}
+  { path: '**', redirectTo: '/menu' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

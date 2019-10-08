@@ -1,9 +1,11 @@
-<div [ngClass]="{
-  'box': tile === tiles.box,
-  'floor': tile === tiles.floor,
-  'wall': tile === tiles.wall,
-  'target': tile === tiles.target,
-  'targetWithBox': tile === tiles.targetWithBox
-}">  
+<div
+  [ngClass]="{
+    box: tile === tiles.box,
+    floor: tile === tiles.floor,
+    wall: tile === tiles.wall,
+    target: tile === tiles.target,
+    targetWithBox: tile === tiles.targetWithBox
+  }"
+>
   <span class="cursor" [class.win]="isWin" [hidden]="!isCursorHere"></span>
 </div>

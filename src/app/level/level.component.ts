@@ -31,15 +31,17 @@ export class LevelComponent implements OnInit, OnDestroy {
   levelTimerSubscription: Subscription;
   pathToWalkOn: Coordinate[];
 
-  constructor(private levelService: LevelService,
-              private highscoreService: HighscoreService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private pathFinderService: PathFinderService) { }
+  constructor(
+    private levelService: LevelService,
+    private highscoreService: HighscoreService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private pathFinderService: PathFinderService
+  ) { }
 
   ngOnInit() {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
-      this.levelId =  Number.parseInt(value.get('level'), 10);
+      this.levelId = Number.parseInt(value.get('level'), 10);
       console.log('Level: ' + this.levelId);
       this.internalLevel = this.levelService.getLevel(this.levelId ? this.levelId : 0);
       if (!this.loadSaveGame()) {
@@ -65,7 +67,9 @@ export class LevelComponent implements OnInit, OnDestroy {
     if (this.isWin) {
       console.log('Player has won.');
       this.highscoreService.addEntry(this.levelId, {
-        name: 'Player', moves: this.counter, levelTime: this.levelTime
+        name: 'Player',
+        moves: this.counter,
+        levelTime: this.levelTime
       });
     }
   }
@@ -127,7 +131,8 @@ export class LevelComponent implements OnInit, OnDestroy {
       case 'Backspace':
         this.undo();
         return;
-      default: return;
+      default:
+        return;
     }
     this.run(direction);
   }
@@ -245,77 +250,75 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.pathToWalkOn = [];
     this.level = this.history.pop();
     this.counter++;
-   }
+  }
 
-
-    /**
-     * Function providing navigation through touch and mouse clicks.
-     * @param tile kind of the clicked element
-     * @param x x coordinate of the clicked element
-     * @param y y coordinate of the clicked element
-     */
-    moveToClick(tile: string, x: number, y: number) {
-        // Doesn't do anything if the clicked element is a wall, or the cursor is already moving.
-        if (tile === Tile.wall) {
-            return;
-        }
-
-        // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
-        if (tile === Tile.box || tile === Tile.targetWithBox) {
-            const direction = this.getBoxMoveDirection(new Coordinate(x, y));
-            if (direction) {
-                this.run(direction);
-                return;
-            }
-        }
-
-        // Gets the array of coordinates, which is the path from the cursor to the clicked ndoe.
-        this.pathToWalkOn = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
-        this.walkAlongPath(this.pathToWalkOn);
+  /**
+   * Function providing navigation through touch and mouse clicks.
+   * @param tile kind of the clicked element
+   * @param x x coordinate of the clicked element
+   * @param y y coordinate of the clicked element
+   */
+  moveToClick(tile: string, x: number, y: number) {
+    // Doesn't do anything if the clicked element is a wall.
+    if (tile === Tile.wall) {
+      return;
     }
 
-    async walkAlongPath(path: Coordinate[]) {
-        if (path.length) {
+    // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
+    if (tile === Tile.box || tile === Tile.targetWithBox) {
+      const direction = this.getBoxMoveDirection(new Coordinate(x, y));
+      if (direction) {
+        this.run(direction);
+        return;
+      }
+    }
 
-            // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
-            // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
-            for (let item of path) {
-                // if user clicked again
-                if (this.pathToWalkOn !== path) {
-                    return;
-                }
+    // Gets the array of coordinates, which is the path from the cursor to the clicked ndoe.
+    this.pathToWalkOn = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
+    this.walkAlongPath(this.pathToWalkOn);
+  }
 
-                const levelCopy = _.cloneDeep(this.level);
-                this.moveCursor(item);
-                this.saveHistory(levelCopy);
-                await this.delay(200);
-            }
-
-            this.checkWin();
+  async walkAlongPath(path: Coordinate[]): Promise<void> {
+    if (path.length) {
+      // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
+      // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
+      for (let item of path) {
+        // if user clicked again
+        if (this.pathToWalkOn !== path) {
+          return;
         }
-    }
 
-    /**
-     * Provides possiblity to wait for a given number of milliseconds.
-     * @param ms number of milliseconds to wait for
-     */
-    delay(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+        const levelCopy = _.cloneDeep(this.level);
+        this.moveCursor(item);
+        this.saveHistory(levelCopy);
+        await this.delay(200);
+      }
 
-    /**
-     * Checks if the cursor is standing next to the given node (box) and according to where the cursor stands, returns the direction.
-     */
-    getBoxMoveDirection(box: Coordinate) {
-        if (this.level.cursor.isEqual(new Coordinate(box.x, box.y - 1))) {
-            return Direction.Down;
-        } else if (this.level.cursor.isEqual(new Coordinate(box.x + 1, box.y))) {
-            return Direction.Left;
-        } else if (this.level.cursor.isEqual(new Coordinate(box.x, box.y + 1))) {
-            return Direction.Up;
-        } else if (this.level.cursor.isEqual(new Coordinate(box.x - 1, box.y))) {
-            return Direction.Right;
-        }
-        return null;
+      this.checkWin();
     }
+  }
+
+  /**
+   * Provides possiblity to wait for a given number of milliseconds.
+   * @param ms number of milliseconds to wait for
+   */
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Checks if the cursor is standing next to the given node (box) and according to where the cursor stands, returns the direction.
+   */
+  getBoxMoveDirection(box: Coordinate) {
+    if (this.level.cursor.isEqual(new Coordinate(box.x, box.y - 1))) {
+      return Direction.Down;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x + 1, box.y))) {
+      return Direction.Left;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x, box.y + 1))) {
+      return Direction.Up;
+    } else if (this.level.cursor.isEqual(new Coordinate(box.x - 1, box.y))) {
+      return Direction.Right;
+    }
+    return null;
+  }
 }

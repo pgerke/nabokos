@@ -10,13 +10,12 @@ describe('MenuComponent with save game', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ MenuComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [MenuComponent]
+    }).compileComponents();
   }));
 
-  it('should recognize savegame and allow player to continue', inject([Router], (router) => {
+  it('should recognize savegame and allow player to continue', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     const savegame: Savegame = {
       moves: 123,
@@ -41,10 +40,9 @@ describe('MenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ MenuComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [MenuComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -59,25 +57,25 @@ describe('MenuComponent', () => {
     expect(component.canContinue).toBeFalsy();
   });
 
-  it('should start new game', inject([Router], (router) => {
+  it('should start new game', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.newGame();
     expect(spy).toHaveBeenCalledWith(['level', 0]);
   }));
 
-  it('should show credits', inject([Router], (router) => {
+  it('should show credits', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.showCredits();
     expect(spy).toHaveBeenCalledWith(['credits']);
   }));
 
-  it('should show highscore', inject([Router], (router) => {
+  it('should show highscore', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.showHighScore();
     expect(spy).toHaveBeenCalledWith(['highscore', 0]);
   }));
 
-  it('should show level editor', inject([Router], (router) => {
+  it('should show level editor', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.showLevelEditor();
     expect(spy).toHaveBeenCalledWith(['editor']);

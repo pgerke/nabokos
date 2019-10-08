@@ -7,7 +7,6 @@ import { Tile } from '../models/tile';
   styleUrls: ['./tile.component.scss']
 })
 export class TileComponent implements OnInit {
-
   @Input() tile: Tile;
   @Input() isCursorHere: boolean;
   @Input() isWin: boolean;
@@ -15,6 +14,5 @@ export class TileComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

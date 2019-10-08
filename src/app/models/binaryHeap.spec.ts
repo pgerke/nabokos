@@ -13,7 +13,7 @@ describe('BinaryHeap', () => {
       [0, firstDummyCoordinate, secondDummyCoordinate, 0],
       [1, firstDummyCoordinate, secondDummyCoordinate, 0],
       [7, firstDummyCoordinate, secondDummyCoordinate, 0],
-      [3, firstDummyCoordinate, secondDummyCoordinate, 0],
+      [3, firstDummyCoordinate, secondDummyCoordinate, 0]
     ];
     binaryHeap = new BinaryHeap(startArray);
 
@@ -51,7 +51,7 @@ describe('BinaryHeap', () => {
   beforeEach(() => {
     binaryHeap = new BinaryHeap([
       [0, new Coordinate(1, 1), new Coordinate(1, 2), 0],
-      [3, new Coordinate(2, 1), new Coordinate(2, 2), 0],
+      [3, new Coordinate(2, 1), new Coordinate(2, 2), 0]
     ]);
   });
 

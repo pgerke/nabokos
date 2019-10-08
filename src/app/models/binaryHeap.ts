@@ -2,7 +2,6 @@ import { OpenList } from './openList';
 import { Coordinate } from './coordinate';
 
 export class BinaryHeap {
-
   heap: OpenList;
 
   constructor(startArray: OpenList) {
@@ -18,7 +17,7 @@ export class BinaryHeap {
   }
 
   /**
-   * Checks at a given index, if the children have a lower value than the parent and if so, swaps them. 
+   * Checks at a given index, if the children have a lower value than the parent and if so, swaps them.
    * After that, it checks the given index again, if it is now on the right spot and if needed, swaps it again.
    * @param index index of an element in the tree
    */

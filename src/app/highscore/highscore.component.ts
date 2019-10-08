@@ -11,7 +11,6 @@ import { Level } from '../models/level';
   styleUrls: ['./highscore.component.scss']
 })
 export class HighscoreComponent implements OnInit {
-
   entries: HighscoreEntry[] = [];
   level: Level;
   private index = 0;
@@ -21,16 +20,16 @@ export class HighscoreComponent implements OnInit {
     this.entries = service.getLevel(this.index);
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   next() {
-    this.index = (this.index === this.levelService.getLevelCount() - 1) ? 0 : this.index + 1;
+    this.index = this.index === this.levelService.getLevelCount() - 1 ? 0 : this.index + 1;
     this.level = this.levelService.getLevel(this.index);
     this.entries = this.service.getLevel(this.index);
   }
 
   previous() {
-    this.index = ((!this.index) ? this.levelService.getLevelCount() : this.index) - 1;
+    this.index = (!this.index ? this.levelService.getLevelCount() : this.index) - 1;
     this.level = this.levelService.getLevel(this.index);
     this.entries = this.service.getLevel(this.index);
   }
