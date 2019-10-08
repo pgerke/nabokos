@@ -2,8 +2,8 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { HighscoreComponent } from './highscore.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { HighscoreService } from '../highscore.service';
-import { LevelService } from '../level.service';
+import { HighscoreService } from '../services/highscore.service';
+import { LevelService } from '../services/level.service';
 import { Level } from '../models/level';
 
 describe('HighscoreComponent', () => {
@@ -14,10 +14,10 @@ describe('HighscoreComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
-      declarations: [ HighscoreComponent ]
+      imports: [RouterTestingModule],
+      declarations: [HighscoreComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

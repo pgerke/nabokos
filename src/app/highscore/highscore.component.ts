@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HighscoreEntry } from './../models/highscore-entry';
 import { Router } from '@angular/router';
-import { HighscoreService } from '../highscore.service';
-import { LevelService } from '../level.service';
+import { HighscoreService } from '../services/highscore.service';
+import { LevelService } from '../services/level.service';
 import { Level } from '../models/level';
 
 @Component({
@@ -21,7 +21,7 @@ export class HighscoreComponent implements OnInit {
     this.entries = service.getLevel(this.index);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   next() {
     this.index = (this.index === this.levelService.getLevelCount() - 1) ? 0 : this.index + 1;

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HighscoreEntry } from './models/highscore-entry';
+import { HighscoreEntry } from '../models/highscore-entry';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HighscoreService {
 
-  constructor() {}
+  constructor() { }
 
   addEntry(index: number, entry: HighscoreEntry): void {
     const entries = this.getLevel(index);

@@ -9,7 +9,7 @@
   </div>
   <div>
     <div class="level-row" *ngFor="let row of level.tiles; index as y">
-      <app-tile *ngFor="let tile of row; index as x" [tile]="tile" [isCursorHere]="isCursorHere(x, y)" [isWin]="isWin">
+      <app-tile *ngFor="let tile of row; index as x" [tile]="tile" [isCursorHere]="isCursorHere(x, y)" [isWin]="isWin" (click)="moveToClick(tile, x, y)">
       </app-tile>
     </div>
   </div>
