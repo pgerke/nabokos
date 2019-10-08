@@ -5,8 +5,7 @@ import { HighscoreEntry } from '../models/highscore-entry';
   providedIn: 'root'
 })
 export class HighscoreService {
-
-  constructor() { }
+  constructor() {}
 
   addEntry(index: number, entry: HighscoreEntry): void {
     const entries = this.getLevel(index);
@@ -16,6 +15,6 @@ export class HighscoreService {
 
   getLevel(index: number): HighscoreEntry[] {
     const scores = localStorage.getItem('highscore_' + index);
-    return scores ? JSON.parse(scores) as HighscoreEntry[] : [];
+    return scores ? (JSON.parse(scores) as HighscoreEntry[]) : [];
   }
 }

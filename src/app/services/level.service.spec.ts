@@ -8,7 +8,7 @@ describe('LevelService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ]
+      imports: [RouterTestingModule]
     });
     service = TestBed.get(LevelService);
   });
@@ -17,11 +17,10 @@ describe('LevelService', () => {
     expect(service).toBeTruthy();
   });
 
-  it ('should return undefined level for out of bounds index', () => {
+  it('should return undefined level for out of bounds index', () => {
     expect(service.getLevel(-1)).toBeUndefined();
     expect(service.getLevel(service.getLevelCount() + 1));
   });
-
 
   it('should get level by index', () => {
     const refLevel = `   ###
@@ -40,7 +39,7 @@ describe('LevelService', () => {
     expect(level.serialized).toBe(refLevel);
   });
 
-  it('should get next and previous level', inject([Router], (router) => {
+  it('should get next and previous level', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
 
     // Simple increment

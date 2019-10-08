@@ -156,7 +156,7 @@ describe('LevelComponent', () => {
       { input: 'ArrowUp', direction: Direction.Up },
       { input: 'ArrowDown', direction: Direction.Down },
       { input: 'ArrowLeft', direction: Direction.Left },
-      { input: 'ArrowRight', direction: Direction.Right },
+      { input: 'ArrowRight', direction: Direction.Right }
     ];
     values.forEach(({ input, direction }, _) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
@@ -252,7 +252,7 @@ describe('LevelComponent', () => {
     expect(component.level.serialized).toEqual(testLevelSerialized);
   });
 
-  it('should navigate to menu', inject([Router], (router) => {
+  it('should navigate to menu', inject([Router], router => {
     const saveSpy = spyOn(component, 'createSaveGame');
     const routerSpy = spyOn(router, 'navigate');
 
@@ -307,7 +307,6 @@ describe('LevelComponent', () => {
     localStorage.setItem('savegame', JSON.stringify(savegame));
     expect(component.loadSaveGame()).toBeTruthy();
     expect(component.levelTime).toBe(savegame.levelTime);
-
   });
 
   it('should do nothing on click, when the clicked element is a wall', fakeAsync(() => {

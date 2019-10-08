@@ -16,8 +16,7 @@ describe('HighscoreComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [HighscoreComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,7 +31,7 @@ describe('HighscoreComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to menu', inject([Router], (router) => {
+  it('should navigate to menu', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.showMenu();
     expect(spy).toHaveBeenCalledWith(['menu']);

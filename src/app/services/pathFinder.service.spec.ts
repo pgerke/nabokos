@@ -56,7 +56,7 @@ describe('PathFinderService', () => {
       new Coordinate(3, 1),
     ];
     expect(result).toEqual(path);
-  })
+  });
 
   it('should get all siblings from a given node', () => {
     const node = new Coordinate(2, 4);
@@ -133,5 +133,4 @@ describe('PathFinderService', () => {
     const result = (pathFinderService as any).getPathFromClosedList();
     expect(result).toEqual([]);
   });
-
 });

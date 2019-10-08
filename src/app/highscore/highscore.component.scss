@@ -40,28 +40,30 @@
   display: table;
 }
 
-.table
-{
+.table {
   margin: auto;
   margin-top: 10vh;
   width: 66vw;
 
   tr:first-child {
-    th, td {
+    th,
+    td {
       background-color: #ffd70099;
       color: black;
     }
   }
   tr:nth-child(2) {
-    th, td {
+    th,
+    td {
       background-color: #bec2cb99;
       color: black;
     }
   }
   tr:nth-child(3) {
-    th, td {
+    th,
+    td {
       background-color: #cd7f3299; // bronze
       color: black;
     }
   }
-} 
+}
