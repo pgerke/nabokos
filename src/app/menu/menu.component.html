@@ -1,9 +1,11 @@
 <span class="header-span">Nabokos</span>
 <div class="menu">
-  <button *ngIf="canContinue" class="btn btn-outline-primary" title="Continue" (click)="continueGame()" [disabled]="!canContinue">Continue</button>
-  <button class="btn btn-outline-primary" title="New Game" (click)="newGame()">New Game</button>
-  <button class="btn btn-outline-primary" title="Level Editor" (click)="showLevelEditor()" disabled>Level Editor</button>
-  <button class="btn btn-outline-primary" title="Highscore" (click)="showHighScore()">Highscore</button>
-  <button class="btn btn-outline-primary" title="Credits" (click)="showCredits()" disabled>Credits</button>
+  <a *ngIf="canContinue" class="btn btn-outline-primary" [routerLink]="['/level', savegame.levelId]">Continue</a>
+  <a class="btn btn-outline-primary" [routerLink]="['/level/0']">New Game</a>
+  <button class="btn btn-outline-primary" title="Level Editor" disabled>Level Editor</button>
+  <!-- <a class="btn btn-outline-primary" [routerLink]="['/editor']" disabled>Level Editor</a> -->
+  <a class="btn btn-outline-primary" [routerLink]="['/highscore/0']">Highscore</a>
+  <button class="btn btn-outline-primary" title="Credits" disabled>Credits</button>
+  <!-- <a class="btn btn-outline-primary" [routerLink]="['/credits']" disabled>Credits</a> -->
 </div>
 <span class="footer-span">Nabokos v{{ appVersion }} (c) 2019 - All rights reserved.</span>

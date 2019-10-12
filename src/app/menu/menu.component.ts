@@ -11,8 +11,8 @@ export class MenuComponent implements OnInit {
 
   readonly appVersion = '1.1.0';
   canContinue: boolean;
-  private savegame: Savegame;
-  constructor(private router: Router) {
+  savegame: Savegame;
+  constructor() {
     const saveGameSerialized = localStorage.getItem('savegame');
     if (!saveGameSerialized) {
       this.canContinue = false;
@@ -24,24 +24,4 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit() {}
-
-  continueGame(): void {
-    this.router.navigate(['level', this.savegame.levelId]);
-  }
-
-  newGame(): void {
-    this.router.navigate(['level', 0]);
-  }
-
-  showCredits(): void {
-    this.router.navigate(['credits']);
-  }
-
-  showHighScore(): void {
-    this.router.navigate(['highscore', 0]);
-  }
-
-  showLevelEditor(): void {
-    this.router.navigate(['editor']);
-  }
 }

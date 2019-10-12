@@ -237,11 +237,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
   }
 
-  showMenu(): void {
-    this.createSaveGame();
-    this.router.navigate(['menu']);
-  }
-
   undo() {
     if (!this.history.length) {
       return;

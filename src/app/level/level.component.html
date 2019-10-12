@@ -1,6 +1,6 @@
 <div class="content">
   <div class="bar header">
-    <button class="btn btn-outline-primary" title="Menu" (click)="showMenu()">Menu</button>
+      <a class="btn btn-outline-primary" [routerLink]="['menu']">Menu</a>
     <span class="header-span">{{ level.name }}</span>
     <div>
       <button class="btn btn-outline-primary" title="Previous Level" (click)="previous()">Prev</button>
