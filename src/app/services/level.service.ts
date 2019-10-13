@@ -90,7 +90,7 @@ export class LevelService {
   private loadLevels() {
     const separateLevels = levelData.split('\n\n');
     separateLevels.forEach((serializedLevel: string, index: number) => {
-      const level = this.loadLevel(serializedLevel, 'Level ' + (index + 1));
+      const level = this.loadLevel(serializedLevel, (index + 1).toString());
       this.levels.push(level);
     });
   }

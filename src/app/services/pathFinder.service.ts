@@ -40,7 +40,7 @@ export class PathFinderService {
     this._openList = new BinaryHeap(this.getSiblingNodes(this._start, hops));
     this.moveToClosedList([0, this._start, null, 0]);
     let nextNode = this.getNextTarget();
-    hops = nextNode[3];
+    hops = nextNode ? nextNode[3] : 0;
 
     // Processes the node that has currently the lowest value.
     // Stops when there are no elements left to inspect or the target is found.

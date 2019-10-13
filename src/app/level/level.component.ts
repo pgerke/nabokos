@@ -30,6 +30,8 @@ export class LevelComponent implements OnInit, OnDestroy {
   routeParameterSubscription: Subscription;
   levelTimerSubscription: Subscription;
   pathToWalkOn: Coordinate[];
+  contentWidth: number;
+  centerContent: boolean;
 
   constructor(
     private levelService: LevelService,
@@ -47,6 +49,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       if (!this.loadSaveGame()) {
         this.reset();
       }
+      this.setContentWidth();
     });
     this.levelTimerSubscription = interval(1000).subscribe(() => {
       if (this.levelStarted && !this.isWin) {
@@ -290,6 +293,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
         const levelCopy = _.cloneDeep(this.level);
         this.moveCursor(item);
+        this.levelStarted = true;
         this.saveHistory(levelCopy);
         await this.delay(200);
       }
@@ -320,5 +324,31 @@ export class LevelComponent implements OnInit, OnDestroy {
       return Direction.Right;
     }
     return null;
+  }
+
+  /**
+   * Calculates the width of the current level.
+   */
+  setContentWidth(): void {
+    let countTiles = 0;
+    // Necessary because not every row has the same count of columns.
+    for (let i of this.level.tiles) {
+      if (i.length > countTiles) {
+        countTiles = i.length;
+      }
+    }
+    // A tile is always drawn with 50px each.
+    this.contentWidth = countTiles * 50;
+    this.setContentAlignment();
+  }
+
+  /**
+   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than 
+   * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
+   * @param event resizing event
+   */
+  @HostListener('window:resize', ['$event'])
+  setContentAlignment(event?): void {
+    this.centerContent = window.innerWidth > this.contentWidth;
   }
 }

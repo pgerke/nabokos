@@ -35,7 +35,7 @@ describe('LevelService', () => {
  #     ##
  #######`;
     const level = service.getLevel(0);
-    expect(level.name).toBe('Level 1');
+    expect(level.name).toBe('1');
     expect(level.serialized).toBe(refLevel);
   });
 

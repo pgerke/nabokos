@@ -27,7 +27,6 @@ div {
 }
 
 .cursor {
-  position: absolute;
   background: url('../../assets/player_transparent.png');
   background-size: cover;
   height: 40px;
@@ -43,7 +42,6 @@ div {
 }
 
 .cursor:hover:not(.win) {
-  position: absolute;
   background: url('../../assets/player_wink_transparent.png');
   background-size: cover;
   height: 40px;
