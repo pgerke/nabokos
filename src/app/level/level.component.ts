@@ -267,6 +267,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // tslint:disable-next-line: max-line-length
     // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
     if (tile === Tile.box || tile === Tile.targetWithBox) {
       const direction = this.getBoxMoveDirection(new Coordinate(x, y));
@@ -285,7 +286,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     if (path.length) {
       // Moves the cursor step by step with a delay inbetween of 200 milliseconds.
       // The history gets saved after every move, so the undo funcionality can work properly (undoing only one step with one click).
-      for (let item of path) {
+      for (const item of path) {
         // if user clicked again
         if (this.pathToWalkOn !== path) {
           return;
@@ -332,7 +333,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   setContentWidth(): void {
     let countTiles = 0;
     // Necessary because not every row has the same count of columns.
-    for (let i of this.level.tiles) {
+    for (const i of this.level.tiles) {
       if (i.length > countTiles) {
         countTiles = i.length;
       }
@@ -343,7 +344,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than 
+   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
    * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
    * @param event resizing event
    */

@@ -431,7 +431,7 @@ describe('LevelComponent', () => {
 ####`;
     component.level = levelService.loadLevel(serialized, 'Test');
     const box = new Coordinate(2, 2);
-    let result = component.getBoxMoveDirection(box);
+    const result = component.getBoxMoveDirection(box);
     expect(result).toBe(null);
   });
 });
