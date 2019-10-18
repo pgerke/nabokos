@@ -23,6 +23,7 @@ Used Breakpoints:
   font-size: 2.3rem;
   color: white;
   margin-top: 15%;
+  
   @media (max-width: 400px) {
     font-size: 1.8rem;
   }
@@ -42,11 +43,12 @@ Used Breakpoints:
 
 .menu {
   margin-top: 5%;
+
   @media (max-width: 575px) {
-    margin-top: 25%;
+    margin-top: 20%;
   }
   @media (min-width: 576px) and (max-width: 767px) {
-    margin-top: 16%;
+    margin-top: 12%;
   }
   @media (min-width: 768px) and (max-width: 991px) {
     margin-top: 8%;
@@ -64,20 +66,16 @@ Used Breakpoints:
   text-align: center;
   display: block;
   margin-top: 6%;
+  padding: 2% 0 2% 0;
 
   @media (max-width: 767px) {
-    bottom: 10%;
-    position: fixed;
     margin: 50px 10px 0 10px;
+    padding: 2% 0 2% 0;
   }
   @media (min-width: 768px) and (max-width: 991px) {
-    bottom: 10%;
-    position: fixed;
     margin-top: 8%;
     margin-left: 3%;
     margin-right: 3%;
-  }
-  @media (min-width: 992px) and (max-width: 1199px) {
-    margin-top: 10%;
+    padding: 2% 0 2% 0;
   }
 }

@@ -1,0 +1,107 @@
+/*
+Used Breakpoints:
+(mostly like bootstrap)
+< 349px
+>= 350px and < 399px
+>= 400px and < 575px
+>= 576px and < 767px
+>= 768px and < 991px
+>= 992px and < 1199px
+>= 1200px
+*/
+
+/*
+  Overall Section
+*/
+
+.content {
+  color: #ffffff;
+}
+
+.bar {
+  align-items: center;
+  width: 100%;
+  z-index: 3;
+  left: 15px;
+  position: fixed;
+}
+
+.header .btn,
+.footer .btn {
+  @media (max-width: 349px) {
+    padding-left: 0.6rem;
+    font-size: 0.6rem;
+  }
+  @media (min-width: 350px) and (max-width: 399px) {
+    font-size: 0.6rem;
+  }
+  @media (min-width: 400px) and (max-width: 767px) {
+    font-size: 0.8rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 1rem;
+  }
+}
+
+// ----------------------------------------------------------------------------------
+
+/*
+  Header Section
+*/
+
+.header {
+  top: 0;
+  padding: 5px 10px 10px 5px;
+  font-size: 1.3rem;
+  @media (max-width: 575px) {
+    font-size: 0.7rem;
+  }
+  @media (min-width: 576px) and (max-width: 767px) {
+    font-size: 1rem;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    font-size: 1.1rem;
+  }
+}
+
+.header-button-wrapper {
+  @media (min-width: 768px) {
+    flex-basis: 25%;
+  }
+}
+
+.menu-wrapper {
+  padding-left: 0; 
+  padding-right: 10px;
+}
+
+.title-placeholder {
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+.title {
+  padding: 0;
+  flex: 1;
+  text-align: center;
+  color: #ffffff;
+}
+
+.wrapper-right {
+  margin-left: auto;
+  @media (max-width: 575px) {
+    padding-right: 10px;
+  }
+  @media (min-width: 576px) {
+    padding: 0;
+  }
+}
+
+.prev-level-wrapper {
+  padding: 0 2px 0 0;
+}
+
+.next-level-wrapper {
+  padding: 0 0 0 2px;
+}
