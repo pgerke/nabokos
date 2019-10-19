@@ -1,27 +1,81 @@
+/*
+Used Breakpoints:
+(mostly like bootstrap)
+< 349px
+>= 350px and < 399px
+>= 400px and < 575px
+>= 576px and < 767px
+>= 768px and < 991px
+>= 992px and < 1199px
+>= 1200px
+*/
+
 :host {
   display: block; 
 }
 
-.menu {
-  display: grid;
-  justify-content: center;
-
-  .btn {
-    margin: 5px 10px;
-    width: 400px;
-  }
+.row {
+  margin: 0;
 }
 
 .header-span {
   text-align: center;
-  display: block;
-  margin: 50px;
-  font-size: 36px;
+  font-size: 2.3rem;
   color: white;
+  margin-top: 15%;
+  
+  @media (max-width: 400px) {
+    font-size: 1.8rem;
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin-top: 12%;
+  }
+  @media (min-width: 1200px) {
+    margin-top: 8%;
+  }
+}
+
+.placeholder {
+  @media (max-width: 575px) {
+    display: none;
+  }
+}
+
+.menu {
+  margin-top: 5%;
+
+  @media (max-width: 575px) {
+    margin-top: 20%;
+  }
+  @media (min-width: 576px) and (max-width: 767px) {
+    margin-top: 12%;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    margin-top: 8%;
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    margin-top: 6%;
+  }
+
+  .btn {
+    margin: 5px 0;
+  }
 }
 
 .footer-span {
   text-align: center;
   display: block;
-  margin-top: 50px;
+  margin-top: 6%;
+  padding: 2% 0 2% 0;
+
+  @media (max-width: 767px) {
+    margin: 50px 10px 0 10px;
+    padding: 2% 0 2% 0;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    margin-top: 8%;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding: 2% 0 2% 0;
+  }
 }

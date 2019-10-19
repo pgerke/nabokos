@@ -11,12 +11,12 @@ import { Tile } from '../models/tile';
 export class PathFinderService {
   constructor() { }
 
-  private _target: Coordinate;
-  private _start: Coordinate;
-  private _currentLevel: Level;
+  private target: Coordinate;
+  private start: Coordinate;
+  private currentLevel: Level;
 
-  private _openList: BinaryHeap;
-  private _closedList: ClosedList;
+  private openList: BinaryHeap;
+  private closedList: ClosedList;
 
   /**
    * Provides main function of the service: finding a path from one node to another one and gives back an array of coordinates,
@@ -30,29 +30,29 @@ export class PathFinderService {
       return [];
     }
 
-    this._start = startNode;
-    this._target = targetNode;
-    this._currentLevel = currentLevel;
-    this._closedList = [];
+    this.start = startNode;
+    this.target = targetNode;
+    this.currentLevel = currentLevel;
+    this.closedList = [];
 
     // Count of jumps the node is away from the start node.
     let hops = 0;
-    this._openList = new BinaryHeap(this.getSiblingNodes(this._start, hops));
-    this.moveToClosedList([0, this._start, null, 0]);
+    this.openList = new BinaryHeap(this.getSiblingNodes(this.start, hops));
+    this.moveToClosedList([0, this.start, null, 0]);
     let nextNode = this.getNextTarget();
-    hops = nextNode[3];
+    hops = nextNode ? nextNode[3] : 0;
 
     // Processes the node that has currently the lowest value.
     // Stops when there are no elements left to inspect or the target is found.
     while (nextNode) {
       hops++;
       const siblings = this.getSiblingNodes(nextNode[1], hops);
-      for (let sibling of siblings) {
+      for (const sibling of siblings) {
         this.addToOpenList(sibling);
       }
       this.moveToClosedList(nextNode);
       // Case next node to inspect would be the target node, so inspection is not necessary.
-      if (nextNode[1].isEqual(this._target)) {
+      if (nextNode[1].isEqual(this.target)) {
         break;
       } else {
         nextNode = this.getNextTarget();
@@ -69,26 +69,26 @@ export class PathFinderService {
    * @param hops count of jumps since the beginning of the path
    */
   private getSiblingNodes(node: Coordinate, hops: number): Array<[number, Coordinate, Coordinate, number]> {
-    let siblingsArray = new Array<[number, Coordinate, Coordinate, number]>();
+    const siblingsArray = new Array<[number, Coordinate, Coordinate, number]>();
     let sibling: Coordinate;
 
     // above
-    if (node.y - 1 != 0 && this.isWalkable(new Coordinate(node.x, node.y - 1))) {
+    if (node.y - 1 !== 0 && this.isWalkable(new Coordinate(node.x, node.y - 1))) {
       sibling = new Coordinate(node.x, node.y - 1);
       siblingsArray.push([this.calcValue(sibling, hops), sibling, node, hops]);
     }
     // right
-    if (node.x + 1 != this._currentLevel.tiles[node.y].length - 1 && this.isWalkable(new Coordinate(node.x + 1, node.y))) {
+    if (node.x + 1 !== this.currentLevel.tiles[node.y].length - 1 && this.isWalkable(new Coordinate(node.x + 1, node.y))) {
       sibling = new Coordinate(node.x + 1, node.y);
       siblingsArray.push([this.calcValue(sibling, hops), sibling, node, hops]);
     }
     // underneath
-    if (node.y + 1 != this._currentLevel.tiles.length - 1 && this.isWalkable(new Coordinate(node.x, node.y + 1))) {
+    if (node.y + 1 !== this.currentLevel.tiles.length - 1 && this.isWalkable(new Coordinate(node.x, node.y + 1))) {
       sibling = new Coordinate(node.x, node.y + 1);
       siblingsArray.push([this.calcValue(sibling, hops), sibling, node, hops]);
     }
     // left
-    if (node.x - 1 != 0 && this.isWalkable(new Coordinate(node.x - 1, node.y))) {
+    if (node.x - 1 !== 0 && this.isWalkable(new Coordinate(node.x - 1, node.y))) {
       sibling = new Coordinate(node.x - 1, node.y);
       siblingsArray.push([this.calcValue(sibling, hops), sibling, node, hops]);
     }
@@ -103,12 +103,12 @@ export class PathFinderService {
    * @param nodeElement a node with it's value, coordinates, coordinates of the previous node and his count of jumps since the start node
    */
   private addToOpenList(nodeElement: [number, Coordinate, Coordinate, number]): void {
-    let foundElement_openList = false;
-    let foundElement_closedList = false;
+    let foundElementOpenList = false;
+    let foundElementClosedList = false;
 
     // Check if element exists on open list.
     let row = 0;
-    for (let column of this._openList.heap) {
+    for (const column of this.openList.heap) {
       if (
         column.find(x => {
           if (x instanceof Coordinate) {
@@ -116,28 +116,28 @@ export class PathFinderService {
           }
         })
       ) {
-        foundElement_openList = true;
+        foundElementOpenList = true;
         break;
       }
       row++;
     }
     // Check if element exists on closed list.
-    for (let column of this._closedList) {
+    for (const column of this.closedList) {
       if (column[0].isEqual(nodeElement[1])) {
-        foundElement_closedList = true;
+        foundElementClosedList = true;
       }
     }
 
     /* No use case found for that scenario
     // Updates entry on open list, if the hops are lower.
-    if (foundElement_openList && nodeElement[3] < this._openList.heap[row][3]) {
-      this._openList.heap[row][2] = nodeElement[2];
-      this._openList.heap[row][3] = nodeElement[3];
-      this._openList.decrease(row, this.calcValue(nodeElement[1], nodeElement[3]));
+    if (foundElementOpenList && nodeElement[3] < this.openList.heap[row][3]) {
+      this.openList.heap[row][2] = nodeElement[2];
+      this.openList.heap[row][3] = nodeElement[3];
+      this.openList.decrease(row, this.calcValue(nodeElement[1], nodeElement[3]));
       // Adds the element to the open list, if it hasen't been on the open or closed list.
     } else if */
-    if (!foundElement_openList && !foundElement_closedList) {
-      this._openList.insert(nodeElement);
+    if (!foundElementOpenList && !foundElementClosedList) {
+      this.openList.insert(nodeElement);
     }
   }
 
@@ -145,9 +145,9 @@ export class PathFinderService {
    * Returns the element of the open list with the lowest value and removes it from the list.
    */
   private getNextTarget(): [number, Coordinate, Coordinate, number] {
-    const target = this._openList.getNextTarget();
+    const target = this.openList.getNextTarget();
     if (target) {
-      this._openList.remove(0);
+      this.openList.remove(0);
       return target;
     } else {
       return null;
@@ -160,7 +160,7 @@ export class PathFinderService {
    */
   private moveToClosedList(nodeElement: [number, Coordinate, Coordinate, number]): void {
     // The first element contains the coordinates of the node, the second contains the coordinates from the previous node.
-    this._closedList.push([nodeElement[1], nodeElement[2]]);
+    this.closedList.push([nodeElement[1], nodeElement[2]]);
   }
 
   /**
@@ -169,27 +169,26 @@ export class PathFinderService {
    * or the target is found. After all it returns the path.
    */
   private getPathFromClosedList(): Array<Coordinate> {
-    let path: Array<Coordinate> = [];
-    let nextTarget = this._target;
+    const path: Array<Coordinate> = [];
+    let nextTarget = this.target;
 
     do {
       let findElement: [Coordinate, Coordinate];
       let indexToDelete: number;
 
       // Searches for an entry which first coordinates matches the target ones.
-      findElement = this._closedList.find(x => x[0].isEqual(nextTarget));
+      findElement = this.closedList.find(x => x[0].isEqual(nextTarget));
 
       if (findElement && findElement[1]) {
         nextTarget = findElement[1];
-        indexToDelete = this._closedList.indexOf(findElement);
-        this._closedList.splice(indexToDelete, 1);
+        indexToDelete = this.closedList.indexOf(findElement);
+        this.closedList.splice(indexToDelete, 1);
         path.push(nextTarget);
-      }
-      // When the target element is not found, something went wrong.
-      else {
+      } else {
+        // When the target element is not found, something went wrong.
         break;
       }
-    } while (this._closedList.length > 0 && !nextTarget.isEqual(this._start));
+    } while (this.closedList.length > 0 && !nextTarget.isEqual(this.start));
 
     return path;
   }
@@ -202,7 +201,7 @@ export class PathFinderService {
    */
   private calcValue(node: Coordinate, hops: number): number {
     // Formula euclidean distance: squareroot of ((x1-x2)²+(y1-y2)²)
-    const distance = Math.sqrt(Math.pow(node.x - this._target.x, 2) + Math.pow(node.y - this._target.y, 2));
+    const distance = Math.sqrt(Math.pow(node.x - this.target.x, 2) + Math.pow(node.y - this.target.y, 2));
     return hops + distance;
   }
 
@@ -211,6 +210,6 @@ export class PathFinderService {
    * @param node element for which the nature of the ground should get checked
    */
   private isWalkable(node: Coordinate): boolean {
-    return this._currentLevel.tiles[node.y][node.x] === Tile.target || this._currentLevel.tiles[node.y][node.x] === Tile.floor;
+    return this.currentLevel.tiles[node.y][node.x] === Tile.target || this.currentLevel.tiles[node.y][node.x] === Tile.floor;
   }
 }

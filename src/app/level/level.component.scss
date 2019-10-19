@@ -1,38 +1,128 @@
-.content {
-  margin-top: 5px;
+/*
+Used Breakpoints:
+(mostly like bootstrap)
+< 349px
+>= 350px and < 399px
+>= 400px and < 575px
+>= 576px and < 767px
+>= 768px and < 991px
+>= 992px and < 1199px
+>= 1200px
+*/
+
+/*
+Overall Section
+*/
+
+@import '../global-styles.scss';
+
+
+// ----------------------------------------------------------------------------------
+
+/*
+  Header Section
+*/
+
+.level-number {
+  padding: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.level-number::before {
+  content: 'Level';
+  padding-right: 5px;
+  @media (max-width: 767px) {
+    content: 'LVL';
+  }
+  @media (min-width: 400px) {
+    padding-right: 10px;
+  }
+}
+
+// ----------------------------------------------------------------------------------
+
+/*
+  Content Section
+*/
+
+.scroll-wrapper {
+  overflow: auto;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  padding: 50px 0 50px 0;
+  @media (min-width: 768px) {
+    padding: 70px 0 50px 0;
+  }
   display: flex;
-  flex-direction: column;
+}
+
+.level-center {
   justify-content: center;
-  align-items: center;
-  color: #ffffff;
+}
+
+.level-left {
+  justify-content: flex-start;
 }
 
 .level-row {
   display: flex;
 }
 
-.bar {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-bottom: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  width: calc(100vw - 20px);
-  .btn {
-    margin: 3px;
+.win-span {
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  @media (max-width: 767px) {
+    bottom: 43px;
+    padding: 5px 0 10px 0;
+  }
+  @media (min-width: 768px) {
+    bottom: 53px;
+    padding: 10px 0 30px 0;
   }
 }
 
-.header-span {
-  min-width: 170px;
-}
+// ----------------------------------------------------------------------------------
 
-.header {
-  margin-bottom: 20px;
-  font-size: 15pt;
-}
+/*
+  Footer Section
+*/
 
 .footer {
   margin-top: 20px;
+  bottom: 0;
+  padding: 5px 10px 10px 10px;
+}
+
+.footer-button-wrapper {
+  padding: 0;
+  margin-right: 1px;
+}
+
+.footer-span {
+  text-align: center;
+  flex: 1;
+  @media (max-width: 399px) {
+    font-size: 0.7rem;
+    padding: 5px
+  }
+  @media (min-width: 400px) and (max-width: 767px) {
+    font-size: 0.8rem;
+  }
+}
+
+.level-time::before {
+  @media (min-width: 992px) {
+    content: 'Time:';
+    padding-right: 10px;
+  }
+}
+
+.movement-counter::before {
+  @media (min-width: 992px) {
+    content: 'Moves:';
+    padding-right: 10px;
+  }
 }

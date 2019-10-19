@@ -431,7 +431,22 @@ describe('LevelComponent', () => {
 ####`;
     component.level = levelService.loadLevel(serialized, 'Test');
     const box = new Coordinate(2, 2);
-    let result = component.getBoxMoveDirection(box);
+    const result = component.getBoxMoveDirection(box);
     expect(result).toBe(null);
   });
+
+  it('should get the correct width of the level', () => {
+    const serialized = `####
+#   #
+# .  #
+#@  #
+####`;
+    component.level = levelService.loadLevel(serialized, 'Test');
+    spyOn(component, 'setContentAlignment').and.callThrough();
+    component.setContentWidth();
+    expect(component.contentWidth).toBe(6 * 50);
+    expect(component.setContentAlignment).toHaveBeenCalled();
+  });
+
+
 });

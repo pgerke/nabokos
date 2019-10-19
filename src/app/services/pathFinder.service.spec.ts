@@ -20,7 +20,7 @@ describe('PathFinderService', () => {
 
     const serialized = `####
 #   #
-# ###
+# ##
 #   #
 #   #
 #@ .#
@@ -35,12 +35,17 @@ describe('PathFinderService', () => {
 
   it('should return an empty path, if target and start are the same', () => {
     const result = pathFinderService.findPath(new Coordinate(1, 1), new Coordinate(1, 1), level);
-    expect((pathFinderService as any)._openList.heap.length).toBe(0);
+    expect((pathFinderService as any).openList.heap.length).toBe(0);
     expect(result).toEqual([]);
   });
 
   it('should return an empty path, if the parameters are wrong', () => {
     const result = pathFinderService.findPath(null, new Coordinate(1, 1), level);
+    expect(result).toEqual([]);
+  });
+
+  it('should return an empty path, if the target lays outside the grid', () => {
+    const result = pathFinderService.findPath(new Coordinate(4, 2), new Coordinate(1, 1), level);
     expect(result).toEqual([]);
   });
 
@@ -60,8 +65,8 @@ describe('PathFinderService', () => {
 
   it('should get all siblings from a given node', () => {
     const node = new Coordinate(2, 4);
-    (pathFinderService as any)._currentLevel = level;
-    (pathFinderService as any)._target = node;
+    (pathFinderService as any).currentLevel = level;
+    (pathFinderService as any).target = node;
     const result = (pathFinderService as any).getSiblingNodes(node, 1);
     expect(result.length).toBe(4);
     expect(result[0][1]).toEqual(new Coordinate(2, 3));
@@ -72,8 +77,8 @@ describe('PathFinderService', () => {
 
   it('should get only the siblings from a given node, which are walkable', () => {
     const node = new Coordinate(3, 1);
-    (pathFinderService as any)._currentLevel = level;
-    (pathFinderService as any)._target = node;
+    (pathFinderService as any).currentLevel = level;
+    (pathFinderService as any).target = node;
     const result = (pathFinderService as any).getSiblingNodes(node, 1);
     expect(result.length).toBe(1);
     expect(result[0][1]).toEqual(new Coordinate(2, 1));
@@ -81,39 +86,39 @@ describe('PathFinderService', () => {
 
   it('should not get any siblings from a given node, when it is outside the grid', () => {
     const node = new Coordinate(6, 1);
-    (pathFinderService as any)._currentLevel = level;
-    (pathFinderService as any)._target = node;
+    (pathFinderService as any).currentLevel = level;
+    (pathFinderService as any).target = node;
     const result = (pathFinderService as any).getSiblingNodes(node, 1);
     expect(result.length).toBe(0);
   });
 
   it('should add a given element to the open list', () => {
     const node = new Coordinate(3, 1);
-    (pathFinderService as any)._currentLevel = level;
-    (pathFinderService as any)._closedList = [];
-    (pathFinderService as any)._openList = new BinaryHeap([[0, node, null, 0]]);
+    (pathFinderService as any).currentLevel = level;
+    (pathFinderService as any).closedList = [];
+    (pathFinderService as any).openList = new BinaryHeap([[0, node, null, 0]]);
     (pathFinderService as any).addToOpenList([1, new Coordinate(2, 3), node, 1]);
-    expect((pathFinderService as any)._openList.heap.length).toBe(2);
+    expect((pathFinderService as any).openList.heap.length).toBe(2);
   });
 
   it('should not add a given element to the open list if it is already on open or closed list', () => {
     const node = new Coordinate(3, 1);
     const closedNode = new Coordinate(4, 3);
-    (pathFinderService as any)._currentLevel = level;
-    (pathFinderService as any)._closedList = [[closedNode, null]];
-    (pathFinderService as any)._openList = new BinaryHeap([[0, node, null, 0]]);
+    (pathFinderService as any).currentLevel = level;
+    (pathFinderService as any).closedList = [[closedNode, null]];
+    (pathFinderService as any).openList = new BinaryHeap([[0, node, null, 0]]);
 
     (pathFinderService as any).addToOpenList([1, node, new Coordinate(2, 3), 1]);
-    expect((pathFinderService as any)._openList.heap.length).toBe(1);
+    expect((pathFinderService as any).openList.heap.length).toBe(1);
 
     (pathFinderService as any).addToOpenList([1, closedNode, new Coordinate(2, 3), 1]);
-    expect((pathFinderService as any)._openList.heap.length).toBe(1);
+    expect((pathFinderService as any).openList.heap.length).toBe(1);
   });
 
   it('should return the path from the closed list correctly', () => {
-    (pathFinderService as any)._target = new Coordinate(3, 1);
-    (pathFinderService as any)._start = new Coordinate(1, 0);
-    (pathFinderService as any)._closedList = [
+    (pathFinderService as any).target = new Coordinate(3, 1);
+    (pathFinderService as any).start = new Coordinate(1, 0);
+    (pathFinderService as any).closedList = [
       [new Coordinate(2, 0), new Coordinate(1, 0)],
       [new Coordinate(3, 1), new Coordinate(2, 1)],
       [new Coordinate(2, 1), new Coordinate(2, 0)]
@@ -127,9 +132,9 @@ describe('PathFinderService', () => {
   });
 
   it('should return an empty path, if closed list is empty', () => {
-    (pathFinderService as any)._target = new Coordinate(3, 1);
-    (pathFinderService as any)._start = new Coordinate(1, 0);
-    (pathFinderService as any)._closedList = [];
+    (pathFinderService as any).target = new Coordinate(3, 1);
+    (pathFinderService as any).start = new Coordinate(1, 0);
+    (pathFinderService as any).closedList = [];
     const result = (pathFinderService as any).getPathFromClosedList();
     expect(result).toEqual([]);
   });

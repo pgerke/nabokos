@@ -1,9 +1,58 @@
-<span class="header-span">Nabokos</span>
+<div class="row">
+  <div class="col-1 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+  <span class="header-span col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4">Nabokos</span>
+  <div class="col-1 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+</div>
 <div class="menu">
-  <button *ngIf="canContinue" class="btn btn-outline-primary" title="Continue" (click)="continueGame()" [disabled]="!canContinue">Continue</button>
-  <button class="btn btn-outline-primary" title="New Game" (click)="newGame()">New Game</button>
-  <button class="btn btn-outline-primary" title="Level Editor" (click)="showLevelEditor()" disabled>Level Editor</button>
-  <button class="btn btn-outline-primary" title="Highscore" (click)="showHighScore()">Highscore</button>
-  <button class="btn btn-outline-primary" title="Credits" (click)="showCredits()" disabled>Credits</button>
+  <div class="row">
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+      <button *ngIf="canContinue" class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
+        title="Continue" (click)="continueGame()" [disabled]="!canContinue">Continue</button>
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="New Game"
+        (click)="newGame()">New Game</button>
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Level Editor"
+        (click)="showLevelEditor()" disabled>Level Editor</button>
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Highscore"
+        (click)="showHighScore()">Highscore</button>
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+  </div>
+  <div class="row">
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Credits"
+        (click)="showCredits()" disabled>Credits</button>
+      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
+  </div>
 </div>
 <span class="footer-span">Nabokos v{{ appVersion }} (c) 2019 - All rights reserved.</span>

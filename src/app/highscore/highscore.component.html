@@ -1,13 +1,22 @@
-<div class="bar header">
-  <button class="btn btn-outline-primary" title="Menu" (click)="showMenu()">Menu</button>
-  <h1 class="title">High Score</h1>
-  <div>
-    <button class="btn btn-outline-primary" title="Previous Level" (click)="previous()">Prev</button>
-    <button class="btn btn-outline-primary" title="Next Level" (click)="next()">Next</button>
+<div class="bar header row">
+  <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+  <div class="header-button-wrapper menu-wrapper col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+    <button class="btn btn-block btn-outline-primary" title="Menu" (click)="showMenu()">Menu</button>
   </div>
+  <div class="title-placeholder col-sm-2 col-md-1 col-lg-1 col-xl-1"></div>
+  <span class="title col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto">High Score</span>
+  <div class="header-button-wrapper wrapper-right col-6 col-sm-4 col-md-4 col-lg-4 col-xl-2 row">
+    <div class="prev-level-wrapper col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <button class="btn btn-block btn-outline-primary" title="Previous Level" (click)="previous()">Prev</button>
+    </div>
+    <div class="next-level-wrapper col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <button class="btn btn-block btn-outline-primary" title="Next Level" (click)="next()">Next</button>
+    </div>
+  </div>
+  <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
 </div>
 
-<h2 class="level">{{ level.name }}</h2>
+<h2 class="level">Level {{ level.name }}</h2>
 <table *ngIf="entries.length > 0" class="table table-dark">
   <thead class="thead-dark">
     <th scope="col">Rank</th>
