@@ -6,4 +6,5 @@ export class Savegame {
   level: Level;
   moves: number;
   history: Level[];
+  isWin: boolean;
 }

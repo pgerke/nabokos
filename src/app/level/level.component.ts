@@ -32,6 +32,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   pathToWalkOn: Coordinate[];
   contentWidth: number;
   centerContent: boolean;
+  hasHighscoreEntry: boolean;
 
   constructor(
     private levelService: LevelService,
@@ -68,13 +69,14 @@ export class LevelComponent implements OnInit, OnDestroy {
 
   checkWin() {
     this.isWin = this.level.tiles.every(line => !line.some(tile => tile === Tile.target || tile === Tile.box));
-    if (this.isWin) {
+    if (this.isWin && !this.hasHighscoreEntry) {
       console.log('Player has won.');
       this.highscoreService.addEntry(this.levelId, {
         name: 'Player',
         moves: this.counter,
         levelTime: this.levelTime
       });
+      this.hasHighscoreEntry = true;
     }
   }
 
@@ -146,7 +148,8 @@ export class LevelComponent implements OnInit, OnDestroy {
       levelTime: this.levelTime,
       level: this.level,
       history: this.history,
-      moves: this.counter
+      moves: this.counter,
+      isWin: this.isWin
     };
 
     localStorage.setItem('savegame', JSON.stringify(saveGame));
@@ -168,6 +171,8 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.levelTime = saveGame.levelTime;
     this.counter = saveGame.moves;
     this.levelStarted = false;
+    this.isWin = saveGame.isWin;
+    this.hasHighscoreEntry = this.isWin;
     return true;
   }
 
