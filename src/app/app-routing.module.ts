@@ -5,7 +5,7 @@ import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
-  { path: 'level/:level', component: LevelComponent },
+  { path: 'level/:level/:newGame', component: LevelComponent },
   { path: 'highscore/:level', component: HighscoreComponent },
   { path: 'menu', component: MenuComponent },
   { path: '', redirectTo: '/menu', pathMatch: 'full' },
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

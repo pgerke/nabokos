@@ -44,9 +44,10 @@ export class LevelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.levelId = Number.parseInt(value.get('level'), 10);
+      const isNewGame = value.get('newGame').toLowerCase() === 'true';
       console.log('Level: ' + this.levelId);
       this.internalLevel = this.levelService.getLevel(this.levelId ? this.levelId : 0);
-      if (!this.loadSaveGame()) {
+      if (isNewGame || !this.loadSaveGame()) {
         this.reset();
       }
       this.setContentWidth();
