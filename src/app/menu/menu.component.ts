@@ -23,14 +23,14 @@ export class MenuComponent implements OnInit {
     this.savegame = JSON.parse(saveGameSerialized) as Savegame;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   continueGame(): void {
-    this.router.navigate(['level', this.savegame.levelId]);
+    this.router.navigate(['level', this.savegame.levelId, false]);
   }
 
   newGame(): void {
-    this.router.navigate(['level', 0]);
+    this.router.navigate(['level', 0, true]);
   }
 
   showCredits(): void {

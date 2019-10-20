@@ -44,12 +44,12 @@ describe('LevelService', () => {
 
     // Simple increment
     service.getNextLevel();
-    expect(spy).toHaveBeenCalledWith(['level', 1]);
+    expect(spy).toHaveBeenCalledWith(['level', 1, true]);
     spy.calls.reset();
 
     // Decrement with wrap around
     service.getPreviousLevel();
-    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 1]);
+    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 1, true]);
     spy.calls.reset();
 
     // Set last level
@@ -57,11 +57,11 @@ describe('LevelService', () => {
 
     // Increment with wrap around
     service.getNextLevel();
-    expect(spy).toHaveBeenCalledWith(['level', 0]);
+    expect(spy).toHaveBeenCalledWith(['level', 0, true]);
     spy.calls.reset();
 
     // Simple decrement
     service.getPreviousLevel();
-    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 2]);
+    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 2, true]);
   }));
 });

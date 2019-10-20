@@ -74,6 +74,7 @@ Overall Section
   position: fixed;
   text-align: center;
   width: 100%;
+  z-index: 3;
   @media (max-width: 767px) {
     bottom: 43px;
     padding: 5px 0 10px 0;

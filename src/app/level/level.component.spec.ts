@@ -43,12 +43,14 @@ describe('LevelComponent (shallow)', () => {
       level: testLevel,
       levelId: 1,
       levelTime: 234000,
-      moves: 567
+      moves: 567,
+      isWin: false
     };
     localStorage.setItem('savegame', JSON.stringify(savegame));
     const route = new ActivatedRoute();
     route.params = of({
-      level: 1
+      level: 1,
+      newGame: 'false'
     });
     const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
     lvl.ngOnInit();
@@ -64,7 +66,8 @@ describe('LevelComponent (shallow)', () => {
     const pathFinderService = new PathFinderService();
     const route = new ActivatedRoute();
     route.params = of({
-      level: 0
+      level: 0,
+      newGame: 'true'
     });
     const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
     lvl.ngOnInit();
@@ -296,7 +299,8 @@ describe('LevelComponent', () => {
       level: testLevel,
       levelId: 123,
       levelTime: 456000,
-      moves: 789
+      moves: 789,
+      isWin: false
     };
     localStorage.setItem('savegame', JSON.stringify(savegame));
     expect(component.loadSaveGame()).toBeFalsy();

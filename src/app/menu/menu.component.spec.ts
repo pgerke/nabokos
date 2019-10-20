@@ -22,7 +22,8 @@ describe('MenuComponent with save game', () => {
       levelTime: 456000,
       levelId: 789,
       level: undefined,
-      history: []
+      history: [],
+      isWin: false
     };
     localStorage.setItem('savegame', JSON.stringify(savegame));
     fixture = TestBed.createComponent(MenuComponent);
@@ -30,7 +31,7 @@ describe('MenuComponent with save game', () => {
     fixture.detectChanges();
     expect(component.canContinue).toBeTruthy();
     component.continueGame();
-    expect(spy).toHaveBeenCalledWith(['level', savegame.levelId]);
+    expect(spy).toHaveBeenCalledWith(['level', savegame.levelId, false]);
   }));
 });
 
@@ -60,7 +61,7 @@ describe('MenuComponent', () => {
   it('should start new game', inject([Router], router => {
     const spy = spyOn(router, 'navigate');
     component.newGame();
-    expect(spy).toHaveBeenCalledWith(['level', 0]);
+    expect(spy).toHaveBeenCalledWith(['level', 0, true]);
   }));
 
   it('should show credits', inject([Router], router => {
