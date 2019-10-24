@@ -255,15 +255,6 @@ describe('LevelComponent', () => {
     expect(component.level.serialized).toEqual(testLevelSerialized);
   });
 
-  it('should navigate to menu', inject([Router], router => {
-    const saveSpy = spyOn(component, 'createSaveGame');
-    const routerSpy = spyOn(router, 'navigate');
-
-    component.showMenu();
-    expect(saveSpy).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalledWith(['menu']);
-  }));
-
   it('should create savegame', () => {
     const testLevelSerialized = `####
 #  @#
