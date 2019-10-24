@@ -37,7 +37,6 @@ export class LevelComponent implements OnInit, OnDestroy {
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
-    private router: Router,
     private route: ActivatedRoute,
     private pathFinderService: PathFinderService
   ) { }

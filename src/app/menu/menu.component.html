@@ -9,7 +9,7 @@
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
 			<a *ngIf="canContinue" class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
-				[routerLink]="['/level', savegame.levelId]">Continue</a>
+				[routerLink]="['/level', savegame.levelId, 'false']">Continue</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -18,7 +18,7 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/level/0']">New Game</a>
+			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/level/0/true']">New Game</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
