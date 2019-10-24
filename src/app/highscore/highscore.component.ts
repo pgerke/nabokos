@@ -33,8 +33,4 @@ export class HighscoreComponent implements OnInit {
     this.level = this.levelService.getLevel(this.index);
     this.entries = this.service.getLevel(this.index);
   }
-
-  showMenu(): void {
-    this.router.navigate(['menu']);
-  }
 }

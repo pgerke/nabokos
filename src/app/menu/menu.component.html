@@ -8,8 +8,8 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-      <button *ngIf="canContinue" class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
-        title="Continue" (click)="continueGame()" [disabled]="!canContinue">Continue</button>
+			<a *ngIf="canContinue" class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
+				[routerLink]="['/level', savegame.levelId, 'false']">Continue</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -18,8 +18,7 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="New Game"
-        (click)="newGame()">New Game</button>
+			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/level/0/true']">New Game</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -28,6 +27,7 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+			<!-- <a class="ol-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/editor']" disabled>Level Editor</a> -->
       <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Level Editor"
         (click)="showLevelEditor()" disabled>Level Editor</button>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
@@ -38,8 +38,7 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Highscore"
-        (click)="showHighScore()">Highscore</button>
+			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/highscore/0']">Highscore</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -48,6 +47,7 @@
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
+			<!-- <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/credits']" disabled>Credits</a> -->
       <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Credits"
         (click)="showCredits()" disabled>Credits</button>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>

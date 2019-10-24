@@ -6,7 +6,7 @@ import { HighscoreService } from '../services/highscore.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TileComponent } from '../tile/tile.component';
 import { Coordinate } from '../models/coordinate';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Savegame } from '../models/savegame';
 import { of } from 'rxjs';
 import { Tile } from '../models/tile';
@@ -52,7 +52,7 @@ describe('LevelComponent (shallow)', () => {
       level: 1,
       newGame: 'false'
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const lvl = new LevelComponent(levelService, highscoreService, route, pathFinderService);
     lvl.ngOnInit();
     expect(lvl.levelTime).toBe(234000);
     expect(lvl.counter).toBe(567);
@@ -69,7 +69,7 @@ describe('LevelComponent (shallow)', () => {
       level: 0,
       newGame: 'true'
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const lvl = new LevelComponent(levelService, highscoreService, route, pathFinderService);
     lvl.ngOnInit();
     expect(lvl.levelTimerSubscription).toBeDefined();
     expect(lvl.levelStarted).toBeFalsy();
@@ -254,15 +254,6 @@ describe('LevelComponent', () => {
     expect(component.counter).toBe(2);
     expect(component.level.serialized).toEqual(testLevelSerialized);
   });
-
-  it('should navigate to menu', inject([Router], router => {
-    const saveSpy = spyOn(component, 'createSaveGame');
-    const routerSpy = spyOn(router, 'navigate');
-
-    component.showMenu();
-    expect(saveSpy).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalledWith(['menu']);
-  }));
 
   it('should create savegame', () => {
     const testLevelSerialized = `####
