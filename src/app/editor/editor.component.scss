@@ -1,0 +1,79 @@
+:host {
+  display: block;
+}
+
+.bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: calc(100vw - 20px);
+  .btn {
+    margin: 3px;
+  }
+}
+
+.menubar {
+  display: flex;
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  .btn {
+    margin: 3px;
+  }
+}
+
+.header {
+  margin-bottom: 20px;
+  font-size: 15pt;
+}
+
+.title {
+  display: grid;
+  margin: 30px;
+  color: white;
+  justify-content: center;
+}
+
+.row {
+  margin: 0px;
+}
+
+.editor,
+.level-row {
+  display: flex;
+
+  button {
+    display: inline-flex;
+    background: local;
+
+    img {
+      width: 50px;
+      height: 50px;
+      margin: 5px 0px;
+    }
+    &.active {
+      background: #007bff;
+    }
+  }
+}
+
+.input {
+  display: grid;
+  margin: 0px 15px;
+}
+
+.preview {
+  height: 600px;
+
+  app-tile {
+    border-width: .5px;
+    border: brown;
+    border-style: dotted;
+    &:hover {
+      background: white;
+    }
+  }
+}

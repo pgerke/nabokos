@@ -1,0 +1,47 @@
+<div class="bar header">
+  <a class="btn btn-outline-primary" [routerLink]="['/menu']">Menu</a>
+  <h1 class="title">Level Editor</h1>
+</div>
+<div class="menubar">
+  <button class="btn btn-outline-primary" title="New" (click)="onNewClick()">New</button>
+  <!-- <button class="btn btn-outline-primary" title="Import" (click)="onImportClick()" disabled>Import</button> -->
+  <button class="btn btn-outline-primary" title="Load" (click)="onLoadClick()">Load</button>
+  <button class="btn btn-outline-primary" title="Save" (click)="onSaveClick()">Save</button>
+  <!-- <button class="btn btn-outline-primary" title="Undo" (click)="onUndoClick()" disabled>Undo</button>
+  <button class="btn btn-outline-primary" title="Redo" (click)="onRedoClick()" disabled>Redo</button> -->
+</div>
+<div class="editor">
+  <div class="input btn-group btn-group-vertical">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'floor'" (click)="selectTool('floor')" title="Floor">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'wall'" (click)="selectTool('wall')" title="Wall">
+      <img src="../../assets/wall_orange_transparent.png">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'target'" (click)="selectTool('target')" title="Target">
+      <img src="../../assets/target_transparent.png">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'box'" (click)="selectTool('box')" title="Box">
+      <img src="../../assets/box_transparent.png">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'targetWithBox'" (click)="selectTool('targetWithBox')" title="Box in Target">
+      <img src="../../assets/boxInTarget.png">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'cursor'" (click)="selectTool('cursor')" title="Player">
+      <img src="../../assets/player_transparent.png">
+    </button>
+  </div>
+
+  <div class="preview">
+    <div class="level-row" *ngFor="let row of tiles; index as y">
+      <app-tile
+        *ngFor="let tile of row; index as x"
+        [tile]="tile"
+        [isCursorHere]="isCursorHere(x, y)"        
+        (click)="setTile($event, tile, x, y)"
+        (contextmenu)="setTile($event, tile, x, y)"
+        (mouseover)="setTile($event, tile, x, y)">
+      </app-tile>
+    </div>
+  </div>
+</div>

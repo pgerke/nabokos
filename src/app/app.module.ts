@@ -8,6 +8,8 @@ import { LevelComponent } from './level/level.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
+import { EditorComponent } from './editor/editor.component';
+import { CreditsComponent } from './credits/credits.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MenuComponent } from './menu/menu.component';
     TileComponent,
     LevelComponent,
     HighscoreComponent,
-    MenuComponent
+    MenuComponent,
+    EditorComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
