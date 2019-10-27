@@ -30,8 +30,6 @@ describe('MenuComponent with save game', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.canContinue).toBeTruthy();
-    component.continueGame();
-    expect(spy).toHaveBeenCalledWith(['level', savegame.levelId, false]);
   }));
 });
 
@@ -57,28 +55,4 @@ describe('MenuComponent', () => {
     expect(component).toBeTruthy();
     expect(component.canContinue).toBeFalsy();
   });
-
-  it('should start new game', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-    component.newGame();
-    expect(spy).toHaveBeenCalledWith(['level', 0, true]);
-  }));
-
-  it('should show credits', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-    component.showCredits();
-    expect(spy).toHaveBeenCalledWith(['credits']);
-  }));
-
-  it('should show highscore', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-    component.showHighScore();
-    expect(spy).toHaveBeenCalledWith(['highscore', 0]);
-  }));
-
-  it('should show level editor', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-    component.showLevelEditor();
-    expect(spy).toHaveBeenCalledWith(['editor']);
-  }));
 });

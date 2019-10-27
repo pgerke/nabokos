@@ -31,12 +31,6 @@ describe('HighscoreComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to menu', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-    component.showMenu();
-    expect(spy).toHaveBeenCalledWith(['menu']);
-  }));
-
   it('should switch levels correctly', () => {
     const highScoreServiceSpy = spyOn(highScoreService, 'getLevel').and.returnValue([]);
     const levelServiceSpy = spyOn(levelService, 'getLevel').and.returnValue(new Level());
