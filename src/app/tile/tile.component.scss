@@ -7,7 +7,7 @@ div {
 }
 
 .box {
-  background: url('../../assets/box_transparent.png');
+  background: url('../../assets/svg/box.svg');
 }
 
 .floor {
@@ -15,25 +15,25 @@ div {
 }
 
 .wall {
-  background: url('../../assets/wall_orange_transparent.png');
+  background: url('../../assets/svg/wall.svg');
 }
 
 .target {
-  background: url('../../assets/target_transparent.png');
+  background: url('../../assets/svg/target.svg');
 }
 
 .targetWithBox {
-  background: url('../../assets/boxInTarget.png');
+  background: url('../../assets/svg/box_in_target.svg');
 }
 
 .cursor {
-  background: url('../../assets/player_transparent.png');
+  background: url('../../assets/svg/player.svg');
   background-size: cover;
   height: 40px;
   width: 40px;
   z-index: 2;
   &.win {
-    background: url('../../assets/player_win2_transparent.png');
+    background: url('../../assets/svg/player_win_glasses.svg');
     background-size: cover;
     height: 40px;
     width: 40px;
@@ -42,7 +42,7 @@ div {
 }
 
 .cursor:hover:not(.win) {
-  background: url('../../assets/player_wink_transparent.png');
+  background: url('../../assets/svg/player_wink.svg');
   background-size: cover;
   height: 40px;
   width: 40px;
