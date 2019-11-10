@@ -1,15 +1,9 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { Level } from '../models/level';
+import { Level, Coordinate, Tile, Direction, Savegame } from '../models';
+import { LevelService, HighscoreService, PathFinderService, MobileZoomService } from '../services';
 import { Subscription, interval } from 'rxjs';
-import { LevelService } from '../services/level.service';
-import { Coordinate } from '../models/coordinate';
-import { Tile } from '../models/tile';
-import { Direction } from '../models/direction';
 import * as _ from 'lodash';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HighscoreService } from '../services/highscore.service';
-import { Savegame } from '../models/savegame';
-import { PathFinderService } from '../services/pathFinder.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-level',

@@ -1,16 +1,11 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
-import { Direction } from '../models/direction';
-import { LevelService } from '../services/level.service';
-import { HighscoreService } from '../services/highscore.service';
+import { Direction, Savegame, Coordinate, Tile } from '../models';
+import { LevelService, HighscoreService, PathFinderService } from '../services';
 import { RouterTestingModule } from '@angular/router/testing';
-import { TileComponent } from '../tile/tile.component';
-import { Coordinate } from '../models/coordinate';
 import { ActivatedRoute } from '@angular/router';
-import { Savegame } from '../models/savegame';
 import { of } from 'rxjs';
-import { Tile } from '../models/tile';
-import { PathFinderService } from '../services/pathFinder.service';
+import { TileComponent } from '../tile/tile.component';
 
 describe('LevelComponent (shallow)', () => {
   beforeEach(async(() => {

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Savegame } from '../models/savegame';
+import { Savegame } from '../models';
 
 @Component({
   selector: 'app-menu',
@@ -23,5 +22,5 @@ export class MenuComponent implements OnInit {
     this.savegame = JSON.parse(saveGameSerialized) as Savegame;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

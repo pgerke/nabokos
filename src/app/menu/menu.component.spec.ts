@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { Savegame } from '../models/savegame';
+import { Savegame } from '../models';
 
 describe('MenuComponent with save game', () => {
   let component: MenuComponent;

@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TileComponent } from './tile.component';
 
 describe('TileComponent', () => {
