@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Restore dependencies
+      run: npm ci
+    - name: Run npm build
+      run: npm run build -- --prod
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Restore dependencies
+        run: npm ci
+      - name: Run linter
+        run: npm run lint
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Restore dependencies
+        run: npm ci
+      - name: Run unit test
+        run: npm run test -- --code-coverage --watch=false --browsers=ChromeHeadless
