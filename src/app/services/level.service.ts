@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LevelService {
+  private setCounter = {};
   private levels: Level[] = [];
+  private levelSetName: string;
   private index = 0;
 
   constructor(private router: Router) {
@@ -40,15 +42,22 @@ export class LevelService {
     this.router.navigate(['level', (!this.index ? this.getLevelCount() : this.index) - 1, true]);
   }
 
-  loadLevel(serializedLevel: string, name: string): Level {
+  loadLevel(serializedLevel: string): Level {
     const level = new Level();
-    level.name = name;
+    level.setName = this.levelSetName;
     level.tiles = [];
     level.serialized = serializedLevel;
     const lines = serializedLevel.split('\n');
     let lineNumber = 0;
     let colNumber = 0;
-    lines.forEach(line => {
+    lines.forEach((line, index) => {
+      if (index === 0 && line.match(/^\w+/)) {
+        this.levelSetName = line;
+        level.setName = line;
+        this.setCounter[line] = 0;
+        return;
+      }
+
       colNumber = 0;
       const tiles: Tile[] = [];
       for (const c of line) {
@@ -84,13 +93,14 @@ export class LevelService {
       level.tiles.push(tiles);
       lineNumber++;
     });
+    level.name = (++this.setCounter[this.levelSetName]).toString();
     return level;
   }
 
   private loadLevels() {
     const separateLevels = levelData.split('\n\n');
-    separateLevels.forEach((serializedLevel: string, index: number) => {
-      const level = this.loadLevel(serializedLevel, (index + 1).toString());
+    separateLevels.forEach((serializedLevel: string) => {
+      const level = this.loadLevel(serializedLevel);
       this.levels.push(level);
     });
   }

@@ -6,4 +6,5 @@ export class Level {
   cursor: Coordinate;
   name: string;
   serialized: string;
+  setName: string;
 }

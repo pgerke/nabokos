@@ -26,7 +26,7 @@ describe('PathFinderService', () => {
 #@ .#
 ####`;
 
-    level = levelService.loadLevel(serialized, 'Test');
+    level = levelService.loadLevel(serialized);
   });
 
   it('should be created', () => {

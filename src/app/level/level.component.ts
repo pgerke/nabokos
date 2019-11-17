@@ -6,7 +6,7 @@ import { Coordinate } from '../models/coordinate';
 import { Tile } from '../models/tile';
 import { Direction } from '../models/direction';
 import * as _ from 'lodash';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { HighscoreService } from '../services/highscore.service';
 import { Savegame } from '../models/savegame';
 import { PathFinderService } from '../services/pathFinder.service';
