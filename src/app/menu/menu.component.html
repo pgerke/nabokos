@@ -4,50 +4,12 @@
   <div class="col-1 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
 </div>
 <div class="menu">
-  <div class="row">
+  <div class="row" *ngFor="let menuItem of menu">
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<a *ngIf="canContinue" class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
-				[routerLink]="['/level', savegame.levelId, 'false']">Continue</a>
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-    </div>
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-  </div>
-  <div class="row">
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/level/0/true']">New Game</a>
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-    </div>
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-  </div>
-  <div class="row">
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<!-- <a class="ol-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/editor']" disabled>Level Editor</a> -->
-      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Level Editor" disabled>Level Editor</button>
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-    </div>
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-  </div>
-  <div class="row">
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/highscore/0']">Highscore</a>
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-    </div>
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-  </div>
-  <div class="row">
-    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
-    <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
-      <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-			<!-- <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" [routerLink]="['/credits']" disabled>Credits</a> -->
-      <button class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary" title="Credits" disabled>Credits</button>
+      <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
+        [routerLink]="menuItem.routerLink" [class.disabled]="menuItem.disabled">{{ menuItem.displayName }}</a>
       <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
     </div>
     <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>

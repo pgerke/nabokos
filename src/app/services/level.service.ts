@@ -30,8 +30,16 @@ export class LevelService {
     return this.levels[this.index];
   }
 
+  getLevels(setName: string): Level[] {
+    return this.levels.filter(e => e.setName === setName);
+  }
+
   getLevelCount(): number {
     return this.levels.length;
+  }
+
+  getLevelSets(): string[] {
+    return [...new Set(this.levels.map(e => e.setName))];
   }
 
   getNextLevel(): void {
@@ -99,8 +107,9 @@ export class LevelService {
 
   private loadLevels() {
     const separateLevels = levelData.split('\n\n');
-    separateLevels.forEach((serializedLevel: string) => {
+    separateLevels.forEach((serializedLevel: string, index: number) => {
       const level = this.loadLevel(serializedLevel);
+      level.id = index;
       this.levels.push(level);
     });
   }
