@@ -37,6 +37,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
+    private router: Router,
     private route: ActivatedRoute,
     private pathFinderService: PathFinderService
   ) { }
@@ -243,6 +244,11 @@ export class LevelComponent implements OnInit, OnDestroy {
     if (this.history.push(level) > this.historyLimit) {
       this.history.shift();
     }
+  }
+
+  showMenu(): void {
+    this.createSaveGame();
+    this.router.navigate(['menu']);
   }
 
   undo() {
