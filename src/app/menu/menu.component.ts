@@ -20,6 +20,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   get menu(): any[] {
     return this.internalMenu.filter(e => e.parent === this.parent);
   }
+  get isSetMenu(): boolean {
+    return this.parent !== 'menu' && this.parent !== 'newgame';
+  }
 
   constructor(private route: ActivatedRoute, private levelService: LevelService) {}
 
@@ -41,7 +44,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.internalMenu.push({ parent: 'menu', displayName: 'Level Editor', routerLink: ['/editor'], disabled: true });
     this.internalMenu.push({ parent: 'menu', displayName: 'Credits', routerLink: ['/credits'], disabled: true });
     this.internalMenu.push({ parent: 'newgame', displayName: 'Back', routerLink: ['/menu'] });
-    this.levelService.getLevelSets().forEach(set => {
+    this.levelService.getLevelSets().sort().forEach(set => {
       this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', set] });
       this.internalMenu.push({ parent: set, displayName: 'Back', routerLink: ['/menu/newgame'] });
       this.levelService.getLevels(set).forEach(level => {

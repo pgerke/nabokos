@@ -1,4 +1,4 @@
-export const levels = `Sasquatch
+export const levels = `Sasquatch I
    ###
   ## # ####
  ##  ###  #
@@ -743,7 +743,7 @@ export const levels = `Sasquatch
   # # # # # # # # # # # # #
    # # # # # # # # # # # #
 
-Mas Sasquatch
+Sasquatch II
 #####
 #   #####
 # $ $ $ #
@@ -2338,7 +2338,7 @@ Sasquatch III
 ###### #  #   #  #   # ######
        ###############
 
-Microban (easy)
+Microban
 ####
 # .#
 #  ###
