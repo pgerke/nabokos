@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Level, Coordinate, Tile, Direction, Savegame } from '../models';
-import { LevelService, HighscoreService, PathFinderService, MobileZoomService } from '../services';
+import { LevelService, HighscoreService, PathFinderService } from '../services';
 import { Subscription, interval } from 'rxjs';
 import * as _ from 'lodash';
 import { ActivatedRoute } from '@angular/router';
@@ -27,12 +27,16 @@ export class LevelComponent implements OnInit, OnDestroy {
   contentWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
+  // zoomChangedSubscription: Subscription;
+
+  zoomText = 'empty';
 
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
     private route: ActivatedRoute,
-    private pathFinderService: PathFinderService
+    private pathFinderService: PathFinderService,
+    // private mobileZoomService: MobileZoomService
   ) { }
 
   ngOnInit() {
@@ -51,6 +55,10 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.levelTime += 1000;
       }
     });
+    // this.mobileZoomService.setTarget('field');
+    // this.zoomChangedSubscription = this.mobileZoomService.getZoomEmitter().subscribe(value => {
+    //   this.zoomText = value;
+    // });
   }
 
   ngOnDestroy() {
@@ -345,5 +353,9 @@ export class LevelComponent implements OnInit, OnDestroy {
   @HostListener('window:resize', ['$event'])
   setContentAlignment(event?): void {
     this.centerContent = window.innerWidth > this.contentWidth;
+  }
+
+  onPinch(event: any, text: string) {
+    this.zoomText = text;
   }
 }
