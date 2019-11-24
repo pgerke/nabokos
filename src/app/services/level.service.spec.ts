@@ -24,6 +24,7 @@ describe('LevelService', () => {
 
   it('should get level by index', () => {
     const refLevel = `Sasquatch I
+SQ I
    ###
   ## # ####
  ##  ###  #

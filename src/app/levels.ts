@@ -1,4 +1,5 @@
 export const levels = `Sasquatch I
+SQ I
    ###
   ## # ####
  ##  ###  #
@@ -744,6 +745,7 @@ export const levels = `Sasquatch I
    # # # # # # # # # # # #
 
 Sasquatch II
+SQ II
 #####
 #   #####
 # $ $ $ #
@@ -1536,6 +1538,7 @@ Sasquatch II
 #############################
 
 Sasquatch III
+SQ III
  #######
  #  *  #
  #  @  #
@@ -2339,6 +2342,7 @@ Sasquatch III
        ###############
 
 Microban
+MB
 ####
 # .#
 #  ###
@@ -3853,6 +3857,7 @@ Microban
 #####       #### ####   ######
 
 Sasquatch IV
+SQ IV
    ####
 ####  #
 #     ####

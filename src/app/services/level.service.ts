@@ -12,6 +12,7 @@ export class LevelService {
   private setCounter = {};
   private levels: Level[] = [];
   private levelSetName: string;
+  private levelShortSetName: string;
   private index = 0;
 
   constructor(private router: Router) {
@@ -53,6 +54,7 @@ export class LevelService {
   loadLevel(serializedLevel: string): Level {
     const level = new Level();
     level.setName = this.levelSetName;
+    level.shortSetName = this.levelShortSetName;
     level.tiles = [];
     level.serialized = serializedLevel;
     const lines = serializedLevel.split('\n');
@@ -62,6 +64,8 @@ export class LevelService {
       if (index === 0 && line.match(/^\w+/)) {
         this.levelSetName = line;
         level.setName = line;
+        this.levelShortSetName = lines[1];
+        level.shortSetName = lines[1];
         this.setCounter[line] = 0;
         return;
       }

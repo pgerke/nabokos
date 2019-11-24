@@ -7,5 +7,6 @@ export class Level {
   name: string;
   serialized: string;
   setName: string;
+  shortSetName: string;
   id: number;
 }
