@@ -8,9 +8,9 @@ The goal of the game is to push all boxes <img src="src/assets/svg/box.svg" alt=
 
 Boxes can only be pushed, not pulled, so take care not push them into a corner! Also, boxes are heavy, so you can only push one box at a time, no stacking!
 
-Luckily, you can undo moves, if you think you made a mistake. But beware, undoing a move will also be counted as a move. Of coure, you can always start from the beginning, if you think you really screwed up. If you do that, the level timer and move counter will be reset.
+Luckily, you can undo moves, if you think you made a mistake. But beware, undoing a move will also be counted as a move. Of course, you can always start from the beginning, if you think you really screwed up. If you do that, the level timer and move counter will be reset.
 
-If you beat a puzzle, the level time and the number of moves it took you will be recorded in the highscore. In accordance with our [privacy policy](https://github.com/pgerke/nabokos/blob/master/README.md#privacy-policy) the highscore is stored in the local storage of your browser and not accessible to anyone. However, you can make screenshots, if you need to brag.
+If you beat a puzzle, the level time and the number of moves it took you will be recorded in the highscore. In accordance with our [privacy policy](https://github.com/pgerke/nabokos/blob/master/README.md#privacy-policy) the highscore is stored in the local storage of your browser and not accessible to anyone but yourself. However, you can make screenshots, if you need to brag.
 
 ## Controls ##
 
@@ -32,7 +32,7 @@ Moving in the direction of a box while standing next to it, will push the box, i
 
 * A modern browser supporting JavaScript. No, Internet Explorer, I'm not even looking at you! Shoo!
 * An active connection to the internet (at least initially)</sub>
-* Some kind of input device
+* Some kind of input device supporting one of the aforementioned control methods
 
 Nabokos is implemented as a progressive web application ([PWA](https://en.wikipedia.org/wiki/Progressive_web_applications)) the uses service workers on supported browsers to enable users to run the application without an active connection or even as a native app after it was loaded initially. This feature is not supported by every browser or operating system.
 
@@ -42,7 +42,7 @@ Nabokos does not use cookies or collect personal data of any kind. Period.
 
 ## Reporting Issues ##
 
-We are happy to hear any feedback regarding the game or it's implementation, be it critizism, praise or rants about the insane difficulty level of some puzzles (yeah, we feel you...). Please create a [GitHub issue])https://github.com/pgerke/nabokos/issues) if you would like to contact us. 
+We are happy to hear any feedback regarding the game or it's implementation, be it critizism, praise or rants about the insane difficulty level of some puzzles (yeah, we feel you...). Please create a [GitHub issue](https://github.com/pgerke/nabokos/issues) if you would like to contact us. 
 
 We would especially appreciate, if you could report any issues you encounter while playing Nabokos, because, issues we know we probably can fix.
 
