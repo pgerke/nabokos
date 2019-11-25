@@ -21,13 +21,17 @@ Used Breakpoints:
   margin: 30px;
   color: #007bff;
   justify-content: center;
-  @media (max-width: 399px) {
+  @media (max-width: 339px) {
     margin-top: 22%;
-    font-size: 1.5rem;
+    font-size: 0.9rem;
+  }
+  @media (min-width: 340px) and (max-width: 399px) {
+    margin-top: 22%;
+    font-size: 1rem;
   }
   @media (min-width: 400px) and (max-width: 575px) {
     margin-top: 22%;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
   }
   @media (min-width: 576px) and (max-width: 767px) {
     margin-top: 18%;

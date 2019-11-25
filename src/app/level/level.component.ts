@@ -31,6 +31,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   levelTimerSubscription: Subscription;
   pathToWalkOn: Coordinate[];
   contentWidth: number;
+  windowWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
 
@@ -356,6 +357,7 @@ export class LevelComponent implements OnInit, OnDestroy {
    */
   @HostListener('window:resize', ['$event'])
   setContentAlignment(event?): void {
+    this.windowWidth = window.innerWidth;
     this.centerContent = window.innerWidth > this.contentWidth;
   }
 }

@@ -38,7 +38,7 @@ describe('LevelComponent (shallow)', () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
-    const testLevel = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const testLevel = levelService.loadLevel(testLevelSerialized);
     const savegame: Savegame = {
       history: [],
       level: testLevel,
@@ -125,7 +125,7 @@ describe('LevelComponent', () => {
     const testLevelSerialized = `####
 #.$@#
 ####`;
-    const level = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const level = levelService.loadLevel(testLevelSerialized);
     component.level = level;
     component.checkWin();
     expect(component.isWin).toBeFalsy();
@@ -201,21 +201,21 @@ describe('LevelComponent', () => {
     const testLevelSerialized1 = `####
 #. @#
 ####`;
-    let testLevel = levelService.loadLevel(testLevelSerialized1, 'Test Level');
+    let testLevel = levelService.loadLevel(testLevelSerialized1);
     component.level = testLevel;
     expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
 
     const testLevelSerialized2 = `####
 #*$@#
 ####`;
-    testLevel = levelService.loadLevel(testLevelSerialized2, 'Test Level');
+    testLevel = levelService.loadLevel(testLevelSerialized2);
     component.level = testLevel;
     expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
 
     const testLevelSerialized3 = `####
 # *@#
 ####`;
-    testLevel = levelService.loadLevel(testLevelSerialized3, 'Test Level');
+    testLevel = levelService.loadLevel(testLevelSerialized3);
     component.level = testLevel;
     expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeTruthy();
   });
@@ -232,7 +232,7 @@ describe('LevelComponent', () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
-    const testLevel = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const testLevel = levelService.loadLevel(testLevelSerialized);
     let i = 0;
     while (i++ < 1000) {
       component.saveHistory(testLevel);
@@ -248,7 +248,7 @@ describe('LevelComponent', () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
-    const testLevel = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const testLevel = levelService.loadLevel(testLevelSerialized);
     component.level = testLevel;
     component.run(Direction.Left);
     component.undo();
@@ -269,7 +269,7 @@ describe('LevelComponent', () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
-    const testLevel = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const testLevel = levelService.loadLevel(testLevelSerialized);
     component.level = testLevel;
     component.levelId = 123;
     component.levelTime = 456000;
@@ -294,7 +294,7 @@ describe('LevelComponent', () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
-    const testLevel = levelService.loadLevel(testLevelSerialized, 'Test Level');
+    const testLevel = levelService.loadLevel(testLevelSerialized);
     const savegame: Savegame = {
       history: [],
       level: testLevel,
@@ -352,7 +352,7 @@ describe('LevelComponent', () => {
   #   #
   #@  #
   ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
     const cursor = component.level.cursor;
     const box = new Coordinate(cursor.x + 2, cursor.y);
     component.level.tiles[box.y][box.x] = Tile.box;
@@ -369,7 +369,7 @@ describe('LevelComponent', () => {
 #   #
 #@  #
 ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
     spyOn(pathFinderService, 'findPath').and.returnValue([new Coordinate(2, 1), new Coordinate(1, 1)]);
     spyOn(component, 'walkAlongPath').and.callThrough();
     component.moveToClick('floor', 1, 1);
@@ -394,7 +394,7 @@ describe('LevelComponent', () => {
 #   #
 #@  #
 ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
 
     component.moveToClick('floor', 1, 1);
     tick(100);
@@ -410,7 +410,7 @@ describe('LevelComponent', () => {
 #@. #
 #   #
 ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
     const box = new Coordinate(2, 2);
     let result = component.getBoxMoveDirection(box);
     expect(result).toBe(Direction.Right);
@@ -434,7 +434,7 @@ describe('LevelComponent', () => {
 # . #
 #@  #
 ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
     const box = new Coordinate(2, 2);
     const result = component.getBoxMoveDirection(box);
     expect(result).toBe(null);
@@ -446,7 +446,7 @@ describe('LevelComponent', () => {
 # .  #
 #@  #
 ####`;
-    component.level = levelService.loadLevel(serialized, 'Test');
+    component.level = levelService.loadLevel(serialized);
     spyOn(component, 'setContentAlignment').and.callThrough();
     component.setContentWidth();
     expect(component.contentWidth).toBe(6 * 50);

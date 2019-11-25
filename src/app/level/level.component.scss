@@ -30,11 +30,7 @@ Overall Section
 }
 
 .level-number::before {
-  content: 'Level';
   padding-right: 5px;
-  @media (max-width: 767px) {
-    content: 'LVL';
-  }
   @media (min-width: 400px) {
     padding-right: 10px;
   }
