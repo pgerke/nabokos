@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Savegame } from '../models/savegame';
 import { Subscription } from 'rxjs';
 import { LevelService } from '../services/level.service';
+import { ServiceWorkerService } from '../services/service-worker.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,8 +14,10 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   readonly appVersion = '1.2.0';
   canContinue: boolean;
+  hasUpdate: boolean;
   savegame: Savegame;
   routeUrlSubscription: Subscription;
+  updateSubscription: Subscription;
   private parent: string;
   internalMenu = [];
   get menu(): any[] {
@@ -24,9 +27,16 @@ export class MenuComponent implements OnInit, OnDestroy {
     return this.parent !== 'menu' && this.parent !== 'newgame';
   }
 
-  constructor(private route: ActivatedRoute, private levelService: LevelService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private levelService: LevelService,
+    public serviceWorkerService: ServiceWorkerService) {}
 
   ngOnInit() {
+    if (this.serviceWorkerService.isEnabled) {
+      this.updateSubscription = this.serviceWorkerService.available.subscribe(e => this.hasUpdate = e.available !== null);
+    }
+
     this.routeUrlSubscription = this.route.url.subscribe(value => {
       this.parent = value[value.length - 1].path;
     });
@@ -54,7 +64,19 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
+
     this.routeUrlSubscription.unsubscribe();
     this.routeUrlSubscription = null;
+  }
+
+  async applyUpdate() {
+    await this.serviceWorkerService.activateUpdate();
+  }
+
+  async checkUpdate() {
+    await this.serviceWorkerService.checkForUpdate();
   }
 }
