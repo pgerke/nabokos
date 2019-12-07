@@ -4,6 +4,7 @@ import { Savegame } from '../models/savegame';
 import { Subscription } from 'rxjs';
 import { LevelService } from '../services/level.service';
 import { ServiceWorkerService } from '../services/service-worker.service';
+import { version } from '../../../package.json';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,7 @@ import { ServiceWorkerService } from '../services/service-worker.service';
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  readonly appVersion = '1.2.0';
+  readonly appVersion: string = version;
   canContinue: boolean;
   hasUpdate: boolean;
   savegame: Savegame;
