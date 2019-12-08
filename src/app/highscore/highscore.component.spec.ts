@@ -15,15 +15,21 @@ describe('HighscoreComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [HighscoreComponent]
+      declarations: [HighscoreComponent],
+      providers: [
+        LevelService,
+        HighscoreService
+      ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(HighscoreComponent);
     component = fixture.componentInstance;
     highScoreService = TestBed.get(HighscoreService);
     levelService = TestBed.get(LevelService);
+    spyOn(levelService, 'getLevel').and.returnValue(new Level());
     fixture.detectChanges();
   });
 
@@ -31,35 +37,15 @@ describe('HighscoreComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should switch levels correctly', () => {
-    const highScoreServiceSpy = spyOn(highScoreService, 'getLevel').and.returnValue([]);
-    const levelServiceSpy = spyOn(levelService, 'getLevel').and.returnValue(new Level());
-    const levelCount = levelService.getLevelCount();
-
-    // Simple increment
+  it('should get next level', inject([Router], router => {
+    const routerSpy = spyOn(router, 'navigate');
     component.next();
-    expect(highScoreServiceSpy).toHaveBeenCalledWith(1);
-    expect(levelServiceSpy).toHaveBeenCalledWith(1);
+    expect(routerSpy).toHaveBeenCalledWith(['highscore', 1]);
+  }));
 
-    // Simple decrement
-    highScoreServiceSpy.calls.reset();
-    levelServiceSpy.calls.reset();
+  it('should get previous level', inject([Router], router => {
+    const routerSpy = spyOn(router, 'navigate');
     component.previous();
-    expect(highScoreServiceSpy).toHaveBeenCalledWith(0);
-    expect(levelServiceSpy).toHaveBeenCalledWith(0);
-
-    // Decrement with wrap around
-    highScoreServiceSpy.calls.reset();
-    levelServiceSpy.calls.reset();
-    component.previous();
-    expect(highScoreServiceSpy).toHaveBeenCalledWith(levelCount - 1);
-    expect(levelServiceSpy).toHaveBeenCalledWith(levelCount - 1);
-
-    // Increment with wrap around
-    highScoreServiceSpy.calls.reset();
-    levelServiceSpy.calls.reset();
-    component.next();
-    expect(highScoreServiceSpy).toHaveBeenCalledWith(0);
-    expect(levelServiceSpy).toHaveBeenCalledWith(0);
-  });
+    expect(routerSpy).toHaveBeenCalledWith(['highscore', levelService.getLevelCount() - 1]);
+  }));
 });
