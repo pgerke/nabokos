@@ -4,6 +4,7 @@ import { Savegame } from '../models/savegame';
 import { Subscription } from 'rxjs';
 import { LevelService } from '../services/level.service';
 import { ServiceWorkerService } from '../services/service-worker.service';
+import { version } from '../../../package.json';
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +13,7 @@ import { ServiceWorkerService } from '../services/service-worker.service';
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  readonly appVersion = '1.2.0';
+  readonly appVersion: string = version;
   canContinue: boolean;
   hasUpdate: boolean;
   savegame: Savegame;
@@ -24,7 +25,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     return this.internalMenu.filter(e => e.parent === this.parent);
   }
   get isSetMenu(): boolean {
-    return this.parent !== 'menu' && this.parent !== 'newgame';
+    return this.parent.startsWith('ng_') || this.parent.startsWith('hs_'); // this.parent !== 'menu' && this.parent !== 'newgame';
   }
 
   constructor(
@@ -50,15 +51,24 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
 
     this.internalMenu.push({ parent: 'menu', displayName: 'New Game', routerLink: ['/menu/newgame'] });
-    this.internalMenu.push({ parent: 'menu', displayName: 'High Score', routerLink: ['/highscore/0'] });
+    this.internalMenu.push({ parent: 'menu', displayName: 'High Score', routerLink: ['/menu/highscore'] });
     this.internalMenu.push({ parent: 'menu', displayName: 'Level Editor', routerLink: ['/editor'], disabled: true });
     this.internalMenu.push({ parent: 'menu', displayName: 'Credits', routerLink: ['/credits'], disabled: true });
     this.internalMenu.push({ parent: 'newgame', displayName: 'Back', routerLink: ['/menu'] });
+    this.internalMenu.push({ parent: 'highscore', displayName: 'Back', routerLink: ['/menu'] });
     this.levelService.getLevelSets().sort().forEach(set => {
-      this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', set] });
-      this.internalMenu.push({ parent: set, displayName: 'Back', routerLink: ['/menu/newgame'] });
+      // Push menu items for new game
+      this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', 'ng_' + set] });
+      this.internalMenu.push({ parent: 'ng_' + set, displayName: 'Back', routerLink: ['/menu/newgame'] });
       this.levelService.getLevels(set).forEach(level => {
-        this.internalMenu.push({ parent: set, displayName: level.name, routerLink: ['/level', level.id, true]});
+        this.internalMenu.push({ parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true]});
+      });
+
+      // Push menu items for high score
+      this.internalMenu.push({ parent: 'highscore', displayName: set, routerLink: ['/menu/highscore', 'hs_' + set] });
+      this.internalMenu.push({ parent: 'hs' + set, displayName: 'Back', routerLink: ['/menu/highscore'] });
+      this.levelService.getLevels(set).forEach(level => {
+        this.internalMenu.push({ parent: 'hs_' + set, displayName: level.name, routerLink: ['/highscore', level.id]});
       });
     });
   }

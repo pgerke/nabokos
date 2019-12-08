@@ -34,6 +34,8 @@ describe('MenuComponent with save game', () => {
     localStorage.setItem('savegame', JSON.stringify(savegame));
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
+    const serviceWorkerService = TestBed.get(ServiceWorkerService);
+    spyOn(serviceWorkerService, 'available').and.returnValue(undefined);
     fixture.detectChanges();
     expect(component.canContinue).toBeTruthy();
   }));

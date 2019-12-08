@@ -104,8 +104,7 @@ describe('LevelComponent', () => {
         HighscoreService,
         PathFinderService
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -185,17 +184,21 @@ describe('LevelComponent', () => {
     });
   });
 
-  it('should request next level from service', () => {
-    const spy = spyOn(levelService, 'getNextLevel');
+  it('should request next level from service', inject([Router], (router) => {
+    const levelServiceSpy = spyOn(levelService, 'getNextLevel');
+    const routerSpy = spyOn(router, 'navigate');
     component.next();
-    expect(spy).toHaveBeenCalled();
-  });
+    expect(levelServiceSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalled();
+  }));
 
-  it('should get previous level from service', () => {
-    const spy = spyOn(levelService, 'getPreviousLevel');
+  it('should request previous level from service', inject([Router], (router) => {
+    const levelServiceSpy = spyOn(levelService, 'getPreviousLevel');
+    const routerSpy = spyOn(router, 'navigate');
     component.previous();
-    expect(spy).toHaveBeenCalled();
-  });
+    expect(levelServiceSpy).toHaveBeenCalled();
+    expect(routerSpy).toHaveBeenCalled();
+  }));
 
   it('should push box correctly', () => {
     const testLevelSerialized1 = `####

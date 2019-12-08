@@ -43,12 +43,12 @@ export class LevelService {
     return [...new Set(this.levels.map(e => e.setName))];
   }
 
-  getNextLevel(): void {
-    this.router.navigate(['level', this.index === this.getLevelCount() - 1 ? 0 : this.index + 1, true]);
+  getNextLevel(): number {
+    return this.index === this.getLevelCount() - 1 ? 0 : this.index + 1;
   }
 
-  getPreviousLevel(): void {
-    this.router.navigate(['level', (!this.index ? this.getLevelCount() : this.index) - 1, true]);
+  getPreviousLevel(): number {
+    return (this.index ? this.index : this.getLevelCount()) - 1;
   }
 
   loadLevel(serializedLevel: string): Level {

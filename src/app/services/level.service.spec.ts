@@ -1,7 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { LevelService } from './level.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
 
 describe('LevelService', () => {
   let service: LevelService;
@@ -41,29 +40,20 @@ SQ I
     expect(level.serialized).toBe(refLevel);
   });
 
-  it('should get next and previous level', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
-
+  it('should get next and previous level', () => {
     // Simple increment
-    service.getNextLevel();
-    expect(spy).toHaveBeenCalledWith(['level', 1, true]);
-    spy.calls.reset();
+    expect(service.getNextLevel()).toBe(1);
 
     // Decrement with wrap around
-    service.getPreviousLevel();
-    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 1, true]);
-    spy.calls.reset();
+    expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 1);
 
     // Set last level
     service.getLevel(service.getLevelCount() - 1);
 
     // Increment with wrap around
-    service.getNextLevel();
-    expect(spy).toHaveBeenCalledWith(['level', 0, true]);
-    spy.calls.reset();
+    expect(service.getNextLevel()).toBe(0);
 
     // Simple decrement
-    service.getPreviousLevel();
-    expect(spy).toHaveBeenCalledWith(['level', service.getLevelCount() - 2, true]);
-  }));
+    expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 2);
+  });
 });

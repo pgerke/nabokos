@@ -45,6 +45,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
+      console.log(value.get('level'));
       this.levelId = Number.parseInt(value.get('level'), 10);
       const isNewGame = value.get('newGame') ? value.get('newGame').toLowerCase() === 'true' : true;
       console.log('Level: ' + this.levelId);
@@ -188,11 +189,11 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    this.levelService.getNextLevel();
+    this.router.navigate(['level', this.levelService.getNextLevel(), true]);
   }
 
   previous() {
-    this.levelService.getPreviousLevel();
+    this.router.navigate(['level', this.levelService.getPreviousLevel(), true]);
   }
 
   pushBox(coordinate: Coordinate, direction: Direction): boolean {
