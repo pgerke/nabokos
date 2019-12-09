@@ -28,6 +28,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   centerContent: boolean;
   hasHighscoreEntry: boolean;
   // zoomChangedSubscription: Subscription;
+  scaleValue = 1;
 
   zoomText = 'empty';
 
@@ -341,7 +342,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       }
     }
     // A tile is always drawn with 50px each.
-    this.contentWidth = countTiles * 50;
+    this.contentWidth = countTiles * (50 * this.scaleValue);
     this.setContentAlignment();
   }
 
@@ -356,6 +357,12 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   onPinch(event: any, text: string) {
-    this.zoomText = text;
+    if (text === 'OUT') {
+      this.scaleValue += 0.01;
+    } else if (this.scaleValue > 0.01) {
+      this.scaleValue -= 0.01;
+    }
+
+    this.setContentWidth();
   }
 }

@@ -18,15 +18,14 @@
     <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
   </div>
   <!-- Content Section -->
-  <div class="scroll-wrapper" [ngClass]="centerContent ? 'level-center' : 'level-left'">
-    <div id="field" style="width: 300px; height: 300px;" (pinchin)="onPinch($event, 'IN')"
-      (pinchout)="onPinch($event, 'OUT')">
-      {{ zoomText }}
-      <!--div-- class="level-row" *ngFor="let row of level.tiles; index as y">
+  <div class="scroll-wrapper" [ngClass]="centerContent ? 'level-center' : 'level-left'"
+    (pinchin)="onPinch($event, 'IN')" (pinchout)="onPinch($event, 'OUT')">
+    <div [style.transform]="'scale(' + scaleValue + ')'">
+      <div class="level-row" *ngFor="let row of level.tiles; index as y">
         <app-tile *ngFor="let tile of row; index as x" [tile]="tile" [isCursorHere]="isCursorHere(x, y)" [isWin]="isWin"
           (click)="moveToClick(tile, x, y)">
         </app-tile>
-      </!--div-->
+      </div>
     </div>
   </div>
   <span class="win-span" *ngIf="isWin">Well done, YOU WIN!</span>

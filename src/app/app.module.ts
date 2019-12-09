@@ -8,6 +8,19 @@ import { LevelComponent } from './level/level.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+declare var Hammer: any;
+
+export class HammerConfig extends HammerGestureConfig {
+  buildHammer(element: HTMLElement) {
+    const hammer = new Hammer(element, {
+      touchAction: 'pan-x pan-y'
+    });
+
+    hammer.get('pinch').set({ enable: true });
+    return hammer;
+  }
+}
 
 @NgModule({
   declarations: [
@@ -22,7 +35,11 @@ import { MenuComponent } from './menu/menu.component';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
