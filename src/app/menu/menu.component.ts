@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private levelService: LevelService,
-    public serviceWorkerService: ServiceWorkerService) {}
+    public serviceWorkerService: ServiceWorkerService) { }
 
   ngOnInit() {
     if (this.serviceWorkerService.isEnabled) {
@@ -61,14 +61,14 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', 'ng_' + set] });
       this.internalMenu.push({ parent: 'ng_' + set, displayName: 'Back', routerLink: ['/menu/newgame'] });
       this.levelService.getLevels(set).forEach(level => {
-        this.internalMenu.push({ parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true]});
+        this.internalMenu.push({ parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true] });
       });
 
       // Push menu items for high score
       this.internalMenu.push({ parent: 'highscore', displayName: set, routerLink: ['/menu/highscore', 'hs_' + set] });
-      this.internalMenu.push({ parent: 'hs' + set, displayName: 'Back', routerLink: ['/menu/highscore'] });
+      this.internalMenu.push({ parent: 'hs_' + set, displayName: 'Back', routerLink: ['/menu/highscore'] });
       this.levelService.getLevels(set).forEach(level => {
-        this.internalMenu.push({ parent: 'hs_' + set, displayName: level.name, routerLink: ['/highscore', level.id]});
+        this.internalMenu.push({ parent: 'hs_' + set, displayName: level.name, routerLink: ['/highscore', level.id] });
       });
     });
   }
