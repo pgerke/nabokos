@@ -1,0 +1,35 @@
+/*
+Used Breakpoints:
+(mostly like bootstrap)
+< 349px
+>= 350px and < 399px
+>= 400px and < 575px
+>= 576px and < 767px
+>= 768px and < 991px
+>= 992px and < 1199px
+>= 1200px
+*/
+
+@import '../global-styles.scss';
+
+:host {
+  display: block;
+}
+
+.row {
+  margin: 0;
+}
+
+.lib {
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+  .lib-header {
+    color: #007bff;
+  }
+
+  .lib-license {
+    color: white;
+    font-size: x-small;
+  }
+}
