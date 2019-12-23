@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
 import { ServiceWorkerService } from './services/service-worker.service';
+import { CreditsComponent } from './credits/credits.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,10 +18,12 @@ import { ServiceWorkerService } from './services/service-worker.service';
     TileComponent,
     LevelComponent,
     HighscoreComponent,
-    MenuComponent
+    MenuComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule
   ],
