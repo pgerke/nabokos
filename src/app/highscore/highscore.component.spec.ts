@@ -3,6 +3,7 @@ import { HighscoreComponent } from './highscore.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HighscoreService, LevelService } from '../services';
 import { Level } from '../models';
+import { Router } from '@angular/router';
 
 describe('HighscoreComponent', () => {
   let component: HighscoreComponent;
