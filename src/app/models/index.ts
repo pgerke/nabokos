@@ -4,6 +4,7 @@ export * from './coordinate';
 export * from './direction';
 export * from './highscore-entry';
 export * from './level';
+export * from './library';
 export * from './openList';
 export * from './savegame';
 export * from './tile';

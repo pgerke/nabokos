@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Level, Coordinate, Tile, Direction, Savegame } from '../models';
-import { LevelService, HighscoreService, PathFinderService, MobileZoomService } from '../services';
+import { LevelService, HighscoreService, PathFinderService } from '../services';
 import { Subscription, interval } from 'rxjs';
 import * as _ from 'lodash';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-level',
@@ -25,18 +25,21 @@ export class LevelComponent implements OnInit, OnDestroy {
   levelTimerSubscription: Subscription;
   pathToWalkOn: Coordinate[];
   contentWidth: number;
+  windowWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
 
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
+    private router: Router,
     private route: ActivatedRoute,
     private pathFinderService: PathFinderService
   ) { }
 
   ngOnInit() {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
+      console.log(value.get('level'));
       this.levelId = Number.parseInt(value.get('level'), 10);
       const isNewGame = value.get('newGame') ? value.get('newGame').toLowerCase() === 'true' : true;
       console.log('Level: ' + this.levelId);
@@ -180,11 +183,11 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    this.levelService.getNextLevel();
+    this.router.navigate(['level', this.levelService.getNextLevel(), true]);
   }
 
   previous() {
-    this.levelService.getPreviousLevel();
+    this.router.navigate(['level', this.levelService.getPreviousLevel(), true]);
   }
 
   pushBox(coordinate: Coordinate, direction: Direction): boolean {
@@ -237,6 +240,11 @@ export class LevelComponent implements OnInit, OnDestroy {
     if (this.history.push(level) > this.historyLimit) {
       this.history.shift();
     }
+  }
+
+  showMenu(): void {
+    this.createSaveGame();
+    this.router.navigate(['menu']);
   }
 
   undo() {
@@ -344,6 +352,7 @@ export class LevelComponent implements OnInit, OnDestroy {
    */
   @HostListener('window:resize', ['$event'])
   setContentAlignment(event?): void {
+    this.windowWidth = window.innerWidth;
     this.centerContent = window.innerWidth > this.contentWidth;
   }
 }
