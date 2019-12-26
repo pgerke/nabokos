@@ -9,6 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
 import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { ServiceWorkerService } from './services/service-worker.service';
+import { CreditsComponent } from './credits/credits.component';
+import { HttpClientModule } from '@angular/common/http';
 declare var Hammer: any;
 
 export class HammerConfig extends HammerGestureConfig {
@@ -28,10 +31,12 @@ export class HammerConfig extends HammerGestureConfig {
     TileComponent,
     LevelComponent,
     HighscoreComponent,
-    MenuComponent
+    MenuComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule
   ],
@@ -39,7 +44,11 @@ export class HammerConfig extends HammerGestureConfig {
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: HammerConfig
-    }],
+    },
+    ServiceWorkerService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private _: ServiceWorkerService) { }
+}

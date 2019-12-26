@@ -1,5 +1,5 @@
 # Stage 1, based on Node.js, to build and compile Angular
-FROM node:12.9.1-alpine as build
+FROM node:13.5-alpine as build
 
 # Copy the package.json and package-lock.json from the project
 COPY package.json package-lock.json ./
@@ -15,7 +15,7 @@ COPY . .
 RUN npm run ng build -- --prod --output-path=dist
 
 # Stage 2, based on nginx, to have only the production-ready, compiled app
-FROM nginx:1.17.3
+FROM nginx:1.17
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 

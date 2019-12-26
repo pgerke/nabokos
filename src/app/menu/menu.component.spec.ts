@@ -3,6 +3,9 @@ import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { Savegame } from '../models';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { ServiceWorkerService } from '../services';
+import { of } from 'rxjs';
 
 describe('MenuComponent with save game', () => {
   let component: MenuComponent;
@@ -10,13 +13,16 @@ describe('MenuComponent with save game', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule,
+        ServiceWorkerModule.register('', { enabled: false })
+      ],
       declarations: [MenuComponent]
     }).compileComponents();
   }));
 
   it('should recognize savegame and allow player to continue', inject([Router], router => {
-    const spy = spyOn(router, 'navigate');
+    spyOn(router, 'navigate');
     const savegame: Savegame = {
       moves: 123,
       levelTime: 456000,
@@ -28,6 +34,8 @@ describe('MenuComponent with save game', () => {
     localStorage.setItem('savegame', JSON.stringify(savegame));
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
+    const serviceWorkerService = TestBed.get(ServiceWorkerService);
+    spyOn(serviceWorkerService, 'available').and.returnValue(undefined);
     fixture.detectChanges();
     expect(component.canContinue).toBeTruthy();
   }));
@@ -36,17 +44,25 @@ describe('MenuComponent with save game', () => {
 describe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
+  let service: ServiceWorkerService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [MenuComponent]
+      imports: [
+        RouterTestingModule,
+        ServiceWorkerModule.register('', { enabled: false })
+      ],
+      declarations: [MenuComponent],
+      providers: [ServiceWorkerService]
     }).compileComponents();
   }));
 
   beforeEach(() => {
     localStorage.clear();
     fixture = TestBed.createComponent(MenuComponent);
+    service = TestBed.get(ServiceWorkerService);
+    spyOnProperty(service, 'isEnabled', 'get').and.returnValue(true);
+    spyOnProperty(service, 'available', 'get').and.returnValue(of(true));
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -54,5 +70,17 @@ describe('MenuComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.canContinue).toBeFalsy();
+  });
+
+  it('should check for update', async () => {
+    const spy = spyOn(service, 'checkForUpdate');
+    await component.checkUpdate();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should activate update', async () => {
+    const spy = spyOn(service, 'activateUpdate');
+    await component.applyUpdate();
+    expect(spy).toHaveBeenCalled();
   });
 });

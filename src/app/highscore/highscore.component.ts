@@ -1,34 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { HighscoreEntry, Level } from '../models';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HighscoreEntry, Level } from './../models';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HighscoreService, LevelService } from '../services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-highscore',
   templateUrl: './highscore.component.html',
   styleUrls: ['./highscore.component.scss']
 })
-export class HighscoreComponent implements OnInit {
+export class HighscoreComponent implements OnInit, OnDestroy {
   entries: HighscoreEntry[] = [];
   level: Level;
+  routeParameterSubscription: Subscription;
   private index = 0;
 
-  constructor(private service: HighscoreService, private levelService: LevelService, private router: Router) {
-    this.level = levelService.getLevel(this.index);
-    this.entries = service.getLevel(this.index);
+  constructor(
+    private service: HighscoreService,
+    private levelService: LevelService,
+    private router: Router,
+    private route: ActivatedRoute) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
+      this.index = Number.parseInt(value.get('level'), 10);
+      console.log('Level: ' + this.index);
+      this.level = this.levelService.getLevel(this.index);
+      this.entries = this.service.getLevel(this.index);
+    });
+  }
+
+  ngOnDestroy() {
+    this.routeParameterSubscription.unsubscribe();
+    this.routeParameterSubscription = null;
+  }
 
   next() {
-    this.index = this.index === this.levelService.getLevelCount() - 1 ? 0 : this.index + 1;
-    this.level = this.levelService.getLevel(this.index);
-    this.entries = this.service.getLevel(this.index);
+    this.router.navigate(['highscore', this.levelService.getNextLevel()]);
   }
 
   previous() {
-    this.index = (!this.index ? this.levelService.getLevelCount() : this.index) - 1;
-    this.level = this.levelService.getLevel(this.index);
-    this.entries = this.service.getLevel(this.index);
+    this.router.navigate(['highscore', this.levelService.getPreviousLevel()]);
   }
 }

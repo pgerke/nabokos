@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0beta2 (2b71d25, 2019-12-03)"
+   sodipodi:docname="icon2.svg"
+   xml:space="preserve"
+   enable-background="new 0 0 512 512"
+   viewBox="0 0 512 128"
+   height="128px"
+   width="512px"
+   y="0px"
+   x="0px"
+   id="Icon"
+   version="1.1"><metadata
+   id="metadata135"><rdf:RDF><cc:Work
+       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+   id="defs133" /><sodipodi:namedview
+   inkscape:current-layer="Icon"
+   inkscape:window-maximized="0"
+   inkscape:window-y="0"
+   inkscape:window-x="0"
+   inkscape:cy="130.51979"
+   inkscape:cx="238.67527"
+   inkscape:zoom="1.6180527"
+   showgrid="false"
+   id="namedview131"
+   inkscape:window-height="1050"
+   inkscape:window-width="1680"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0"
+   guidetolerance="10"
+   gridtolerance="10"
+   objecttolerance="10"
+   borderopacity="1"
+   inkscape:document-rotation="0"
+   bordercolor="#666666"
+   pagecolor="#ffffff" />
+
+<rect
+   id="rect104"
+   style="fill:none;stroke:#007bff;stroke-width:5"
+   height="100"
+   width="470"
+   ry="25"
+   rx="25"
+   y="13.912028"
+   x="19.867165" />
+<polygon
+   transform="translate(-2.1328348,-194.08797)"
+   id="polygon106"
+   points="38,226 54,226 54,234 62,234 62,242 70,242 70,249 77,249 77,226 93,226 93,281 77,281 77,273 69,273 69,266 61,266 61,258 54,258 54,281 38,281 "
+   fill="#007bff" />
+<path
+   d="M 113.86719 31.912109 L 113.86719 38.912109 L 106.86719 38.912109 L 106.86719 47.912109 L 98.867188 47.912109 L 98.867188 86.912109 L 114.86719 86.912109 L 114.86719 70.912109 L 137.86719 70.912109 L 137.86719 86.912109 L 153.86719 86.912109 L 153.86719 47.912109 L 145.86719 47.912109 L 145.86719 38.912109 L 137.86719 38.912109 L 137.86719 31.912109 L 113.86719 31.912109 z M 122.86719 39.912109 L 129.86719 39.912109 L 129.86719 47.912109 L 137.86719 47.912109 L 137.86719 62.912109 L 114.86719 62.912109 L 114.86719 47.912109 L 122.86719 47.912109 L 122.86719 39.912109 z "
+   style="fill:#007bff"
+   id="polygon108" />
+
+<path
+   d="M 161.86719 31.912109 L 161.86719 86.912109 L 209.86719 86.912109 L 209.86719 78.912109 L 216.86719 78.912109 L 216.86719 62.912109 L 209.86719 62.912109 L 209.86719 55.912109 L 216.86719 55.912109 L 216.86719 39.912109 L 209.86719 39.912109 L 209.86719 31.912109 L 161.86719 31.912109 z M 177.86719 39.912109 L 200.86719 39.912109 L 200.86719 55.912109 L 177.86719 55.912109 L 177.86719 39.912109 z M 177.86719 62.912109 L 200.86719 62.912109 L 200.86719 78.912109 L 177.86719 78.912109 L 177.86719 62.912109 z "
+   style="fill:#007bff"
+   id="polygon112" />
+
+
+<path
+   d="M 232.86719 31.912109 L 232.86719 39.912109 L 224.86719 39.912109 L 224.86719 78.912109 L 232.86719 78.912109 L 232.86719 86.912109 L 271.86719 86.912109 L 271.86719 78.912109 L 279.86719 78.912109 L 279.86719 39.912109 L 271.86719 39.912109 L 271.86719 31.912109 L 232.86719 31.912109 z M 240.86719 39.912109 L 263.86719 39.912109 L 263.86719 78.912109 L 240.86719 78.912109 L 240.86719 39.912109 z "
+   style="fill:#007bff"
+   id="polygon118" />
+
+<polygon
+   transform="translate(-2.1328348,-194.08797)"
+   id="polygon122"
+   points="306,226 306,250 313,250 313,242 321,242 321,234 329,234 329,226 345,226 345,234 337,234 337,242 329,242 329,250 322,250 322,257 329,257 329,265 337,265 337,273 345,273 345,281 329,281 329,273 321,273 321,266 313,266 313,257 306,257 306,281 290,281 290,226 "
+   fill="#007bff" />
+<path
+   d="M 358.86719 31.912109 L 358.86719 39.912109 L 350.86719 39.912109 L 350.86719 78.912109 L 358.86719 78.912109 L 358.86719 86.912109 L 397.86719 86.912109 L 397.86719 78.912109 L 405.86719 78.912109 L 405.86719 39.912109 L 397.86719 39.912109 L 397.86719 31.912109 L 358.86719 31.912109 z M 366.86719 39.912109 L 389.86719 39.912109 L 389.86719 78.912109 L 366.86719 78.912109 L 366.86719 39.912109 z "
+   style="fill:#007bff"
+   id="polygon124" />
+
+<polygon
+   transform="translate(-2.1328348,-194.08797)"
+   id="polygon128"
+   points="424,234 424,226 463,226 463,234 471,234 471,242 455,242 455,234 432,234 432,250 463,250 463,257 471,257 471,273 463,273 463,281 424,281 424,273 416,273 416,265 432,265 432,273 455,273 455,257 424,257 424,250 416,250 416,234 "
+   fill="#007bff" />
+</svg>
