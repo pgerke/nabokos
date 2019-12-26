@@ -18,9 +18,10 @@
     <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
   </div>
   <!-- Content Section -->
-  <div class="scroll-wrapper" [ngClass]="centerContent ? 'level-center' : 'level-left'"
-    (pinchin)="onPinch($event, 'IN')" (pinchout)="onPinch($event, 'OUT')">
-    <div [style.transform]="'scale(' + scaleValue + ')'">
+  <div class="scroll-wrapper" [ngClass]="centerContent ? 'level-center' : 'level-left'" (pinchin)="onPinch('IN')"
+    (pinchout)="onPinch('OUT')">
+    <div class="level-wrapper" [style.transform]="'scale(' + scaleValue + ')'"
+      [ngClass]="centerContent ? 'level-center-origin' : 'level-left-origin'">
       <div class="level-row" *ngFor="let row of level.tiles; index as y">
         <app-tile *ngFor="let tile of row; index as x" [tile]="tile" [isCursorHere]="isCursorHere(x, y)" [isWin]="isWin"
           (click)="moveToClick(tile, x, y)">

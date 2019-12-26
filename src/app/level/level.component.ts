@@ -27,17 +27,13 @@ export class LevelComponent implements OnInit, OnDestroy {
   contentWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
-  // zoomChangedSubscription: Subscription;
   scaleValue = 1;
-
-  zoomText = 'empty';
 
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
     private route: ActivatedRoute,
     private pathFinderService: PathFinderService,
-    // private mobileZoomService: MobileZoomService
   ) { }
 
   ngOnInit() {
@@ -56,10 +52,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.levelTime += 1000;
       }
     });
-    // this.mobileZoomService.setTarget('field');
-    // this.zoomChangedSubscription = this.mobileZoomService.getZoomEmitter().subscribe(value => {
-    //   this.zoomText = value;
-    // });
   }
 
   ngOnDestroy() {
@@ -356,8 +348,8 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.centerContent = window.innerWidth > this.contentWidth;
   }
 
-  onPinch(event: any, text: string) {
-    if (text === 'OUT') {
+  onPinch(zoomType: string) {
+    if (zoomType === 'OUT') {
       this.scaleValue += 0.01;
     } else if (this.scaleValue > 0.01) {
       this.scaleValue -= 0.01;
