@@ -348,6 +348,11 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.centerContent = window.innerWidth > this.contentWidth;
   }
 
+  /**
+   * When a pinch is performed, the function checks the type of the pinch and increases or reduces the scale of the level.
+   * The scale cannot be zero or less. After the new scale is set, the width of the content is recalculated.
+   * @param zoomType indicates whether the user is trying to zoom 'IN' or 'OUT'
+   */
   onPinch(zoomType: string) {
     if (zoomType === 'OUT') {
       this.scaleValue += 0.01;
