@@ -1,9 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HighscoreEntry } from './../models/highscore-entry';
+import { HighscoreEntry, Level } from './../models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HighscoreService } from '../services/highscore.service';
-import { LevelService } from '../services/level.service';
-import { Level } from '../models/level';
+import { HighscoreService, LevelService } from '../services';
 import { Subscription } from 'rxjs';
 
 @Component({

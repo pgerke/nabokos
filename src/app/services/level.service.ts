@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Level } from '../models/level';
-import { Tile } from '../models/tile';
-import { Coordinate } from '../models/coordinate';
+import { Level, Tile, Coordinate } from '../models';
 import { levels as levelData } from '../levels';
 import { Router } from '@angular/router';
 

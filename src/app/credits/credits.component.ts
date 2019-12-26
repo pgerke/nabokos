@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Library } from '../models/library';
+import { Library } from '../models';
 import { version } from '../../../package.json';
 
 @Component({
@@ -27,5 +27,5 @@ export class CreditsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

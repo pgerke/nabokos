@@ -2,9 +2,9 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
-import { Savegame } from '../models/savegame';
+import { Savegame } from '../models';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { ServiceWorkerService } from '../services/service-worker.service';
+import { ServiceWorkerService } from '../services';
 import { of } from 'rxjs';
 
 describe('MenuComponent with save game', () => {
@@ -15,7 +15,7 @@ describe('MenuComponent with save game', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ServiceWorkerModule.register('', { enabled: false})
+        ServiceWorkerModule.register('', { enabled: false })
       ],
       declarations: [MenuComponent]
     }).compileComponents();
@@ -50,7 +50,7 @@ describe('MenuComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ServiceWorkerModule.register('', { enabled: false})
+        ServiceWorkerModule.register('', { enabled: false })
       ],
       declarations: [MenuComponent],
       providers: [ServiceWorkerService]

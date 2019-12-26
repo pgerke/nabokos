@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { HighscoreComponent } from './highscore.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HighscoreService, LevelService } from '../services';
+import { Level } from '../models';
 import { Router } from '@angular/router';
-import { HighscoreService } from '../services/highscore.service';
-import { LevelService } from '../services/level.service';
-import { Level } from '../models/level';
 
 describe('HighscoreComponent', () => {
   let component: HighscoreComponent;

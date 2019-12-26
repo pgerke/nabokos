@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Tile } from '../models/tile';
+import { Tile } from '../models';
 
 @Component({
   selector: 'app-tile',
@@ -12,7 +12,7 @@ export class TileComponent implements OnInit {
   @Input() isWin: boolean;
   tiles = Tile;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

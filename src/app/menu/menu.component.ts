@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Savegame } from '../models/savegame';
+import { Savegame } from '../models';
 import { Subscription } from 'rxjs';
-import { LevelService } from '../services/level.service';
-import { ServiceWorkerService } from '../services/service-worker.service';
+import { LevelService, ServiceWorkerService } from '../services';
 import { version } from '../../../package.json';
 
 @Component({

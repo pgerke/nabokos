@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Coordinate } from '../models/coordinate';
-import { BinaryHeap } from '../models/binaryHeap';
-import { ClosedList } from '../models/closedList';
-import { Level } from '../models/level';
-import { Tile } from '../models/tile';
+import { Coordinate, Level, BinaryHeap, ClosedList, Tile } from '../models';
 
 @Injectable({
   providedIn: 'root'

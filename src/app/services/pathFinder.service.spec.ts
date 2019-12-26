@@ -1,9 +1,7 @@
 import { PathFinderService } from './pathFinder.service';
 import { TestBed } from '@angular/core/testing';
 import { LevelService } from './level.service';
-import { Coordinate } from '../models/coordinate';
-import { Level } from '../models/level';
-import { BinaryHeap } from '../models/binaryHeap';
+import { Coordinate, Level, BinaryHeap } from '../models';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PathFinderService', () => {
