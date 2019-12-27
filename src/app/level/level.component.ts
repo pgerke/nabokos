@@ -134,6 +134,16 @@ export class LevelComponent implements OnInit, OnDestroy {
       case 'Backspace':
         this.undo();
         return;
+      case 'i':
+      case 'I':
+      case '+':
+        this.onPinch('IN', 10);
+        return;
+      case 'o':
+      case 'O':
+      case '-':
+        this.onPinch('OUT', 10);
+        return;
       default:
         return;
     }
