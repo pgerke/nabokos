@@ -451,5 +451,25 @@ describe('LevelComponent', () => {
     expect(component.setContentAlignment).toHaveBeenCalled();
   });
 
+  it('should increase the scale value on zoom out', () => {
+    spyOn(component, 'setContentWidth');
+    component.onPinch('OUT');
+    expect(component.scaleValue).toBe(1.01);
+    expect(component.setContentWidth).toHaveBeenCalled();
+  });
 
+  it('should reduce the scale value on zoom in', () => {
+    spyOn(component, 'setContentWidth');
+    component.onPinch('IN');
+    expect(component.scaleValue).toBe(0.99);
+    expect(component.setContentWidth).toHaveBeenCalled();
+  });
+
+  it('should not reduce the scale value on zoom in, when the new value would be zero', () => {
+    spyOn(component, 'setContentWidth');
+    component.scaleValue = 0.01;
+    component.onPinch('IN');
+    expect(component.scaleValue).toBe(0.01);
+    expect(component.setContentWidth).toHaveBeenCalled();
+  });
 });

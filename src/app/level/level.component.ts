@@ -28,13 +28,14 @@ export class LevelComponent implements OnInit, OnDestroy {
   windowWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
+  scaleValue = 1;
 
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
     private router: Router,
     private route: ActivatedRoute,
-    private pathFinderService: PathFinderService
+    private pathFinderService: PathFinderService,
   ) { }
 
   ngOnInit() {
@@ -341,7 +342,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       }
     }
     // A tile is always drawn with 50px each.
-    this.contentWidth = countTiles * 50;
+    this.contentWidth = countTiles * (50 * this.scaleValue);
     this.setContentAlignment();
   }
 
@@ -354,5 +355,20 @@ export class LevelComponent implements OnInit, OnDestroy {
   setContentAlignment(event?): void {
     this.windowWidth = window.innerWidth;
     this.centerContent = window.innerWidth > this.contentWidth;
+  }
+
+  /**
+   * When a pinch is performed, the function checks the type of the pinch and increases or reduces the scale of the level.
+   * The scale cannot be zero or less. After the new scale is set, the width of the content is recalculated.
+   * @param zoomType indicates whether the user is trying to zoom 'IN' or 'OUT'
+   */
+  onPinch(zoomType: string) {
+    if (zoomType === 'OUT') {
+      this.scaleValue += 0.01;
+    } else if (this.scaleValue > 0.01) {
+      this.scaleValue -= 0.01;
+    }
+
+    this.setContentWidth();
   }
 }

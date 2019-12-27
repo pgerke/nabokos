@@ -8,9 +8,22 @@ import { LevelComponent } from './level/level.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
+import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { ServiceWorkerService } from './services/service-worker.service';
 import { CreditsComponent } from './credits/credits.component';
 import { HttpClientModule } from '@angular/common/http';
+declare var Hammer: any;
+
+export class HammerConfig extends HammerGestureConfig {
+  buildHammer(element: HTMLElement) {
+    const hammer = new Hammer(element, {
+      touchAction: 'pan-x pan-y'
+    });
+
+    hammer.get('pinch').set({ enable: true });
+    return hammer;
+  }
+}
 
 @NgModule({
   declarations: [
@@ -27,9 +40,15 @@ import { HttpClientModule } from '@angular/common/http';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AppRoutingModule
   ],
-  providers: [ ServiceWorkerService ],
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
+    ServiceWorkerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private _: ServiceWorkerService) {}
+  constructor(private _: ServiceWorkerService) { }
 }
