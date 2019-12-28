@@ -89,11 +89,12 @@ Used Breakpoints:
 }
 
 .wrapper-right {
-  margin-left: auto;
+  margin-left: auto;  
   @media (max-width: 575px) {
     padding-right: 10px;
   }
   @media (min-width: 576px) {
+    margin-right: auto;
     padding: 0;
   }
 }

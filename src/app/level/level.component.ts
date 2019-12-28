@@ -11,10 +11,12 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./level.component.scss']
 })
 export class LevelComponent implements OnInit, OnDestroy {
+  private readonly allowMultipleQuickSaves = false;
   private readonly historyLimit = 1000;
   private internalLevel: Level;
 
   isWin: boolean;
+  hasQuicksave: boolean;
   levelId: number;
   levelTime: number;
   levelStarted: boolean;
@@ -39,7 +41,6 @@ export class LevelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
-      console.log(value.get('level'));
       this.levelId = Number.parseInt(value.get('level'), 10);
       const isNewGame = value.get('newGame') ? value.get('newGame').toLowerCase() === 'true' : true;
       console.log('Level: ' + this.levelId);
@@ -47,6 +48,9 @@ export class LevelComponent implements OnInit, OnDestroy {
       if (isNewGame || !this.loadSaveGame()) {
         this.reset();
       }
+
+      const saveGameSerialized = localStorage.getItem(this.getQuickSaveName());
+      this.hasQuicksave = saveGameSerialized && (JSON.parse(saveGameSerialized) as Savegame).levelId === this.levelId;
       this.setContentWidth();
     });
     this.levelTimerSubscription = interval(1000).subscribe(() => {
@@ -104,6 +108,10 @@ export class LevelComponent implements OnInit, OnDestroy {
     return next;
   }
 
+  private getQuickSaveName(): string {
+      return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
+  }
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     let direction;
@@ -138,8 +146,9 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
     this.run(direction);
   }
-  createSaveGame(): void {
-    const saveGame: Savegame = {
+
+  createSaveGame(): Savegame {
+    return {
       levelId: this.levelId,
       levelTime: this.levelTime,
       level: this.level,
@@ -147,8 +156,6 @@ export class LevelComponent implements OnInit, OnDestroy {
       moves: this.counter,
       isWin: this.isWin
     };
-
-    localStorage.setItem('savegame', JSON.stringify(saveGame));
   }
 
   loadSaveGame(): boolean {
@@ -162,6 +169,11 @@ export class LevelComponent implements OnInit, OnDestroy {
       return false;
     }
 
+    this.loadSaveGameInternal(saveGame);
+    return true;
+  }
+
+  private loadSaveGameInternal(saveGame: Savegame) {
     this.level = saveGame.level;
     this.history = saveGame.history;
     this.levelTime = saveGame.levelTime;
@@ -169,7 +181,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.levelStarted = false;
     this.isWin = saveGame.isWin;
     this.hasHighscoreEntry = this.isWin;
-    return true;
   }
 
   moveCursor(coordinate: Coordinate): boolean {
@@ -215,6 +226,27 @@ export class LevelComponent implements OnInit, OnDestroy {
     return true;
   }
 
+  quickLoad(): boolean {
+    const saveGameSerialized = localStorage.getItem(this.getQuickSaveName());
+    if (!saveGameSerialized) {
+      return false;
+    }
+
+    const saveGame = JSON.parse(saveGameSerialized) as Savegame;
+    if (saveGame.levelId !== this.levelId) {
+      return false;
+    }
+
+    this.loadSaveGameInternal(saveGame);
+    return true;
+  }
+
+  quickSave() {
+    const saveGame: Savegame = this.createSaveGame();
+    localStorage.setItem(this.getQuickSaveName(), JSON.stringify(saveGame));
+    this.hasQuicksave = true;
+  }
+
   run(direction: Direction) {
     const newCoordinate: Coordinate = this.getNextCoordinate(this.level.cursor, direction);
     const levelCopy = _.cloneDeep(this.level);
@@ -243,7 +275,8 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   showMenu(): void {
-    this.createSaveGame();
+    const saveGame: Savegame = this.createSaveGame();
+    localStorage.setItem('savegame', JSON.stringify(saveGame));
     this.router.navigate(['menu']);
   }
 

@@ -1,7 +1,7 @@
 <div class="content">
   <!-- Header Section -->
   <div class="bar header row">
-    <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+    <div class="col-lg-1 col-xl-2"></div>
     <div class="header-button-wrapper menu-wrapper col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
       <a class="btn btn-block btn-outline-primary" (click)="showMenu()">Menu</a>
     </div>
@@ -19,7 +19,7 @@
         <button class="btn btn-block btn-outline-primary" title="Next Level" (click)="next()">Next</button>
       </div>
     </div>
-    <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+    <div class="col-lg-1 col-xl-2"></div>
   </div>
   <!-- Content Section -->
   <div class="scroll-wrapper" [ngClass]="centerContent ? 'level-center' : 'level-left'">
@@ -34,17 +34,29 @@
   <span class="win-span" *ngIf="isWin">Well done, YOU WIN!</span>
   <!-- Footer Section -->
   <div class="bar footer row">
-    <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
-    <div class="footer-button-wrapper col col-sm-2 col-md-2 col-lg-2 col-xl-1">
-      <button class="btn btn-block btn-outline-primary" title="Undo" (click)="undo()"
-        [disabled]="!history.length">Undo</button>
+    <div class="col-lg-1 col-xl-1"></div>
+    <div class="footer-button-wrapper col col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 row">
+      <div class="prev-level-wrapper col col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <button class="btn btn-block btn-outline-primary" title="Undo" (click)="undo()" [disabled]="!history.length">Undo</button>
+      </div>
+      <div class="next-level-wrapper col col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <button class="btn btn-block btn-outline-primary btn-img" title="Save" (click)="quickSave()">
+          <img src="../../assets/svg/save.svg">
+        </button>
+      </div>
     </div>
-    <span
-      class="footer-span level-time col col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ levelTime | date: 'mm:ss' }}</span>
-    <span class="footer-span movement-counter col col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ counter }}</span>
-    <div class="footer-button-wrapper col col-sm-2 col-md-2 col-lg-2 col-xl-1">
-      <button class="btn btn-block btn-outline-primary" title="Reset" (click)="reset()">Reset</button>
+    <span class="footer-span level-time col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ levelTime | date: 'mm:ss' }}</span>
+    <span class="footer-span movement-counter col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ counter }}</span>
+    <div class="footer-button-wrapper col col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 row">
+      <div class="prev-level-wrapper col col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+        <button class="btn btn-block btn-outline-primary btn-img" title="Load" (click)="quickLoad()" [disabled]="!hasQuicksave">
+          <img src="../../assets/svg/load.svg">
+        </button>
+      </div>
+      <div class="next-level-wrapper col col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <button class="btn btn-block btn-outline-primary" title="Reset" (click)="reset()">Reset</button>
+      </div>
     </div>
-    <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+    <div class="col-lg-1 col-xl-1"></div>
   </div>
 </div>
