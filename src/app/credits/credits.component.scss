@@ -12,6 +12,21 @@ Used Breakpoints:
 
 @import '../global-styles.scss';
 
+.placeholder {
+  @media (max-width: 575px) {
+    display: none;
+  }
+}
+
+h4 {
+  @media (max-width: 575px) {
+    font-size: 0.8rem;
+  }
+  @media (min-width: 576px) and (max-width: 990px) {
+    font-size: 1rem;
+  }
+}
+
 :host {
   display: block;
 }
@@ -31,5 +46,6 @@ Used Breakpoints:
   .lib-license {
     color: white;
     font-size: x-small;
+    word-wrap: break-word;
   }
 }
