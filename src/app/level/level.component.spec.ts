@@ -179,6 +179,30 @@ describe('LevelComponent', () => {
     });
   });
 
+  it('should process zoom in keyboard events', () => {
+    const onPinchSpy = spyOn(component, 'onPinch');
+    const runSpy = spyOn(component, 'run');
+    const values = ['i', 'I', '+'];
+    values.forEach((input, x) => {
+      component.keyEvent(new KeyboardEvent('keyup', { key: input }));
+      expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
+      expect(onPinchSpy).toHaveBeenCalledWith('IN', 10);
+      expect(runSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  it('should process zoom out keyboard events', () => {
+    const onPinchSpy = spyOn(component, 'onPinch');
+    const runSpy = spyOn(component, 'run');
+    const values = ['o', 'O', '-'];
+    values.forEach((input, x) => {
+      component.keyEvent(new KeyboardEvent('keyup', { key: input }));
+      expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
+      expect(onPinchSpy).toHaveBeenCalledWith('OUT', 10);
+      expect(runSpy).not.toHaveBeenCalled();
+    });
+  });
+
   it('should request next level from service', inject([Router], (router) => {
     const levelServiceSpy = spyOn(levelService, 'getNextLevel');
     const routerSpy = spyOn(router, 'navigate');
@@ -451,25 +475,49 @@ describe('LevelComponent', () => {
     expect(component.setContentAlignment).toHaveBeenCalled();
   });
 
-  it('should increase the scale value on zoom out', () => {
+  it('should increase the scale value on zoom in', () => {
+    spyOn(component, 'setContentWidth');
+    component.onPinch('IN');
+    expect(component.scaleValue).toBe(101);
+    expect(component.setContentWidth).toHaveBeenCalled();
+  });
+
+  it('should reduce the scale value on zoom out', () => {
     spyOn(component, 'setContentWidth');
     component.onPinch('OUT');
-    expect(component.scaleValue).toBe(1.01);
+    expect(component.scaleValue).toBe(99);
     expect(component.setContentWidth).toHaveBeenCalled();
   });
 
-  it('should reduce the scale value on zoom in', () => {
+  it('should not reduce the scale value on zoom out, when the new value would be zero', () => {
     spyOn(component, 'setContentWidth');
-    component.onPinch('IN');
-    expect(component.scaleValue).toBe(0.99);
+    component.scaleValue = 1;
+    component.onPinch('OUT');
+    expect(component.scaleValue).toBe(1);
     expect(component.setContentWidth).toHaveBeenCalled();
   });
 
-  it('should not reduce the scale value on zoom in, when the new value would be zero', () => {
-    spyOn(component, 'setContentWidth');
-    component.scaleValue = 0.01;
-    component.onPinch('IN');
-    expect(component.scaleValue).toBe(0.01);
-    expect(component.setContentWidth).toHaveBeenCalled();
+  it('should prevent the default event, when two fingers are touching the screen', () => {
+    const event = {
+      touches: {
+        length: 2
+      },
+      preventDefault: () => { }
+    };
+    spyOn(event, 'preventDefault');
+    component.preventDefaultZoomEvent(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should not prevent the default event, when only one finger is touching the screen', () => {
+    const event = {
+      touches: {
+        length: 1
+      },
+      preventDefault: () => { }
+    };
+    spyOn(event, 'preventDefault');
+    component.preventDefaultZoomEvent(event);
+    expect(event.preventDefault).not.toHaveBeenCalled();
   });
 });

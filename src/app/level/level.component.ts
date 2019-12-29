@@ -28,14 +28,14 @@ export class LevelComponent implements OnInit, OnDestroy {
   windowWidth: number;
   centerContent: boolean;
   hasHighscoreEntry: boolean;
-  scaleValue = 1;
+  scaleValue = 100;
 
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
     private router: Router,
     private route: ActivatedRoute,
-    private pathFinderService: PathFinderService,
+    private pathFinderService: PathFinderService
   ) { }
 
   ngOnInit() {
@@ -55,6 +55,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.levelTime += 1000;
       }
     });
+    window.addEventListener('touchstart', this.preventDefaultZoomEvent.bind(this), { passive: false });
   }
 
   ngOnDestroy() {
@@ -133,6 +134,16 @@ export class LevelComponent implements OnInit, OnDestroy {
       case 'Z':
       case 'Backspace':
         this.undo();
+        return;
+      case 'i':
+      case 'I':
+      case '+':
+        this.onPinch('IN', 10);
+        return;
+      case 'o':
+      case 'O':
+      case '-':
+        this.onPinch('OUT', 10);
         return;
       default:
         return;
@@ -342,7 +353,7 @@ export class LevelComponent implements OnInit, OnDestroy {
       }
     }
     // A tile is always drawn with 50px each.
-    this.contentWidth = countTiles * (50 * this.scaleValue);
+    this.contentWidth = countTiles * (50 * this.scaleValue / 100);
     this.setContentAlignment();
   }
 
@@ -361,14 +372,27 @@ export class LevelComponent implements OnInit, OnDestroy {
    * When a pinch is performed, the function checks the type of the pinch and increases or reduces the scale of the level.
    * The scale cannot be zero or less. After the new scale is set, the width of the content is recalculated.
    * @param zoomType indicates whether the user is trying to zoom 'IN' or 'OUT'
+   * @param step indicates how much is added to the current scale
    */
-  onPinch(zoomType: string) {
-    if (zoomType === 'OUT') {
-      this.scaleValue += 0.01;
-    } else if (this.scaleValue > 0.01) {
-      this.scaleValue -= 0.01;
+  onPinch(zoomType: string, step = 1) {
+    if (zoomType === 'IN') {
+      this.scaleValue += step;
+    } else if (this.scaleValue > step) {
+      this.scaleValue -= step;
     }
 
     this.setContentWidth();
+  }
+
+  /**
+   * When zooming, no other touch action should be performed. This is needed for Safari, which allows scrolling while zooming.
+   * Depending on how many fingers are touching the screen (only zoom needs two fingers), the default action is performed or not.
+   * @param event the touch event
+   */
+  preventDefaultZoomEvent(event: any) {
+    if (event.touches.length < 2) {
+      return;
+    }
+    event.preventDefault();
   }
 }

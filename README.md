@@ -25,8 +25,13 @@ If you want to play Nabokos with a keyboard, you can use the following controls 
 * <kbd>S</kbd>, <kbd>s</kbd> or <kbd>&#8595;</kbd> to move the player down
 * <kbd>D</kbd>, <kbd>d</kbd> or <kbd>&#8594;</kbd> to move the player right
 * <kbd>Z</kbd>, <kbd>z</kbd> or <kbd>Backspace</kbd> to undo the last move
+* <kbd>I</kbd>, <kbd>i</kbd> or <kbd>+</kbd> to zoom in
+* <kbd>O</kbd>, <kbd>o</kbd> or <kbd>-</kbd> to zoom out
 
 Moving in the direction of a box while standing next to it, will push the box, if possible.
+
+### Zooming ###
+While playing on a small device, you can easily get lost with all the boxes and walls, but don't worry, there is something you can do. For zooming outside you need two fingers touching the screen where the level is located, moving towards one another. Now you can see the bigger picture right? But, oh no, now the level is to tiny to click on a specific field! Keep calm, you can of course also zoom inside the level. It is hardly the same as zooming outside, again you need to fingers touching the screen, but now moving away from one another. Awesome right? For non touch devices you can use the keyboard bindings as shown above.
 
 ## System Requirements ##
 
