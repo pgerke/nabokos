@@ -141,6 +141,10 @@ Overall Section
   }
 }
 
+.button-image {
+  background: transparent;
+}
+
 .footer-span {
   text-align: center;
   flex: 1;
@@ -157,6 +161,10 @@ Overall Section
   @media (min-width: 500px) and (max-width: 767px) {
     font-size: 0.8rem;
   }
+}
+
+.level-time {
+  position: initial;
 }
 
 .level-time::before {
