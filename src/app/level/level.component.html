@@ -39,20 +39,24 @@
     <div class="col-lg-1 col-xl-1"></div>
     <div class="footer-button-wrapper col col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 row">
       <div class="prev-level-wrapper col col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <button class="btn btn-block btn-outline-primary" title="Undo" (click)="undo()" [disabled]="!history.length">Undo</button>
+        <button class="btn btn-block btn-outline-primary" title="Undo" (click)="undo()"
+          [disabled]="!history.length">Undo</button>
       </div>
       <div class="next-level-wrapper col col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
         <button class="btn btn-block btn-outline-primary btn-img" title="Save" (click)="quickSave()">
-          <img src="../../assets/svg/save.svg">
+          <img class="button-image" src="../../assets/svg/save.svg">
         </button>
       </div>
     </div>
-    <span class="footer-span level-time col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ levelTime | date: 'mm:ss' }}</span>
-    <span class="footer-span movement-counter col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ counter }}</span>
+    <span
+      class="footer-span level-time col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ levelTime | date: 'mm:ss' }}</span>
+    <span
+      class="footer-span movement-counter col col-2 col-sm-auto col-md-auto col-lg-auto col-xl-auto">{{ counter }}</span>
     <div class="footer-button-wrapper col col-4 col-sm-3 col-md-3 col-lg-2 col-xl-2 row">
       <div class="prev-level-wrapper col col-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
-        <button class="btn btn-block btn-outline-primary btn-img" title="Load" (click)="quickLoad()" [disabled]="!hasQuicksave">
-          <img src="../../assets/svg/load.svg">
+        <button class="btn btn-block btn-outline-primary btn-img" title="Load" (click)="quickLoad()"
+          [disabled]="!hasQuicksave">
+          <img class="button-image" src="../../assets/svg/load.svg">
         </button>
       </div>
       <div class="next-level-wrapper col col-8 col-sm-9 col-md-9 col-lg-9 col-xl-9">
