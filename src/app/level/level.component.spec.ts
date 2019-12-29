@@ -25,6 +25,53 @@ describe('LevelComponent (shallow)', () => {
       .compileComponents();
   }));
 
+  it('should recognize quicksave', () => {
+    localStorage.clear();
+    const levelService = new LevelService(null);
+    const highscoreService = new HighscoreService();
+    const pathFinderService = new PathFinderService();
+    const route = new ActivatedRoute();
+    route.params = of({
+      level: 123,
+      newGame: 'true'
+    });
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const testLevelSerialized = `####
+#  @#
+####`;
+    const testLevel = levelService.loadLevel(testLevelSerialized);
+    const savegame: Savegame = {
+      history: [],
+      level: testLevel,
+      levelId: 123,
+      levelTime: 456000,
+      moves: 789,
+      isWin: false
+    };
+    localStorage.setItem('quicksave', JSON.stringify(savegame));
+    expect(lvl.hasQuicksave).toBeFalsy();
+    lvl.ngOnInit();
+    expect(lvl.hasQuicksave).toBeTruthy();
+  });
+
+  it('should get corrent quicksave name', () => {
+      localStorage.clear();
+      const levelService = new LevelService(null);
+      const highscoreService = new HighscoreService();
+      const pathFinderService = new PathFinderService();
+      const route = new ActivatedRoute();
+      route.params = of({
+        level: 0,
+        newGame: 'true'
+      });
+      const lvl: any = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+      lvl.levelId = 123;
+      lvl.allowMultipleQuickSaves = false;
+      expect(lvl.getQuickSaveName()).toBe('quicksave');
+      lvl.allowMultipleQuickSaves = true;
+      expect(lvl.getQuickSaveName()).toBe('quicksave123');
+  });
+
   it('should processs timer', () => {
     localStorage.clear();
     const levelService = new LevelService(null);
@@ -55,7 +102,7 @@ describe('LevelComponent (shallow)', () => {
     lvl.ngOnDestroy();
   });
 
-  it('should processs timer', fakeAsync(() => {
+  it('should processs timer and continue counting', fakeAsync(() => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
@@ -279,13 +326,59 @@ describe('LevelComponent', () => {
   });
 
   it('should navigate to menu', inject([Router], router => {
+    localStorage.clear();
     const saveSpy = spyOn(component, 'createSaveGame');
     const routerSpy = spyOn(router, 'navigate');
+    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key, value) => {
+      expect(key).toBe('savegame');
+    });
 
     component.showMenu();
     expect(saveSpy).toHaveBeenCalled();
+    expect(localStorageSpy).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['menu']);
   }));
+
+  it('should quickload', () => {
+    // should return false, if localStorage has no 'quicksave' key
+    expect(component.quickLoad()).toBeFalsy();
+
+    // should return false, if the levelId in the saveGame does not equal the current level
+    const testLevelSerialized = `####
+#  @#
+####`;
+    const testLevel = levelService.loadLevel(testLevelSerialized);
+    const savegame: Savegame = {
+      history: [],
+      level: testLevel,
+      levelId: 123,
+      levelTime: 456000,
+      moves: 789,
+      isWin: false
+    };
+    localStorage.setItem('quicksave', JSON.stringify(savegame));
+    expect(component.quickLoad()).toBeFalsy();
+
+    // should load the saved game and return true
+    component.levelId = 0;
+    savegame.levelId = component.levelId;
+    localStorage.setItem('quicksave', JSON.stringify(savegame));
+    expect(component.quickLoad()).toBeTruthy();
+    expect(component.levelTime).toBe(savegame.levelTime);
+  });
+
+  it('should quicksave', () => {
+    localStorage.clear();
+    expect(component.hasQuicksave).toBeFalsy();
+    const saveSpy = spyOn(component, 'createSaveGame');
+    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key, value) => {
+      expect(key).toBe('quicksave');
+    });
+    component.quickSave();
+    expect(saveSpy).toHaveBeenCalled();
+    expect(localStorageSpy).toHaveBeenCalled();
+    expect(component.hasQuicksave).toBeTruthy();
+  });
 
   it('should create savegame', () => {
     const testLevelSerialized = `####
@@ -296,23 +389,18 @@ describe('LevelComponent', () => {
     component.levelId = 123;
     component.levelTime = 456000;
     component.counter = 789;
-    const spy = spyOn(localStorage, 'setItem').and.callFake((key, value) => {
-      expect(key).toBe('savegame');
-      const savegame: Savegame = JSON.parse(value) as Savegame;
-      expect(savegame.levelId).toBe(component.levelId);
-      expect(savegame.moves).toBe(component.counter);
-      expect(savegame.levelTime).toBe(component.levelTime);
-      expect(savegame.history).toEqual(component.history);
-    });
-    component.createSaveGame();
-    expect(spy).toHaveBeenCalled();
+    const savegame = component.createSaveGame();
+    expect(savegame.levelId).toBe(component.levelId);
+    expect(savegame.moves).toBe(component.counter);
+    expect(savegame.levelTime).toBe(component.levelTime);
+    expect(savegame.history).toEqual(component.history);
   });
 
   it('should load savegame', () => {
     // should return false, if localStorage has no 'savegame' key
     expect(component.loadSaveGame()).toBeFalsy();
 
-    // should return false, if the levelId in the saveGame
+    // should return false, if the levelId in the saveGame does not equal the current level
     const testLevelSerialized = `####
 #  @#
 ####`;

@@ -16,6 +16,9 @@ Overall Section
 
 @import '../global-styles.scss';
 
+.btn-img {
+  padding: 0;
+}
 
 // ----------------------------------------------------------------------------------
 
@@ -104,21 +107,54 @@ Overall Section
   margin-top: 20px;
   bottom: 0;
   padding: 5px 10px 10px 10px;
+
+  .btn {
+    @media (max-width: 399px) {
+      font-size: 0.5rem;
+    }
+    @media (min-width: 400px) and (max-width: 435px) {
+      font-size: 0.6rem;
+    }
+    &.btn-img {
+      padding: 0;
+    }
+  }
 }
 
 .footer-button-wrapper {
   padding: 0;
-  margin-right: 1px;
+  margin: 0px;
+
+  img {
+    @media (min-width: 768px) {
+      width: 36px;
+    }
+    @media (min-width: 436px) and (max-width: 767px) {
+      width: 31px;
+    }
+    @media (min-width: 400px) and (max-width: 435px) {
+      width: 26px;
+    }
+    @media (max-width: 399px) {
+      width: 24px;
+    }
+  }
 }
 
 .footer-span {
   text-align: center;
   flex: 1;
   @media (max-width: 399px) {
-    font-size: 0.7rem;
-    padding: 5px
+    font-size: 0.55rem;
+    padding: 5px  
   }
-  @media (min-width: 400px) and (max-width: 767px) {
+  @media (min-width: 400px) and (max-width: 435px) {
+    font-size: 0.55rem;
+  }
+  @media (min-width: 436px) and (max-width: 499px) {
+    font-size: 0.7rem;
+  }
+  @media (min-width: 500px) and (max-width: 767px) {
     font-size: 0.8rem;
   }
 }
