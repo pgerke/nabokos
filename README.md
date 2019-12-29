@@ -31,7 +31,12 @@ If you want to play Nabokos with a keyboard, you can use the following controls 
 Moving in the direction of a box while standing next to it, will push the box, if possible.
 
 ### Zooming ###
+
 While playing on a small device, you can easily get lost with all the boxes and walls, but don't worry, there is something you can do. For zooming outside you need two fingers touching the screen where the level is located, moving towards one another. Now you can see the bigger picture right? But, oh no, now the level is to tiny to click on a specific field! Keep calm, you can of course also zoom inside the level. It is hardly the same as zooming outside, again you need to fingers touching the screen, but now moving away from one another. Awesome right? For non touch devices you can use the keyboard bindings as shown above.
+
+## Savegames ##
+
+We are aware that some puzzles are ~frustrating~ challenging. So in order to prevent you from banging your head into the keyboard, we are giving you the option to save the progress for your current puzzle. Just click the <img src="src/assets/svg/save.svg" alt="wall image" width="16px"> button in the footer to create a savegame and the <img src="src/assets/svg/load.svg" alt="wall image" width="16px"> button to restore it again. Move counter and level timer will be reset to the values at the time the savegame was created. But beware: Clicking the save button again will overwrite your previous savegame! Also, you only have one savegame slot. So saving progress on another puzzle, will also overwrite your current savegame.
 
 ## System Requirements ##
 
