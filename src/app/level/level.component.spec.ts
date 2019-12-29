@@ -496,4 +496,28 @@ describe('LevelComponent', () => {
     expect(component.scaleValue).toBe(1);
     expect(component.setContentWidth).toHaveBeenCalled();
   });
+
+  it('should prevent the default event, when two fingers are touching the screen', () => {
+    const event = {
+      touches: {
+        length: 2
+      },
+      preventDefault: () => { }
+    };
+    spyOn(event, 'preventDefault');
+    component.preventDefaultZoomEvent(event);
+    expect(event.preventDefault).toHaveBeenCalled();
+  });
+
+  it('should not prevent the default event, when only one finger is touching the screen', () => {
+    const event = {
+      touches: {
+        length: 1
+      },
+      preventDefault: () => { }
+    };
+    spyOn(event, 'preventDefault');
+    component.preventDefaultZoomEvent(event);
+    expect(event.preventDefault).not.toHaveBeenCalled();
+  });
 });

@@ -55,6 +55,7 @@ export class LevelComponent implements OnInit, OnDestroy {
         this.levelTime += 1000;
       }
     });
+    window.addEventListener('touchstart', this.preventDefaultZoomEvent.bind(this), { passive: false });
   }
 
   ngOnDestroy() {
@@ -381,5 +382,17 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
 
     this.setContentWidth();
+  }
+
+  /**
+   * When zooming, no other touch action should be performed. This is needed for Safari, which allows scrolling while zooming.
+   * Depending on how many fingers are touching the screen (only zoom needs two fingers), the default action is performed or not.
+   * @param event the touch event
+   */
+  preventDefaultZoomEvent(event: any) {
+    if (event.touches.length < 2) {
+      return;
+    }
+    event.preventDefault();
   }
 }
