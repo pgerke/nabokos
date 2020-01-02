@@ -1,5 +1,5 @@
 # Stage 1, based on Node.js, to build and compile Angular
-FROM node:13.5-alpine as build
+FROM node:13.5 as build
 
 # Copy the package.json and package-lock.json from the project
 COPY package.json package-lock.json ./
