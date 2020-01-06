@@ -18,19 +18,19 @@
 
 <div class="editor">
   <div class="input btn-group btn-group-vertical">
-    <button class="btn btn-secondary" [class.active]="selectedTool === 'floor'" (click)="selectTool('floor')" title="Floor">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'floor'" (click)="selectTool(tile.floor)" title="Floor">
       <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
     </button>
-    <button class="btn btn-secondary" [class.active]="selectedTool === 'wall'" (click)="selectTool('wall')" title="Wall">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'wall'" (click)="selectTool(tile.wall)" title="Wall">
       <img class="tool-image" src="../../assets/svg/wall.svg">
     </button>
-    <button class="btn btn-secondary" [class.active]="selectedTool === 'target'" (click)="selectTool('target')" title="Target">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'target'" (click)="selectTool(tile.target)" title="Target">
       <img class="tool-image" src="../../assets/svg/target.svg">
     </button>
-    <button class="btn btn-secondary" [class.active]="selectedTool === 'box'" (click)="selectTool('box')" title="Box">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'box'" (click)="selectTool(tile.box)" title="Box">
       <img class="tool-image" src="../../assets/svg/box.svg">
     </button>
-    <button class="btn btn-secondary" [class.active]="selectedTool === 'targetWithBox'" (click)="selectTool('targetWithBox')" title="Box in Target">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'targetWithBox'" (click)="selectTool(tile.targetWithBox)" title="Box in Target">
       <img class="tool-image" src="../../assets/svg/box_in_target.svg">
     </button>
     <button class="btn btn-secondary" [class.active]="selectedTool === 'cursor'" (click)="selectTool('cursor')" title="Player">

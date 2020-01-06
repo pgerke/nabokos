@@ -7,10 +7,10 @@ import { Coordinate, Tile } from '../models';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
-
+  tile = Tile;
   cursor: Coordinate = undefined;
   tiles: Tile[][];
-  selectedTool: Tile = Tile.wall;
+  selectedTool: Tile | string = Tile.wall;
   isPainting = false;
   mouseButton: number = undefined;
   private readonly initialColumnCount = 16;
@@ -83,7 +83,7 @@ export class EditorComponent implements OnInit {
           }
           this.cursor = new Coordinate(x, y);
         } else {
-          this.tiles[y][x] = this.selectedTool;
+          this.tiles[y][x] = this.selectedTool as Tile;
         }
         return;
       case 2:
@@ -93,7 +93,7 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  selectTool(tool: Tile) {
+  selectTool(tool: Tile | string) {
     this.selectedTool = tool;
     console.log('Select tool: ' + tool);
   }
