@@ -1,0 +1,53 @@
+<div class="bar header row">
+  <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+  <div class="header-button-wrapper menu-wrapper col-3 col-sm-2 col-md-2 col-lg-2 col-xl-1">
+		<a class="btn btn-block btn-outline-primary" [routerLink]="['menu']">Menu</a>
+  </div>
+  <div class="title-placeholder col-sm-2 col-md-1 col-lg-1 col-xl-1"></div>
+  <span class="title col-auto col-sm-auto col-md-auto col-lg-auto col-xl-auto">Level Editor</span>
+  <div class="header-button-wrapper wrapper-right col-6 col-sm-4 col-md-4 col-lg-4 col-xl-2 row">
+    <div class="prev-level-wrapper col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <button class="btn btn-block btn-outline-primary" title="Load" (click)="load()">Load</button>
+    </div>
+    <div class="next-level-wrapper col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+      <button class="btn btn-block btn-outline-primary" title="Save" (click)="save()">Save</button>
+    </div>
+  </div>
+  <div class="col-sm-1 col-md-1 col-lg-1 col-xl-2"></div>
+</div>
+
+<div class="editor">
+  <div class="input btn-group btn-group-vertical">
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'floor'" (click)="selectTool('floor')" title="Floor">
+      <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'wall'" (click)="selectTool('wall')" title="Wall">
+      <img class="tool-image" src="../../assets/svg/wall.svg">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'target'" (click)="selectTool('target')" title="Target">
+      <img class="tool-image" src="../../assets/svg/target.svg">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'box'" (click)="selectTool('box')" title="Box">
+      <img class="tool-image" src="../../assets/svg/box.svg">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'targetWithBox'" (click)="selectTool('targetWithBox')" title="Box in Target">
+      <img class="tool-image" src="../../assets/svg/box_in_target.svg">
+    </button>
+    <button class="btn btn-secondary" [class.active]="selectedTool === 'cursor'" (click)="selectTool('cursor')" title="Player">
+      <img class="tool-image" src="../../assets/svg/player.svg">
+    </button>
+  </div>
+
+  <div class="preview">
+    <div class="level-row" *ngFor="let row of tiles; index as y">
+      <app-tile
+        *ngFor="let tile of row; index as x"
+        [tile]="tile"
+        [isCursorHere]="isCursorHere(x, y)"        
+        (click)="setTile($event, tile, x, y)"
+        (contextmenu)="setTile($event, tile, x, y)"
+        (mouseover)="setTile($event, tile, x, y)">
+      </app-tile>
+    </div>
+  </div>
+</div> 

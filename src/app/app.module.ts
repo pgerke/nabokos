@@ -12,6 +12,7 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-br
 import { ServiceWorkerService } from './services/service-worker.service';
 import { CreditsComponent } from './credits/credits.component';
 import { HttpClientModule } from '@angular/common/http';
+import { EditorComponent } from './editor/editor.component';
 declare var Hammer: any;
 
 export class HammerConfig extends HammerGestureConfig {
@@ -32,7 +33,8 @@ export class HammerConfig extends HammerGestureConfig {
     LevelComponent,
     HighscoreComponent,
     MenuComponent,
-    CreditsComponent
+    CreditsComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,

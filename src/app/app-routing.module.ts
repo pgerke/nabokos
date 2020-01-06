@@ -4,6 +4,7 @@ import { LevelComponent } from './level/level.component';
 import { HighscoreComponent } from './highscore/highscore.component';
 import { MenuComponent } from './menu/menu.component';
 import { CreditsComponent } from './credits/credits.component';
+import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
   { path: 'level/:level/:newGame', component: LevelComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'menu/highscore/:setName', component: MenuComponent },
   { path: 'menu/highscore', component: MenuComponent },
   { path: 'menu', component: MenuComponent },
+  { path: 'editor', component: EditorComponent },
   { path: 'credits', component: CreditsComponent },
   { path: '', redirectTo: '/menu', pathMatch: 'full' },
   { path: '**', redirectTo: '/menu' }
