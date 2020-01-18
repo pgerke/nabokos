@@ -4,6 +4,7 @@ import { Savegame } from '../models';
 import { Subscription } from 'rxjs';
 import { LevelService, ServiceWorkerService } from '../services';
 import { version } from '../../../package.json';
+import { LevelCompletionService } from '../services/level-completion.service';
 
 @Component({
   selector: 'app-menu',
@@ -30,7 +31,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private levelService: LevelService,
-    public serviceWorkerService: ServiceWorkerService) { }
+    public serviceWorkerService: ServiceWorkerService,
+    private levelCompletionService: LevelCompletionService) { }
 
   ngOnInit() {
     if (this.serviceWorkerService.isEnabled) {
@@ -43,6 +45,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     const saveGameSerialized = localStorage.getItem('savegame');
     this.canContinue = saveGameSerialized !== null;
+
+    const completedLevels = this.levelCompletionService.getLevelCompletion();
 
     if (this.canContinue) {
       this.savegame = JSON.parse(saveGameSerialized) as Savegame;
@@ -60,7 +64,11 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', 'ng_' + set] });
       this.internalMenu.push({ parent: 'ng_' + set, displayName: 'Back', routerLink: ['/menu/newgame'] });
       this.levelService.getLevels(set).forEach(level => {
-        this.internalMenu.push({ parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true] });
+        const isCompleted = completedLevels.includes(level.id);
+        this.internalMenu.push({
+          parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true],
+          completed: isCompleted
+        });
       });
 
       // Push menu items for high score

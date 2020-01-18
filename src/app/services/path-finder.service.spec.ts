@@ -1,4 +1,4 @@
-import { PathFinderService } from './pathFinder.service';
+import { PathFinderService } from './path-finder.service';
 import { TestBed } from '@angular/core/testing';
 import { LevelService } from './level.service';
 import { Coordinate, Level, BinaryHeap } from '../models';
