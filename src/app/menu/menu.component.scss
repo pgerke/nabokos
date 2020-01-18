@@ -80,3 +80,14 @@ Used Breakpoints:
     padding: 2% 0 2% 0;
   }
 }
+
+.sub-header-span {
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  margin-top: 1%;
+  
+  @media (max-width: 400px) {
+    font-size: 1rem;
+  }
+}
