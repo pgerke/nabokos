@@ -88,4 +88,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   async checkUpdate() {
     await this.serviceWorkerService.checkForUpdate();
   }
+
+  getSetName() {
+    return this.parent.replace('ng_', '');
+  }
 }

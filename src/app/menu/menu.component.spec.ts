@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Savegame } from '../models';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ServiceWorkerService } from '../services';
@@ -53,7 +53,15 @@ describe('MenuComponent', () => {
         ServiceWorkerModule.register('', { enabled: false })
       ],
       declarations: [MenuComponent],
-      providers: [ServiceWorkerService]
+      providers: [
+        ServiceWorkerService,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            url: of([{ path: 'menu' }, { path: 'newgame' }, { path: 'ng_Microban' }]),
+          },
+        },
+      ]
     }).compileComponents();
   }));
 
@@ -82,5 +90,10 @@ describe('MenuComponent', () => {
     const spy = spyOn(service, 'activateUpdate');
     await component.applyUpdate();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should get the right name', () => {
+    const setName = component.getSetName();
+    expect(setName).toBe('Microban');
   });
 });
