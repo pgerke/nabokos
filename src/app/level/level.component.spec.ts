@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
 import { Direction, Savegame, Coordinate, Tile } from '../models';
-import { LevelService, HighscoreService, PathFinderService } from '../services';
+import { LevelService, HighscoreService, PathFinderService, LevelCompletionService } from '../services';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TileComponent } from '../tile/tile.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,12 +30,13 @@ describe('LevelComponent (shallow)', () => {
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
+    const levelCompletionService = new LevelCompletionService();
     const route = new ActivatedRoute();
     route.params = of({
       level: 123,
       newGame: 'true'
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -55,21 +56,22 @@ describe('LevelComponent (shallow)', () => {
   });
 
   it('should get corrent quicksave name', () => {
-      localStorage.clear();
-      const levelService = new LevelService(null);
-      const highscoreService = new HighscoreService();
-      const pathFinderService = new PathFinderService();
-      const route = new ActivatedRoute();
-      route.params = of({
-        level: 0,
-        newGame: 'true'
-      });
-      const lvl: any = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
-      lvl.levelId = 123;
-      lvl.allowMultipleQuickSaves = false;
-      expect(lvl.getQuickSaveName()).toBe('quicksave');
-      lvl.allowMultipleQuickSaves = true;
-      expect(lvl.getQuickSaveName()).toBe('quicksave123');
+    localStorage.clear();
+    const levelService = new LevelService(null);
+    const highscoreService = new HighscoreService();
+    const pathFinderService = new PathFinderService();
+    const levelCompletionService = new LevelCompletionService();
+    const route = new ActivatedRoute();
+    route.params = of({
+      level: 0,
+      newGame: 'true'
+    });
+    const lvl: any = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
+    lvl.levelId = 123;
+    lvl.allowMultipleQuickSaves = false;
+    expect(lvl.getQuickSaveName()).toBe('quicksave');
+    lvl.allowMultipleQuickSaves = true;
+    expect(lvl.getQuickSaveName()).toBe('quicksave123');
   });
 
   it('should processs timer', () => {
@@ -77,6 +79,7 @@ describe('LevelComponent (shallow)', () => {
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
+    const levelCompletionService = new LevelCompletionService();
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -95,7 +98,7 @@ describe('LevelComponent (shallow)', () => {
       level: 1,
       newGame: 'false'
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
     lvl.ngOnInit();
     expect(lvl.levelTime).toBe(234000);
     expect(lvl.counter).toBe(567);
@@ -107,12 +110,13 @@ describe('LevelComponent (shallow)', () => {
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
+    const levelCompletionService = new LevelCompletionService();
     const route = new ActivatedRoute();
     route.params = of({
       level: 0,
       newGame: 'true'
     });
-    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService);
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
     lvl.ngOnInit();
     expect(lvl.levelTimerSubscription).toBeDefined();
     expect(lvl.levelStarted).toBeFalsy();

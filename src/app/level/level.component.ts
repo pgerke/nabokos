@@ -4,6 +4,7 @@ import { LevelService, HighscoreService, PathFinderService } from '../services';
 import { Subscription, interval } from 'rxjs';
 import * as _ from 'lodash';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LevelCompletionService } from '../services/level-completion.service';
 
 @Component({
   selector: 'app-level',
@@ -37,7 +38,8 @@ export class LevelComponent implements OnInit, OnDestroy {
     private highscoreService: HighscoreService,
     private router: Router,
     private route: ActivatedRoute,
-    private pathFinderService: PathFinderService
+    private pathFinderService: PathFinderService,
+    private levelCompletionService: LevelCompletionService
   ) { }
 
   ngOnInit() {
@@ -73,11 +75,13 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.isWin = this.level.tiles.every(line => !line.some(tile => tile === Tile.target || tile === Tile.box));
     if (this.isWin && !this.hasHighscoreEntry) {
       console.log('Player has won.');
+      console.log(this.levelId);
       this.highscoreService.addEntry(this.levelId, {
         name: 'Player',
         moves: this.counter,
         levelTime: this.levelTime
       });
+      this.levelCompletionService.addEntry(this.levelId);
       this.hasHighscoreEntry = true;
     }
   }
@@ -111,7 +115,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   private getQuickSaveName(): string {
-      return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
+    return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
   }
 
   @HostListener('window:keyup', ['$event'])
@@ -278,6 +282,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.levelTime = 0;
     this.levelStarted = false;
     this.isWin = false;
+    this.hasHighscoreEntry = false;
   }
 
   saveHistory(level: Level) {
