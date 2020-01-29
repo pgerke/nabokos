@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TileComponent } from '../tile/tile.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 describe('LevelComponent (shallow)', () => {
   beforeEach(async(() => {
@@ -25,12 +26,12 @@ describe('LevelComponent (shallow)', () => {
       .compileComponents();
   }));
 
-  it('should recognize quicksave', () => {
+  it('should recognize quicksave', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
-    const levelCompletionService = new LevelCompletionService();
+    const levelCompletionService = new LevelCompletionService(levelService, domSanitizer);
     const route = new ActivatedRoute();
     route.params = of({
       level: 123,
@@ -53,14 +54,15 @@ describe('LevelComponent (shallow)', () => {
     expect(lvl.hasQuicksave).toBeFalsy();
     lvl.ngOnInit();
     expect(lvl.hasQuicksave).toBeTruthy();
-  });
+  }));
 
-  it('should get corrent quicksave name', () => {
+  it('should get corrent quicksave name', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
-    const levelCompletionService = new LevelCompletionService();
+    const levelCompletionService = new LevelCompletionService(levelService, domSanitizer);
+
     const route = new ActivatedRoute();
     route.params = of({
       level: 0,
@@ -72,14 +74,14 @@ describe('LevelComponent (shallow)', () => {
     expect(lvl.getQuickSaveName()).toBe('quicksave');
     lvl.allowMultipleQuickSaves = true;
     expect(lvl.getQuickSaveName()).toBe('quicksave123');
-  });
+  }));
 
-  it('should processs timer', () => {
+  it('should processs timer', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
-    const levelCompletionService = new LevelCompletionService();
+    const levelCompletionService = new LevelCompletionService(levelService, domSanitizer);
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -103,14 +105,14 @@ describe('LevelComponent (shallow)', () => {
     expect(lvl.levelTime).toBe(234000);
     expect(lvl.counter).toBe(567);
     lvl.ngOnDestroy();
-  });
+  }));
 
-  it('should processs timer and continue counting', fakeAsync(() => {
+  it('should processs timer and continue counting', fakeAsync(inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
     const pathFinderService = new PathFinderService();
-    const levelCompletionService = new LevelCompletionService();
+    const levelCompletionService = new LevelCompletionService(levelService, domSanitizer);
     const route = new ActivatedRoute();
     route.params = of({
       level: 0,
@@ -129,7 +131,7 @@ describe('LevelComponent (shallow)', () => {
     tick(2500);
     expect(lvl.levelTime).toBeGreaterThan(2500);
     lvl.ngOnDestroy();
-  }));
+  })));
 });
 
 describe('LevelComponent', () => {

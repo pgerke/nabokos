@@ -3,7 +3,7 @@
   <span class="header-span col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4">Nabokos</span>
   <div class="col-1 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
 </div>
-<ng-container *ngIf="isSetMenu">
+<ng-container *ngIf="isLevelMenu">
   <div class="row">
     <div class="col-1 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
     <span class="sub-header-span col-10 col-sm-8 col-md-6 col-lg-4 col-xl-4">{{ getSetName() }}</span>
@@ -11,13 +11,20 @@
   </div>
 </ng-container>
 <div class="menu">
-  <ng-container *ngIf="!isSetMenu else setMenu">
+  <ng-container *ngIf="!isLevelMenu else levelMenu">
     <div class="row" *ngFor="let menuItem of menu">
       <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
       <div class="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-4 row">
         <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
-        <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
-          [routerLink]="menuItem.routerLink" [class.disabled]="menuItem.disabled">{{ menuItem.displayName }}</a>
+        <ng-container *ngIf="isSetMenu else setMenu">
+          <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
+            [routerLink]="menuItem.routerLink" [class.disabled]="menuItem.disabled"
+            [style.background]="menuItem.progress">{{ menuItem.displayName }}</a>
+        </ng-container>
+        <ng-template #setMenu>
+          <a class="col-12 col-sm-10 col-md-10 col-lg-10 col-xl-10 btn btn-outline-primary"
+            [routerLink]="menuItem.routerLink" [class.disabled]="menuItem.disabled">{{ menuItem.displayName }}</a>
+        </ng-template>
         <div class="placeholder col-sm-1 col-md-1 col-lg-1 col-xl-1"></div>
       </div>
       <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-4"></div>
@@ -40,7 +47,7 @@
 </div>
 <span class="footer-span">Nabokos v{{ appVersion }} © 2019 - All rights reserved.</span>
 
-<ng-template #setMenu>
+<ng-template #levelMenu>
   <div class="row">
     <div class="col-1 col-sm-1 col-md-2 col-lg-2 col-xl-2"></div>
     <div class="col-10 col-sm-10 col-md-8 col-lg-8 col-xl-8 row">
