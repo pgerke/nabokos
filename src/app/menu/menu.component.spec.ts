@@ -96,4 +96,10 @@ describe('MenuComponent', () => {
     const setName = component.getSetName();
     expect(setName).toBe('Microban');
   });
+
+  it('isSetMenu should indicate if currently a set menu is shown', () => {
+    // because current path in test setup is /menu/newgame/ng_Microban/
+    // so the parent is ng_Microban
+    expect(component.isSetMenu).toBeFalsy();
+  });
 });

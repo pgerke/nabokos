@@ -24,8 +24,11 @@ export class MenuComponent implements OnInit, OnDestroy {
   get menu(): any[] {
     return this.internalMenu.filter(e => e.parent === this.parent);
   }
-  get isSetMenu(): boolean {
+  get isLevelMenu(): boolean {
     return this.parent.startsWith('ng_') || this.parent.startsWith('hs_'); // this.parent !== 'menu' && this.parent !== 'newgame';
+  }
+  get isSetMenu(): boolean {
+    return this.parent.startsWith('newgame');
   }
 
   constructor(
@@ -61,7 +64,6 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.internalMenu.push({ parent: 'highscore', displayName: 'Back', routerLink: ['/menu'] });
     this.levelService.getLevelSets().sort().forEach(set => {
       // Push menu items for new game
-      this.internalMenu.push({ parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', 'ng_' + set] });
       this.internalMenu.push({ parent: 'ng_' + set, displayName: 'Back', routerLink: ['/menu/newgame'] });
       this.levelService.getLevels(set).forEach(level => {
         const isCompleted = completedLevels.includes(level.id);
@@ -69,6 +71,11 @@ export class MenuComponent implements OnInit, OnDestroy {
           parent: 'ng_' + set, displayName: level.name, routerLink: ['/level', level.id, true],
           completed: isCompleted
         });
+      });
+
+      this.internalMenu.push({
+        parent: 'newgame', displayName: set, routerLink: ['/menu/newgame', 'ng_' + set],
+        progress: this.levelCompletionService.getSetCompletion(set)
       });
 
       // Push menu items for high score
