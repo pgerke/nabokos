@@ -9,7 +9,7 @@ describe('LevelService', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule]
     });
-    service = TestBed.get(LevelService);
+    service = TestBed.inject(LevelService);
   });
 
   it('should be created', () => {

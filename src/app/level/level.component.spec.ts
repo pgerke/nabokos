@@ -159,8 +159,8 @@ describe('LevelComponent', () => {
     localStorage.clear();
     fixture = TestBed.createComponent(LevelComponent);
     component = fixture.componentInstance;
-    levelService = TestBed.get(LevelService);
-    pathFinderService = TestBed.get(PathFinderService);
+    levelService = TestBed.inject(LevelService);
+    pathFinderService = TestBed.inject(PathFinderService);
     fixture.detectChanges();
   });
 

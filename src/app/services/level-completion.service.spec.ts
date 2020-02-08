@@ -13,8 +13,8 @@ describe('LevelCompletion', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule]
     });
-    service = TestBed.get(LevelCompletionService);
-    levelService = TestBed.get(LevelService);
+    service = TestBed.inject(LevelCompletionService);
+    levelService = TestBed.inject(LevelService);
     localStorage.clear();
   });
 

@@ -26,8 +26,8 @@ describe('HighscoreComponent', () => {
     localStorage.clear();
     fixture = TestBed.createComponent(HighscoreComponent);
     component = fixture.componentInstance;
-    highScoreService = TestBed.get(HighscoreService);
-    levelService = TestBed.get(LevelService);
+    highScoreService = TestBed.inject(HighscoreService);
+    levelService = TestBed.inject(LevelService);
     spyOn(levelService, 'getLevel').and.returnValue(new Level());
     fixture.detectChanges();
   });
