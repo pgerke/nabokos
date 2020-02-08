@@ -12,8 +12,8 @@ describe('ServiceWorkerService without Registration', () => {
       imports: [ServiceWorkerModule.register('', {enabled: false})],
       providers: [SwUpdate]
     });
-    service  = TestBed.get(ServiceWorkerService);
-    swUpdate = TestBed.get(SwUpdate);
+    service  = TestBed.inject(ServiceWorkerService);
+    swUpdate = TestBed.inject(SwUpdate);
   });
 
   it('should be created', () => {
@@ -42,11 +42,11 @@ describe('ServiceWorkerService with Registration', () => {
     imports: [ServiceWorkerModule.register('', {enabled: true})],
     providers: [SwUpdate]
     });
-    service = TestBed.get(ServiceWorkerService);
+    service = TestBed.inject(ServiceWorkerService);
   });
 
   it('should be created', () => {
-    const swUpdate: SwUpdate = TestBed.get(SwUpdate);
+    const swUpdate: SwUpdate = TestBed.inject(SwUpdate);
     expect(service).toBeTruthy();
     expect(swUpdate).toBeDefined();
     expect(service.activated).toBeDefined();

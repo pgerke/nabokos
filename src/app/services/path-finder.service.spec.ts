@@ -13,8 +13,8 @@ describe('PathFinderService', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule]
     });
-    pathFinderService = TestBed.get(PathFinderService);
-    levelService = TestBed.get(LevelService);
+    pathFinderService = TestBed.inject(PathFinderService);
+    levelService = TestBed.inject(LevelService);
 
     const serialized = `####
 #   #

@@ -7,7 +7,7 @@ describe('HighscoreService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.get(HighscoreService);
+    service = TestBed.inject(HighscoreService);
     localStorage.clear();
   });
 

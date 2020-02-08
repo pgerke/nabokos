@@ -34,8 +34,6 @@ describe('MenuComponent with save game', () => {
     localStorage.setItem('savegame', JSON.stringify(savegame));
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
-    const serviceWorkerService = TestBed.get(ServiceWorkerService);
-    spyOn(serviceWorkerService, 'available').and.returnValue(undefined);
     fixture.detectChanges();
     expect(component.canContinue).toBeTruthy();
   }));
@@ -68,7 +66,7 @@ describe('MenuComponent', () => {
   beforeEach(() => {
     localStorage.clear();
     fixture = TestBed.createComponent(MenuComponent);
-    service = TestBed.get(ServiceWorkerService);
+    service = TestBed.inject(ServiceWorkerService);
     spyOnProperty(service, 'isEnabled', 'get').and.returnValue(true);
     spyOnProperty(service, 'available', 'get').and.returnValue(of(true));
     component = fixture.componentInstance;
