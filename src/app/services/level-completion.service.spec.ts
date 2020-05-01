@@ -69,7 +69,7 @@ describe('LevelCompletion', () => {
     spyOn(levelService, 'getLevels').and.returnValue(levels);
 
     const style = service.getSetCompletion('ng_Sasquatch I');
-    expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle(`linear-gradient(75deg, rgb(144, 238, 144, 0.45) 50%, transparent 52%)`));
+    expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 50%, transparent 52%)'));
   }));
 
   it('should set the styling transparent to zero, when the set completion is zero',
@@ -81,6 +81,6 @@ describe('LevelCompletion', () => {
       spyOn(levelService, 'getLevels').and.returnValue(levels);
 
       const style = service.getSetCompletion('ng_Sasquatch I');
-      expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle(`linear-gradient(75deg, rgb(144, 238, 144, 0.45) 0%, transparent 0%)`));
+      expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 0%, transparent 0%)'));
     }));
 });

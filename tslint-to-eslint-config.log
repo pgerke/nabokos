@@ -1,0 +1,37 @@
+7 ESLint rules behave differently from their TSLint counterparts:
+  * no-console:
+    - Custom console methods, if they exist, will no longer be allowed.
+  * no-invalid-this:
+    - Functions in methods will no longer be ignored.
+  * no-unused-expressions:
+    - The TSLint optional config "allow-new" is the default ESLint behavior and will no longer be ignored.
+  * prefer-arrow/prefer-arrow-functions:
+    - ESLint does not support allowing standalone function declarations.
+    - ESLint does not support allowing named functions defined with the function keyword.
+  * eqeqeq:
+    - Option "smart" allows for comparing two literal values, evaluating the value of typeof and null comparisons.
+  * camelcase:
+    - Leading undescores in variable names will now be ignored.
+    - ESLint's camel-case rule does not allow pascal or snake case variable names. Those cases are reserved for class names and static methods.
+  * no-underscore-dangle:
+    - Leading and trailing underscores (_) on identifiers will now be ignored.
+
+17 rules are not known by tslint-to-eslint-config to have ESLint equivalents:
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "component-class-suffix".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "component-selector".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "contextual-lifecycle".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "directive-class-suffix".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "directive-selector".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-conflicting-lifecycle".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-host-metadata-property".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-input-rename".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-inputs-metadata-property".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-output-native".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-output-on-prefix".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-output-rename".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "no-outputs-metadata-property".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "template-banana-in-box".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "template-no-negated-async".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "use-lifecycle-interface".
+  * tslint-to-eslint-config does not know the ESLint equivalent for TSLint's "use-pipe-transform-interface".
+

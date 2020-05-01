@@ -39,6 +39,7 @@ describe('BinaryHeap', () => {
     spyOn(binaryHeap, 'decrease').and.callThrough();
     binaryHeap.remove(4);
     expect(binaryHeap.heap.length).toBe(oldLength - 1);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(binaryHeap.decrease).toHaveBeenCalled();
   });
 

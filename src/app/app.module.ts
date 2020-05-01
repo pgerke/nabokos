@@ -12,10 +12,10 @@ import { HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-br
 import { ServiceWorkerService } from './services/service-worker.service';
 import { CreditsComponent } from './credits/credits.component';
 import { HttpClientModule } from '@angular/common/http';
-declare var Hammer: any;
+declare const Hammer: any;
 
 export class HammerConfig extends HammerGestureConfig {
-  buildHammer(element: HTMLElement) {
+  buildHammer(element: HTMLElement): any {
     const hammer = new Hammer(element, {
       touchAction: 'pan-x pan-y'
     });

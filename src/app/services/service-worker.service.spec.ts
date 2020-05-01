@@ -1,7 +1,6 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ServiceWorkerService } from './service-worker.service';
-import { SwUpdate, ServiceWorkerModule, UpdateActivatedEvent} from '@angular/service-worker';
-import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
+import { SwUpdate, ServiceWorkerModule} from '@angular/service-worker';
 
 describe('ServiceWorkerService without Registration', () => {
   let service: ServiceWorkerService;
