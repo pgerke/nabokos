@@ -12,9 +12,6 @@ import { LevelCompletionService } from '../services/level-completion.service';
   styleUrls: ['./level.component.scss']
 })
 export class LevelComponent implements OnInit, OnDestroy {
-  private readonly allowMultipleQuickSaves = false;
-  private readonly historyLimit = 1000;
-  private internalLevel: Level;
 
   isWin: boolean;
   hasQuicksave: boolean;
@@ -33,6 +30,10 @@ export class LevelComponent implements OnInit, OnDestroy {
   hasHighscoreEntry: boolean;
   scaleValue = 100;
 
+  private readonly allowMultipleQuickSaves = false;
+  private readonly historyLimit = 1000;
+  private internalLevel: Level;
+
   constructor(
     private levelService: LevelService,
     private highscoreService: HighscoreService,
@@ -42,7 +43,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     private levelCompletionService: LevelCompletionService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.levelId = Number.parseInt(value.get('level'), 10);
       const isNewGame = value.get('newGame') ? value.get('newGame').toLowerCase() === 'true' : true;
@@ -64,14 +65,14 @@ export class LevelComponent implements OnInit, OnDestroy {
     window.addEventListener('touchstart', this.preventDefaultZoomEvent.bind(this), { passive: false });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.levelTimerSubscription.unsubscribe();
     this.levelTimerSubscription = null;
     this.routeParameterSubscription.unsubscribe();
     this.routeParameterSubscription = null;
   }
 
-  checkWin() {
+  checkWin(): void {
     this.isWin = this.level.tiles.every(line => !line.some(tile => tile === Tile.target || tile === Tile.box));
     if (this.isWin && !this.hasHighscoreEntry) {
       console.log('Player has won.');
@@ -114,12 +115,8 @@ export class LevelComponent implements OnInit, OnDestroy {
     return next;
   }
 
-  private getQuickSaveName(): string {
-    return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
-  }
-
   @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
+  keyEvent(event: KeyboardEvent): void {
     let direction;
     switch (event.key) {
       case 'w':
@@ -189,16 +186,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  private loadSaveGameInternal(saveGame: Savegame) {
-    this.level = saveGame.level;
-    this.history = saveGame.history;
-    this.levelTime = saveGame.levelTime;
-    this.counter = saveGame.moves;
-    this.levelStarted = false;
-    this.isWin = saveGame.isWin;
-    this.hasHighscoreEntry = this.isWin;
-  }
-
   moveCursor(coordinate: Coordinate): boolean {
     if (!this.isFreeTile(coordinate)) {
       return false;
@@ -209,11 +196,11 @@ export class LevelComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  next() {
+  next(): void {
     this.router.navigate(['level', this.levelService.getNextLevel(), true]);
   }
 
-  previous() {
+  previous(): void {
     this.router.navigate(['level', this.levelService.getPreviousLevel(), true]);
   }
 
@@ -257,13 +244,13 @@ export class LevelComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  quickSave() {
+  quickSave(): void {
     const saveGame: Savegame = this.createSaveGame();
     localStorage.setItem(this.getQuickSaveName(), JSON.stringify(saveGame));
     this.hasQuicksave = true;
   }
 
-  run(direction: Direction) {
+  run(direction: Direction): void {
     const newCoordinate: Coordinate = this.getNextCoordinate(this.level.cursor, direction);
     const levelCopy = _.cloneDeep(this.level);
 
@@ -274,7 +261,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     }
   }
 
-  reset() {
+  reset(): void {
     this.pathToWalkOn = [];
     this.level = _.cloneDeep(this.internalLevel);
     this.history = [];
@@ -285,7 +272,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.hasHighscoreEntry = false;
   }
 
-  saveHistory(level: Level) {
+  saveHistory(level: Level): void {
     if (this.history.push(level) > this.historyLimit) {
       this.history.shift();
     }
@@ -297,7 +284,7 @@ export class LevelComponent implements OnInit, OnDestroy {
     this.router.navigate(['menu']);
   }
 
-  undo() {
+  undo(): void {
     if (!this.history.length) {
       return;
     }
@@ -309,18 +296,20 @@ export class LevelComponent implements OnInit, OnDestroy {
 
   /**
    * Function providing navigation through touch and mouse clicks.
+   *
    * @param tile kind of the clicked element
    * @param x x coordinate of the clicked element
    * @param y y coordinate of the clicked element
    */
-  moveToClick(tile: string, x: number, y: number) {
+  moveToClick(tile: string, x: number, y: number): void {
     // Doesn't do anything if the clicked element is a wall.
     if (tile === Tile.wall) {
       return;
     }
 
     // tslint:disable-next-line: max-line-length
-    // Checks if the clicked element is a box and the cursor is standing next to it, in that case, the box should be moved (with the cursor).
+    // Checks if the clicked element is a box and the cursor is standing next to it,
+    // in that case, the box should be moved (with the cursor).
     if (tile === Tile.box || tile === Tile.targetWithBox) {
       const direction = this.getBoxMoveDirection(new Coordinate(x, y));
       if (direction) {
@@ -357,16 +346,17 @@ export class LevelComponent implements OnInit, OnDestroy {
 
   /**
    * Provides possiblity to wait for a given number of milliseconds.
+   *
    * @param ms number of milliseconds to wait for
    */
-  delay(ms: number) {
+  delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   /**
    * Checks if the cursor is standing next to the given node (box) and according to where the cursor stands, returns the direction.
    */
-  getBoxMoveDirection(box: Coordinate) {
+  getBoxMoveDirection(box: Coordinate): Direction {
     if (this.level.cursor.isEqual(new Coordinate(box.x, box.y - 1))) {
       return Direction.Down;
     } else if (this.level.cursor.isEqual(new Coordinate(box.x + 1, box.y))) {
@@ -398,10 +388,11 @@ export class LevelComponent implements OnInit, OnDestroy {
   /**
    * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
    * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
+   *
    * @param event resizing event
    */
   @HostListener('window:resize', ['$event'])
-  setContentAlignment(event?): void {
+  setContentAlignment(): void {
     this.windowWidth = window.innerWidth;
     this.centerContent = window.innerWidth > this.contentWidth;
   }
@@ -409,10 +400,11 @@ export class LevelComponent implements OnInit, OnDestroy {
   /**
    * When a pinch is performed, the function checks the type of the pinch and increases or reduces the scale of the level.
    * The scale cannot be zero or less. After the new scale is set, the width of the content is recalculated.
+   *
    * @param zoomType indicates whether the user is trying to zoom 'IN' or 'OUT'
    * @param step indicates how much is added to the current scale
    */
-  onPinch(zoomType: string, step = 1) {
+  onPinch(zoomType: string, step = 1): void {
     if (zoomType === 'IN') {
       this.scaleValue += step;
     } else if (this.scaleValue > step) {
@@ -425,12 +417,27 @@ export class LevelComponent implements OnInit, OnDestroy {
   /**
    * When zooming, no other touch action should be performed. This is needed for Safari, which allows scrolling while zooming.
    * Depending on how many fingers are touching the screen (only zoom needs two fingers), the default action is performed or not.
+   *
    * @param event the touch event
    */
-  preventDefaultZoomEvent(event: any) {
+  preventDefaultZoomEvent(event: any): void {
     if (event.touches.length < 2) {
       return;
     }
     event.preventDefault();
+  }
+
+  private getQuickSaveName(): string {
+    return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
+  }
+
+  private loadSaveGameInternal(saveGame: Savegame): void {
+    this.level = saveGame.level;
+    this.history = saveGame.history;
+    this.levelTime = saveGame.levelTime;
+    this.counter = saveGame.moves;
+    this.levelStarted = false;
+    this.isWin = saveGame.isWin;
+    this.hasHighscoreEntry = this.isWin;
   }
 }

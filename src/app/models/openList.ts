@@ -5,4 +5,4 @@ import { Coordinate } from './coordinate';
 // 1: coordinates of the node
 // 2: coordinates of the previous node
 // 4: hops since start
-export interface OpenList extends Array<[number, Coordinate, Coordinate, number]> {}
+export type OpenList = Array<[number, Coordinate, Coordinate, number]>

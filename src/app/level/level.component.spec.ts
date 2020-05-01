@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
 import { Direction, Savegame, Coordinate, Tile } from '../models';
@@ -209,7 +210,7 @@ describe('LevelComponent', () => {
       { input: 'ArrowLeft', direction: Direction.Left },
       { input: 'ArrowRight', direction: Direction.Right }
     ];
-    values.forEach(({ input, direction }, _) => {
+    values.forEach(({ input, direction }) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
       expect(undoSpy).not.toHaveBeenCalled();
       expect(runSpy).toHaveBeenCalledWith(direction);
@@ -335,7 +336,7 @@ describe('LevelComponent', () => {
     localStorage.clear();
     const saveSpy = spyOn(component, 'createSaveGame');
     const routerSpy = spyOn(router, 'navigate');
-    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key, value) => {
+    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key) => {
       expect(key).toBe('savegame');
     });
 
@@ -377,7 +378,7 @@ describe('LevelComponent', () => {
     localStorage.clear();
     expect(component.hasQuicksave).toBeFalsy();
     const saveSpy = spyOn(component, 'createSaveGame');
-    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key, value) => {
+    const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key) => {
       expect(key).toBe('quicksave');
     });
     component.quickSave();
@@ -596,7 +597,7 @@ describe('LevelComponent', () => {
       touches: {
         length: 2
       },
-      preventDefault: () => { }
+      preventDefault: (): void => { }
     };
     spyOn(event, 'preventDefault');
     component.preventDefaultZoomEvent(event);
@@ -608,7 +609,7 @@ describe('LevelComponent', () => {
       touches: {
         length: 1
       },
-      preventDefault: () => { }
+      preventDefault: (): void => { }
     };
     spyOn(event, 'preventDefault');
     component.preventDefaultZoomEvent(event);

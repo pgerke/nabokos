@@ -5,7 +5,6 @@ import { Coordinate, Level, BinaryHeap, ClosedList, Tile } from '../models';
   providedIn: 'root'
 })
 export class PathFinderService {
-  constructor() { }
 
   private target: Coordinate;
   private start: Coordinate;
@@ -14,9 +13,12 @@ export class PathFinderService {
   private openList: BinaryHeap;
   private closedList: ClosedList;
 
+  constructor() { }
+
   /**
    * Provides main function of the service: finding a path from one node to another one and gives back an array of coordinates,
    * which will lead from the cursor to the desired target.
+   *
    * @param startNode target of the click, but because of the way the algorithm works, it's easier to start at the desired target node
    * @param targetNode current cursor position
    * @param currentLevel level instance that is currently played
@@ -61,6 +63,7 @@ export class PathFinderService {
   /**
    * Finds every sibling of an given node, checks if they exist and that the cursor can walk on them,
    * calculates the value for each of them and returns the ones that are relevant for the open list.
+   *
    * @param node element to find the siblings for
    * @param hops count of jumps since the beginning of the path
    */
@@ -96,6 +99,7 @@ export class PathFinderService {
    * Takes a node with it's previous node, his value and his count of jumps and adds it for the open list.
    * If the node is already on the open list and the count of jumps is now lower, the element gets an update on the open list.
    * If the node is already on the closed list it won't be added again.
+   *
    * @param nodeElement a node with it's value, coordinates, coordinates of the previous node and his count of jumps since the start node
    */
   private addToOpenList(nodeElement: [number, Coordinate, Coordinate, number]): void {
@@ -103,7 +107,6 @@ export class PathFinderService {
     let foundElementClosedList = false;
 
     // Check if element exists on open list.
-    let row = 0;
     for (const column of this.openList.heap) {
       if (
         column.find(x => {
@@ -115,7 +118,6 @@ export class PathFinderService {
         foundElementOpenList = true;
         break;
       }
-      row++;
     }
     // Check if element exists on closed list.
     for (const column of this.closedList) {
@@ -152,6 +154,7 @@ export class PathFinderService {
 
   /**
    * Adds an element to the closed list.
+   *
    * @param nodeElement element from the open list
    */
   private moveToClosedList(nodeElement: [number, Coordinate, Coordinate, number]): void {
@@ -169,11 +172,10 @@ export class PathFinderService {
     let nextTarget = this.target;
 
     do {
-      let findElement: [Coordinate, Coordinate];
       let indexToDelete: number;
 
       // Searches for an entry which first coordinates matches the target ones.
-      findElement = this.closedList.find(x => x[0].isEqual(nextTarget));
+      const findElement: [Coordinate, Coordinate] = this.closedList.find(x => x[0].isEqual(nextTarget));
 
       if (findElement && findElement[1]) {
         nextTarget = findElement[1];
@@ -192,6 +194,7 @@ export class PathFinderService {
   /**
    * Returns the calculated value which is necessary for prioritizing the open list.
    * The value is a sum of the count of jumps since the start node and the euclidean distance between the target and the given node.
+   *
    * @param node element for which the value should be calculated for
    * @param hops count of jumps/moves since the start node
    */
@@ -203,6 +206,7 @@ export class PathFinderService {
 
   /**
    * Checks whether the given node is a field on which the cursor can move to or not.
+   *
    * @param node element for which the nature of the ground should get checked
    */
   private isWalkable(node: Coordinate): boolean {

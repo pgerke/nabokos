@@ -15,7 +15,7 @@ export class CreditsComponent implements OnInit {
   authors: string;
 
   constructor(http: HttpClient) {
-    this.authors = ['Michaela Andermann', 'Philip Gerke'].sort((a, b) => 0.5 - Math.random()).join(', ');
+    this.authors = ['Michaela Andermann', 'Philip Gerke'].sort(() => 0.5 - Math.random()).join(', ');
     http.get('assets/license.json').toPromise().then((response: Response) => {
       Object.keys(response).forEach(key => {
         const library: Library = response[key];
@@ -27,5 +27,5 @@ export class CreditsComponent implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 }

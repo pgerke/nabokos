@@ -22,7 +22,7 @@ export class HighscoreComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.index = Number.parseInt(value.get('level'), 10);
       console.log('Level: ' + this.index);
@@ -31,16 +31,16 @@ export class HighscoreComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.routeParameterSubscription.unsubscribe();
     this.routeParameterSubscription = null;
   }
 
-  next() {
-    this.router.navigate(['highscore', this.levelService.getNextLevel()]);
+  async next(): Promise<void> {
+    await this.router.navigate(['highscore', this.levelService.getNextLevel()]);
   }
 
-  previous() {
-    this.router.navigate(['highscore', this.levelService.getPreviousLevel()]);
+  async previous(): Promise<void> {
+    await this.router.navigate(['highscore', this.levelService.getPreviousLevel()]);
   }
 }
