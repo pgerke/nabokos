@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { AppComponent } from './app.component';
 import { TileComponent } from './tile/tile.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -14,6 +14,7 @@ import { CreditsComponent } from './credits/credits.component';
 import { HttpClientModule } from '@angular/common/http';
 declare const Hammer: any;
 
+@Injectable()
 export class HammerConfig extends HammerGestureConfig {
   buildHammer(element: HTMLElement): any {
     const hammer = new Hammer(element, {
