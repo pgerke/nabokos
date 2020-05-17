@@ -43,6 +43,63 @@ export class LevelComponent implements OnInit, OnDestroy {
     private levelCompletionService: LevelCompletionService
   ) { }
 
+  /**
+   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
+   * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
+   *
+   * @param event resizing event
+   */
+  @HostListener('window:resize', ['$event'])
+  setContentAlignment(): void {
+    this.windowWidth = window.innerWidth;
+    this.centerContent = window.innerWidth > this.contentWidth;
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent): void {
+    let direction;
+    switch (event.key) {
+      case 'w':
+      case 'W':
+      case 'ArrowUp':
+        direction = Direction.Up;
+        break;
+      case 's':
+      case 'S':
+      case 'ArrowDown':
+        direction = Direction.Down;
+        break;
+      case 'a':
+      case 'A':
+      case 'ArrowLeft':
+        direction = Direction.Left;
+        break;
+      case 'd':
+      case 'D':
+      case 'ArrowRight':
+        direction = Direction.Right;
+        break;
+      case 'z':
+      case 'Z':
+      case 'Backspace':
+        this.undo();
+        return;
+      case 'i':
+      case 'I':
+      case '+':
+        this.onPinch('IN', 10);
+        return;
+      case 'o':
+      case 'O':
+      case '-':
+        this.onPinch('OUT', 10);
+        return;
+      default:
+        return;
+    }
+    this.run(direction);
+  }
+
   ngOnInit(): void {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.levelId = Number.parseInt(value.get('level'), 10);
@@ -113,51 +170,6 @@ export class LevelComponent implements OnInit, OnDestroy {
         break;
     }
     return next;
-  }
-
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent): void {
-    let direction;
-    switch (event.key) {
-      case 'w':
-      case 'W':
-      case 'ArrowUp':
-        direction = Direction.Up;
-        break;
-      case 's':
-      case 'S':
-      case 'ArrowDown':
-        direction = Direction.Down;
-        break;
-      case 'a':
-      case 'A':
-      case 'ArrowLeft':
-        direction = Direction.Left;
-        break;
-      case 'd':
-      case 'D':
-      case 'ArrowRight':
-        direction = Direction.Right;
-        break;
-      case 'z':
-      case 'Z':
-      case 'Backspace':
-        this.undo();
-        return;
-      case 'i':
-      case 'I':
-      case '+':
-        this.onPinch('IN', 10);
-        return;
-      case 'o':
-      case 'O':
-      case '-':
-        this.onPinch('OUT', 10);
-        return;
-      default:
-        return;
-    }
-    this.run(direction);
   }
 
   createSaveGame(): Savegame {
@@ -383,18 +395,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     // A tile is always drawn with 50px each.
     this.contentWidth = countTiles * (50 * this.scaleValue / 100);
     this.setContentAlignment();
-  }
-
-  /**
-   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
-   * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
-   *
-   * @param event resizing event
-   */
-  @HostListener('window:resize', ['$event'])
-  setContentAlignment(): void {
-    this.windowWidth = window.innerWidth;
-    this.centerContent = window.innerWidth > this.contentWidth;
   }
 
   /**
