@@ -10,7 +10,8 @@ function createWindow() {
     height: 600,
     webPreferences: {
       contextIsolation: true
-    }
+    },
+    icon: path.join(__dirname, '/dist/favicon.png')
   });
 
   // load the dist folder from Angular
