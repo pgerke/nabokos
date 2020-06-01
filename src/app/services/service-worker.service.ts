@@ -34,13 +34,13 @@ export class ServiceWorkerService {
 
     // log if a new app version becomes available
     /* istanbul ignore next */
-    this.available.subscribe(_ => {
+    this.available.subscribe(() => {
       console.log('Application update available');
     });
 
     // log if a new app version was activated
     /* istanbul ignore next */
-    update.activated.subscribe(_ => {
+    update.activated.subscribe(() => {
       console.log('Application updated');
     });
   }
@@ -50,7 +50,7 @@ export class ServiceWorkerService {
   }
 
   /* istanbul ignore next */
-  public async activateUpdate() {
+  public async activateUpdate(): Promise<void> {
     await this.update.activateUpdate();
     document.location.reload();
   }

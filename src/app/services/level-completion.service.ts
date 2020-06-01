@@ -32,6 +32,7 @@ export class LevelCompletionService {
       completedLevelCount = completedLevels.includes(level.id) ? completedLevelCount + 1 : completedLevelCount;
     });
     const percent = Math.round(completedLevelCount / setLevels.length * 100);
-    return this.sanitizer.bypassSecurityTrustStyle(`linear-gradient(75deg, rgb(144, 238, 144, 0.45) ${percent}%, transparent ${percent > 0 ? percent + 2 : 0}%)`);
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `linear-gradient(75deg, rgb(144, 238, 144, 0.45) ${percent}%, transparent ${percent > 0 ? percent + 2 : 0}%)`);
   }
 }

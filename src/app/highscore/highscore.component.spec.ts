@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 describe('HighscoreComponent', () => {
   let component: HighscoreComponent;
   let fixture: ComponentFixture<HighscoreComponent>;
-  let highScoreService: HighscoreService;
   let levelService: LevelService;
 
   beforeEach(async(() => {
@@ -26,7 +25,6 @@ describe('HighscoreComponent', () => {
     localStorage.clear();
     fixture = TestBed.createComponent(HighscoreComponent);
     component = fixture.componentInstance;
-    highScoreService = TestBed.inject(HighscoreService);
     levelService = TestBed.inject(LevelService);
     spyOn(levelService, 'getLevel').and.returnValue(new Level());
     fixture.detectChanges();

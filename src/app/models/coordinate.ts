@@ -9,9 +9,10 @@ export class Coordinate {
 
   /**
    * Returns whether or not, the given node has the same coordinates as this one.
+   *
    * @param node element for comparison
    */
-  isEqual(node: Coordinate) {
+  isEqual(node: Coordinate): boolean {
     return node.x === this.x && node.y === this.y;
   }
 }

@@ -19,6 +19,7 @@ export class BinaryHeap {
   /**
    * Checks at a given index, if the children have a lower value than the parent and if so, swaps them.
    * After that, it checks the given index again, if it is now on the right spot and if needed, swaps it again.
+   *
    * @param index index of an element in the tree
    */
   heapify(index: number): void {
@@ -41,6 +42,7 @@ export class BinaryHeap {
 
   /**
    * Adds an given element to the tree and sorts it to the right spot.
+   *
    * @param newElement element to add to the tree
    */
   insert(newElement: [number, Coordinate, Coordinate, number]): void {
@@ -53,6 +55,7 @@ export class BinaryHeap {
 
   /**
    * Removes the element on the given index from the tree.
+   *
    * @param index index of an element in the tree
    */
   remove(index: number): void {
@@ -72,6 +75,7 @@ export class BinaryHeap {
 
   /**
    * Changes the value of an element and sorts it as long to a higher position, until the parent has a lower value.
+   *
    * @param index index of an element in the tree
    * @param newValue the reduced or new value of the index
    */
@@ -96,6 +100,7 @@ export class BinaryHeap {
 
   /**
    * Gets the index of the left child of an tree element.
+   *
    * @param index index of an element in the tree
    */
   private left(index: number): number {
@@ -104,6 +109,7 @@ export class BinaryHeap {
 
   /**
    * Gets the index of the right child of an tree element.
+   *
    * @param index index of an element in the tree
    */
   private right(index: number): number {
@@ -112,6 +118,7 @@ export class BinaryHeap {
 
   /**
    * Gets the index of the parent of an tree element.
+   *
    * @param index index of an element in the tree
    */
   private parent(index: number): number {
@@ -120,6 +127,7 @@ export class BinaryHeap {
 
   /**
    * Swaps two elements of the array.
+   *
    * @param indexFirstElement index of an element in the tree
    * @param indexSecondElement index of an element in the tree
    */

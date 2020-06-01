@@ -19,8 +19,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   savegame: Savegame;
   routeUrlSubscription: Subscription;
   updateSubscription: Subscription;
-  private parent: string;
   internalMenu = [];
+  private parent: string;
   get menu(): any[] {
     return this.internalMenu.filter(e => e.parent === this.parent);
   }
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     public serviceWorkerService: ServiceWorkerService,
     private levelCompletionService: LevelCompletionService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.serviceWorkerService.isEnabled) {
       this.updateSubscription = this.serviceWorkerService.available.subscribe(e => this.hasUpdate = e.available !== null);
     }
@@ -88,7 +88,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.updateSubscription) {
       this.updateSubscription.unsubscribe();
     }
@@ -97,15 +97,15 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.routeUrlSubscription = null;
   }
 
-  async applyUpdate() {
+  async applyUpdate(): Promise<void> {
     await this.serviceWorkerService.activateUpdate();
   }
 
-  async checkUpdate() {
+  async checkUpdate(): Promise<void> {
     await this.serviceWorkerService.checkForUpdate();
   }
 
-  getSetName() {
+  getSetName(): string {
     return this.parent.replace(/(ng|hs)_/, '');
   }
 }

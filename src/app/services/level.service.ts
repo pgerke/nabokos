@@ -59,7 +59,7 @@ export class LevelService {
     let lineNumber = 0;
     let colNumber = 0;
     lines.forEach((line, index) => {
-      if (index === 0 && line.match(/^\w+/)) {
+      if (index === 0 && /^\w+/.exec(line)) {
         this.levelSetName = line;
         level.setName = line;
         this.levelShortSetName = lines[1];
@@ -107,7 +107,7 @@ export class LevelService {
     return level;
   }
 
-  private loadLevels() {
+  private loadLevels(): void {
     const separateLevels = levelData.split('\n\n');
     separateLevels.forEach((serializedLevel: string, index: number) => {
       const level = this.loadLevel(serializedLevel);
