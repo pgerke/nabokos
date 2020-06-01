@@ -59,6 +59,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.internalMenu.push({ parent: 'menu', displayName: 'New Game', routerLink: ['/menu/newgame'] });
     this.internalMenu.push({ parent: 'menu', displayName: 'High Score', routerLink: ['/menu/highscore'] });
     this.internalMenu.push({ parent: 'menu', displayName: 'Level Editor', routerLink: ['/editor'], disabled: true });
+    this.internalMenu.push({ parent: 'menu', displayName: 'Tutorial', routerLink: ['/tutorial'] });
     this.internalMenu.push({ parent: 'menu', displayName: 'Credits', routerLink: ['/credits'] });
     this.internalMenu.push({ parent: 'newgame', displayName: 'Back', routerLink: ['/menu'] });
     this.internalMenu.push({ parent: 'highscore', displayName: 'Back', routerLink: ['/menu'] });
@@ -105,6 +106,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   getSetName() {
-    return this.parent.replace('ng_', '');
+    return this.parent.replace(/(ng|hs)_/, '');
   }
 }
