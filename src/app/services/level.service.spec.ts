@@ -12,16 +12,16 @@ describe('LevelService', () => {
     service = TestBed.inject(LevelService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be created', async () => {
+    await expect(service).toBeTruthy();
   });
 
-  it('should return undefined level for out of bounds index', () => {
-    expect(service.getLevel(-1)).toBeUndefined();
+  it('should return undefined level for out of bounds index', async () => {
+    await expect(service.getLevel(-1)).toBeUndefined();
     expect(service.getLevel(service.getLevelCount() + 1));
   });
 
-  it('should get level by index', () => {
+  it('should get level by index', async () => {
     const refLevel = `Sasquatch I
 SQ I
    ###
@@ -36,24 +36,24 @@ SQ I
  #     ##
  #######`;
     const level = service.getLevel(0);
-    expect(level.name).toBe('1');
-    expect(level.serialized).toBe(refLevel);
+    await expect(level.name).toBe('1');
+    await expect(level.serialized).toBe(refLevel);
   });
 
-  it('should get next and previous level', () => {
+  it('should get next and previous level', async () => {
     // Simple increment
-    expect(service.getNextLevel()).toBe(1);
+    await expect(service.getNextLevel()).toBe(1);
 
     // Decrement with wrap around
-    expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 1);
+    await expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 1);
 
     // Set last level
     service.getLevel(service.getLevelCount() - 1);
 
     // Increment with wrap around
-    expect(service.getNextLevel()).toBe(0);
+    await expect(service.getNextLevel()).toBe(0);
 
     // Simple decrement
-    expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 2);
+    await expect(service.getPreviousLevel()).toBe(service.getLevelCount() - 2);
   });
 });

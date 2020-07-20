@@ -43,11 +43,68 @@ export class LevelComponent implements OnInit, OnDestroy {
     private levelCompletionService: LevelCompletionService
   ) { }
 
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent): void {
+    let direction;
+    switch (event.key) {
+      case 'w':
+      case 'W':
+      case 'ArrowUp':
+        direction = Direction.Up;
+        break;
+      case 's':
+      case 'S':
+      case 'ArrowDown':
+        direction = Direction.Down;
+        break;
+      case 'a':
+      case 'A':
+      case 'ArrowLeft':
+        direction = Direction.Left;
+        break;
+      case 'd':
+      case 'D':
+      case 'ArrowRight':
+        direction = Direction.Right;
+        break;
+      case 'z':
+      case 'Z':
+      case 'Backspace':
+        this.undo();
+        return;
+      case 'i':
+      case 'I':
+      case '+':
+        this.onPinch('IN', 10);
+        return;
+      case 'o':
+      case 'O':
+      case '-':
+        this.onPinch('OUT', 10);
+        return;
+      default:
+        return;
+    }
+    this.run(direction);
+  }
+
+  /**
+   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
+   * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
+   *
+   * @param event resizing event
+   */
+  @HostListener('window:resize', ['$event'])
+  setContentAlignment(): void {
+    this.windowWidth = window.innerWidth;
+    this.centerContent = window.innerWidth > this.contentWidth;
+  }
+
   ngOnInit(): void {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.levelId = Number.parseInt(value.get('level'), 10);
       const isNewGame = value.get('newGame') ? value.get('newGame').toLowerCase() === 'true' : true;
-      console.log('Level: ' + this.levelId);
+      console.log(`Level:${this.levelId}`);
       this.internalLevel = this.levelService.getLevel(this.levelId ? this.levelId : 0);
       if (isNewGame || !this.loadSaveGame()) {
         this.reset();
@@ -115,51 +172,6 @@ export class LevelComponent implements OnInit, OnDestroy {
     return next;
   }
 
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent): void {
-    let direction;
-    switch (event.key) {
-      case 'w':
-      case 'W':
-      case 'ArrowUp':
-        direction = Direction.Up;
-        break;
-      case 's':
-      case 'S':
-      case 'ArrowDown':
-        direction = Direction.Down;
-        break;
-      case 'a':
-      case 'A':
-      case 'ArrowLeft':
-        direction = Direction.Left;
-        break;
-      case 'd':
-      case 'D':
-      case 'ArrowRight':
-        direction = Direction.Right;
-        break;
-      case 'z':
-      case 'Z':
-      case 'Backspace':
-        this.undo();
-        return;
-      case 'i':
-      case 'I':
-      case '+':
-        this.onPinch('IN', 10);
-        return;
-      case 'o':
-      case 'O':
-      case '-':
-        this.onPinch('OUT', 10);
-        return;
-      default:
-        return;
-    }
-    this.run(direction);
-  }
-
   createSaveGame(): Savegame {
     return {
       levelId: this.levelId,
@@ -197,11 +209,11 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   next(): void {
-    this.router.navigate(['level', this.levelService.getNextLevel(), true]);
+    void this.router.navigate(['level', this.levelService.getNextLevel(), true]);
   }
 
   previous(): void {
-    this.router.navigate(['level', this.levelService.getPreviousLevel(), true]);
+    void this.router.navigate(['level', this.levelService.getPreviousLevel(), true]);
   }
 
   pushBox(coordinate: Coordinate, direction: Direction): boolean {
@@ -281,7 +293,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   showMenu(): void {
     const saveGame: Savegame = this.createSaveGame();
     localStorage.setItem('savegame', JSON.stringify(saveGame));
-    this.router.navigate(['menu']);
+    void this.router.navigate(['menu']);
   }
 
   undo(): void {
@@ -301,13 +313,12 @@ export class LevelComponent implements OnInit, OnDestroy {
    * @param x x coordinate of the clicked element
    * @param y y coordinate of the clicked element
    */
-  moveToClick(tile: string, x: number, y: number): void {
+  async moveToClick(tile: string, x: number, y: number): Promise<void> {
     // Doesn't do anything if the clicked element is a wall.
     if (tile === Tile.wall) {
       return;
     }
 
-    // tslint:disable-next-line: max-line-length
     // Checks if the clicked element is a box and the cursor is standing next to it,
     // in that case, the box should be moved (with the cursor).
     if (tile === Tile.box || tile === Tile.targetWithBox) {
@@ -320,7 +331,7 @@ export class LevelComponent implements OnInit, OnDestroy {
 
     // Gets the array of coordinates, which is the path from the cursor to the clicked ndoe.
     this.pathToWalkOn = this.pathFinderService.findPath(new Coordinate(x, y), this.level.cursor, this.level);
-    this.walkAlongPath(this.pathToWalkOn);
+    await this.walkAlongPath(this.pathToWalkOn);
   }
 
   async walkAlongPath(path: Coordinate[]): Promise<void> {
@@ -386,18 +397,6 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Whenever the window is resized, or another level is loaded, the function checks if the current window width is bigger than
-   * the width needed for the level. When the window is smaller, the content needs to be aligned on the left side for correct scrolling.
-   *
-   * @param event resizing event
-   */
-  @HostListener('window:resize', ['$event'])
-  setContentAlignment(): void {
-    this.windowWidth = window.innerWidth;
-    this.centerContent = window.innerWidth > this.contentWidth;
-  }
-
-  /**
    * When a pinch is performed, the function checks the type of the pinch and increases or reduces the scale of the level.
    * The scale cannot be zero or less. After the new scale is set, the width of the content is recalculated.
    *
@@ -420,7 +419,7 @@ export class LevelComponent implements OnInit, OnDestroy {
    *
    * @param event the touch event
    */
-  preventDefaultZoomEvent(event: any): void {
+  preventDefaultZoomEvent(event: { touches: []; preventDefault(): void }): void {
     if (event.touches.length < 2) {
       return;
     }
@@ -428,7 +427,7 @@ export class LevelComponent implements OnInit, OnDestroy {
   }
 
   private getQuickSaveName(): string {
-    return this.allowMultipleQuickSaves ? 'quicksave' + this.levelId : 'quicksave';
+    return this.allowMultipleQuickSaves ? `quicksave${this.levelId}` : 'quicksave';
   }
 
   private loadSaveGameInternal(saveGame: Savegame): void {

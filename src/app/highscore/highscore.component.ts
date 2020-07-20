@@ -25,7 +25,7 @@ export class HighscoreComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeParameterSubscription = this.route.paramMap.subscribe(value => {
       this.index = Number.parseInt(value.get('level'), 10);
-      console.log('Level: ' + this.index);
+      console.log(`Level: ${this.index}`);
       this.level = this.levelService.getLevel(this.index);
       this.entries = this.service.getLevel(this.index);
     });

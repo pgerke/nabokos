@@ -15,22 +15,22 @@ describe('ServiceWorkerService without Registration', () => {
     swUpdate = TestBed.inject(SwUpdate);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be created', async () => {
+    await expect(service).toBeTruthy();
   });
 
   it('should check for update', async () => {
     const spy = spyOn(swUpdate, 'checkForUpdate');
     await service.checkForUpdate();
-    expect(spy).toHaveBeenCalled();
+    await expect(spy).toHaveBeenCalled();
   });
 
   // it('should activate update', async () => {
   //   const updateSpy = spyOn(swUpdate, 'activateUpdate');
   //   // const locationSpy = spyOn(document.location, 'reload');
   //   await service.activateUpdate();
-  //   expect(updateSpy).toHaveBeenCalled();
-  //   // expect(locationSpy).toHaveBeenCalled();
+  //   await expect(updateSpy).toHaveBeenCalled();
+  //   // await expect(locationSpy).toHaveBeenCalled();
   // });
 });
 
@@ -44,10 +44,10 @@ describe('ServiceWorkerService with Registration', () => {
     service = TestBed.inject(ServiceWorkerService);
   });
 
-  it('should be created', () => {
+  it('should be created', async () => {
     const swUpdate: SwUpdate = TestBed.inject(SwUpdate);
-    expect(service).toBeTruthy();
-    expect(swUpdate).toBeDefined();
-    expect(service.activated).toBeDefined();
+    await expect(service).toBeTruthy();
+    await expect(swUpdate).toBeDefined();
+    await expect(service.activated).toBeDefined();
   });
 });
