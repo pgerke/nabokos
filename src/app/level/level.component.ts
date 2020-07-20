@@ -419,7 +419,7 @@ export class LevelComponent implements OnInit, OnDestroy {
    *
    * @param event the touch event
    */
-  preventDefaultZoomEvent(event: { touches: []; preventDefault(): void }): void {
+  preventDefaultZoomEvent(event: { touches: any[]; preventDefault(): void }): void {
     if (event.touches.length < 2) {
       return;
     }
