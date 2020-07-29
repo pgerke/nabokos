@@ -18,47 +18,47 @@ describe('LevelCompletion', () => {
     localStorage.clear();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be created', async () => {
+    await expect(service).toBeTruthy();
   });
 
-  it('should add entry', () => {
+  it('should add entry', async () => {
     service.addEntry(1);
     let serialized = localStorage.getItem('level_completion');
-    expect(serialized).toBeTruthy();
+    await expect(serialized).toBeTruthy();
     let completed: number[] = JSON.parse(serialized) as number[];
-    expect(completed.length).toBe(1);
-    expect(completed[0]).toBe(1);
+    await expect(completed.length).toBe(1);
+    await expect(completed[0]).toBe(1);
 
     service.addEntry(0);
     serialized = localStorage.getItem('level_completion');
-    expect(serialized).toBeTruthy();
+    await expect(serialized).toBeTruthy();
     completed = JSON.parse(serialized) as number[];
-    expect(completed.length).toBe(2);
-    expect(completed[0]).toBe(0);
-    expect(completed[1]).toBe(1);
+    await expect(completed.length).toBe(2);
+    await expect(completed[0]).toBe(0);
+    await expect(completed[1]).toBe(1);
 
     service.addEntry(1);
     serialized = localStorage.getItem('level_completion');
-    expect(serialized).toBeTruthy();
+    await expect(serialized).toBeTruthy();
     completed = JSON.parse(serialized) as number[];
-    expect(completed.length).toBe(2);
-    expect(completed[0]).toBe(0);
-    expect(completed[1]).toBe(1);
+    await expect(completed.length).toBe(2);
+    await expect(completed[0]).toBe(0);
+    await expect(completed[1]).toBe(1);
   });
 
-  it('should get the completed levels', () => {
+  it('should get the completed levels', async () => {
     service.addEntry(0);
     service.addEntry(10);
     let completedLevels = service.getLevelCompletion();
-    expect(completedLevels.length).toBe(2);
+    await expect(completedLevels.length).toBe(2);
 
     localStorage.clear();
     completedLevels = service.getLevelCompletion();
-    expect(completedLevels).toEqual([]);
+    await expect(completedLevels).toEqual([]);
   });
 
-  it('should get the styling depending von the set completion', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+  it('should get the styling depending von the set completion', inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
     service.addEntry(0);
     service.addEntry(100); // not in sasquatch I set
 
@@ -69,11 +69,12 @@ describe('LevelCompletion', () => {
     spyOn(levelService, 'getLevels').and.returnValue(levels);
 
     const style = service.getSetCompletion('ng_Sasquatch I');
-    expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 50%, transparent 52%)'));
+    await expect(style).toEqual(domSanitizer
+      .bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 50%, transparent 52%)'));
   }));
 
   it('should set the styling transparent to zero, when the set completion is zero',
-    inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+    inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
       const levels = [
         { id: 0 } as Level,
         { id: 10 } as Level
@@ -81,6 +82,7 @@ describe('LevelCompletion', () => {
       spyOn(levelService, 'getLevels').and.returnValue(levels);
 
       const style = service.getSetCompletion('ng_Sasquatch I');
-      expect(style).toEqual(domSanitizer.bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 0%, transparent 0%)'));
+      await expect(style).toEqual(domSanitizer
+        .bypassSecurityTrustStyle('linear-gradient(75deg, rgb(144, 238, 144, 0.45) 0%, transparent 0%)'));
     }));
 });

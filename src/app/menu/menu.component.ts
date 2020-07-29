@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Savegame } from '../models';
+import { Savegame, MenuEntry } from '../models';
 import { Subscription } from 'rxjs';
 import { LevelService, ServiceWorkerService } from '../services';
 import { version } from '../../../package.json';
@@ -19,9 +19,9 @@ export class MenuComponent implements OnInit, OnDestroy {
   savegame: Savegame;
   routeUrlSubscription: Subscription;
   updateSubscription: Subscription;
-  internalMenu = [];
+  internalMenu: Array<MenuEntry> = [];
   private parent: string;
-  get menu(): any[] {
+  get menu(): unknown[] {
     return this.internalMenu.filter(e => e.parent === this.parent);
   }
   get isLevelMenu(): boolean {

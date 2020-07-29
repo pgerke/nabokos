@@ -19,6 +19,7 @@ module.exports = {
     },
     "extends": [
         "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
     "ignorePatterns": [],
@@ -275,13 +276,10 @@ module.exports = {
         "@typescript-eslint/adjacent-overload-signatures": [
             "error"
         ],
-        "@typescript-eslint/ban-ts-ignore": [
+        "@typescript-eslint/ban-ts-comment": [
             "error"
         ],
-        "@typescript-eslint/camelcase": [
-            "error"
-        ],
-        "@typescript-eslint/class-name-casing": [
+        "@typescript-eslint/naming-convention": [
             "error"
         ],
         "@typescript-eslint/consistent-type-assertions": [

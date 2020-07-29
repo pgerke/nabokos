@@ -10,11 +10,11 @@ export class HighscoreService {
   addEntry(index: number, entry: HighscoreEntry): void {
     const entries = this.getLevel(index);
     entries.push(entry);
-    localStorage.setItem('highscore_' + index, JSON.stringify(entries.sort((a, b) => a.moves - b.moves)));
+    localStorage.setItem(`highscore_${index}`, JSON.stringify(entries.sort((a, b) => a.moves - b.moves)));
   }
 
   getLevel(index: number): HighscoreEntry[] {
-    const scores = localStorage.getItem('highscore_' + index);
+    const scores = localStorage.getItem(`highscore_${index}`);
     return scores ? (JSON.parse(scores) as HighscoreEntry[]) : [];
   }
 }

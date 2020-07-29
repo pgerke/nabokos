@@ -1,4 +1,4 @@
-import { OpenList } from './openList';
+import { OpenList } from './open-list';
 import { Coordinate } from './coordinate';
 
 export class BinaryHeap {

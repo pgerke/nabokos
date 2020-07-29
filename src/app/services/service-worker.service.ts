@@ -29,7 +29,10 @@ export class ServiceWorkerService {
     concat(appRef.isStable.pipe(first(isStable => isStable === true)), interval(1000 * 3600 * 6))
     .subscribe(() => {
       console.log('Checking for application update...');
-      this.checkForUpdate();
+      this.checkForUpdate()
+      .catch(() => {
+        console.log('Service worker update check failed.');
+      });
     });
 
     // log if a new app version becomes available

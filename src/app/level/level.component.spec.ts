@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/unbound-method */
 import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
 import { Direction, Savegame, Coordinate, Tile } from '../models';
@@ -11,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 describe('LevelComponent (shallow)', () => {
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [
         LevelComponent,
@@ -27,7 +26,7 @@ describe('LevelComponent (shallow)', () => {
       .compileComponents();
   }));
 
-  it('should recognize quicksave', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+  it('should recognize quicksave', inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
@@ -52,12 +51,12 @@ describe('LevelComponent (shallow)', () => {
       isWin: false
     };
     localStorage.setItem('quicksave', JSON.stringify(savegame));
-    expect(lvl.hasQuicksave).toBeFalsy();
+    await expect(lvl.hasQuicksave).toBeFalsy();
     lvl.ngOnInit();
-    expect(lvl.hasQuicksave).toBeTruthy();
+    await expect(lvl.hasQuicksave).toBeTruthy();
   }));
 
-  it('should get corrent quicksave name', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+  it('should get corrent quicksave name', inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
@@ -69,15 +68,15 @@ describe('LevelComponent (shallow)', () => {
       level: 0,
       newGame: 'true'
     });
-    const lvl: any = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
-    lvl.levelId = 123;
-    lvl.allowMultipleQuickSaves = false;
-    expect(lvl.getQuickSaveName()).toBe('quicksave');
-    lvl.allowMultipleQuickSaves = true;
-    expect(lvl.getQuickSaveName()).toBe('quicksave123');
+    const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
+    (lvl as unknown as { levelId: number }).levelId = 123;
+    (lvl as unknown as { allowMultipleQuickSaves: boolean }).allowMultipleQuickSaves = false;
+    await expect((lvl as unknown as { getQuickSaveName(): string }).getQuickSaveName()).toBe('quicksave');
+    (lvl as unknown as { allowMultipleQuickSaves: boolean }).allowMultipleQuickSaves = true;
+    await expect((lvl as unknown as { getQuickSaveName(): string }).getQuickSaveName()).toBe('quicksave123');
   }));
 
-  it('should processs timer', inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+  it('should processs timer', inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
@@ -103,12 +102,12 @@ describe('LevelComponent (shallow)', () => {
     });
     const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
     lvl.ngOnInit();
-    expect(lvl.levelTime).toBe(234000);
-    expect(lvl.counter).toBe(567);
+    await expect(lvl.levelTime).toBe(234000);
+    await expect(lvl.counter).toBe(567);
     lvl.ngOnDestroy();
   }));
 
-  it('should processs timer and continue counting', fakeAsync(inject([DomSanitizer], (domSanitizer: DomSanitizer) => {
+  it('should processs timer and continue counting', fakeAsync(inject([DomSanitizer], async (domSanitizer: DomSanitizer) => {
     localStorage.clear();
     const levelService = new LevelService(null);
     const highscoreService = new HighscoreService();
@@ -121,16 +120,16 @@ describe('LevelComponent (shallow)', () => {
     });
     const lvl = new LevelComponent(levelService, highscoreService, null, route, pathFinderService, levelCompletionService);
     lvl.ngOnInit();
-    expect(lvl.levelTimerSubscription).toBeDefined();
-    expect(lvl.levelStarted).toBeFalsy();
-    expect(lvl.levelTime).toBe(0);
+    await expect(lvl.levelTimerSubscription).toBeDefined();
+    await expect(lvl.levelStarted).toBeFalsy();
+    await expect(lvl.levelTime).toBe(0);
     tick(2500);
-    expect(lvl.levelStarted).toBeFalsy();
-    expect(lvl.levelTime).toBe(0);
+    await expect(lvl.levelStarted).toBeFalsy();
+    await expect(lvl.levelTime).toBe(0);
     lvl.run(Direction.Left);
-    expect(lvl.levelStarted).toBeTruthy();
+    await expect(lvl.levelStarted).toBeTruthy();
     tick(2500);
-    expect(lvl.levelTime).toBeGreaterThan(2500);
+    await expect(lvl.levelTime).toBeGreaterThan(2500);
     lvl.ngOnDestroy();
   })));
 });
@@ -142,7 +141,7 @@ describe('LevelComponent', () => {
   let pathFinderService: PathFinderService;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [
         LevelComponent,
@@ -165,35 +164,35 @@ describe('LevelComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    await expect(component).toBeTruthy();
   });
 
-  it('should check win', () => {
+  it('should check win', async () => {
     const testLevelSerialized = `####
 #.$@#
 ####`;
     const level = levelService.loadLevel(testLevelSerialized);
     component.level = level;
     component.checkWin();
-    expect(component.isWin).toBeFalsy();
+    await expect(component.isWin).toBeFalsy();
     component.run(Direction.Left);
-    expect(component.isWin).toBeTruthy();
+    await expect(component.isWin).toBeTruthy();
   });
 
-  it('should calculate next coordinate', () => {
+  it('should calculate next coordinate', async () => {
     const original = new Coordinate(0, 0);
     let altered = component.getNextCoordinate(original, Direction.Up);
-    expect(altered).toEqual(new Coordinate(0, -1));
+    await expect(altered).toEqual(new Coordinate(0, -1));
     altered = component.getNextCoordinate(original, Direction.Right);
-    expect(altered).toEqual(new Coordinate(1, 0));
+    await expect(altered).toEqual(new Coordinate(1, 0));
     altered = component.getNextCoordinate(original, Direction.Down);
-    expect(altered).toEqual(new Coordinate(0, 1));
+    await expect(altered).toEqual(new Coordinate(0, 1));
     altered = component.getNextCoordinate(original, Direction.Left);
-    expect(altered).toEqual(new Coordinate(-1, 0));
+    await expect(altered).toEqual(new Coordinate(-1, 0));
   });
 
-  it('should process direction keyboard events', () => {
+  it('should process direction keyboard events', async () => {
     const undoSpy = spyOn(component, 'undo');
     const runSpy = spyOn(component, 'run');
     const values = [
@@ -212,14 +211,14 @@ describe('LevelComponent', () => {
     ];
     values.forEach(({ input, direction }) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
-      expect(undoSpy).not.toHaveBeenCalled();
+      void expect(undoSpy).not.toHaveBeenCalled();
       expect(runSpy).toHaveBeenCalledWith(direction);
       runSpy.calls.reset();
     });
 
     component.keyEvent(new KeyboardEvent('keyup', { key: 'x' }));
-    expect(undoSpy).not.toHaveBeenCalled();
-    expect(runSpy).not.toHaveBeenCalled();
+    await expect(undoSpy).not.toHaveBeenCalled();
+    await expect(runSpy).not.toHaveBeenCalled();
   });
 
   it('should process undo keyboard events', () => {
@@ -228,8 +227,8 @@ describe('LevelComponent', () => {
     const values = ['z', 'Z', 'Backspace'];
     values.forEach((input, x) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
-      expect(undoSpy).toHaveBeenCalledTimes(x + 1);
-      expect(runSpy).not.toHaveBeenCalled();
+      void expect(undoSpy).toHaveBeenCalledTimes(x + 1);
+      void expect(runSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -239,9 +238,9 @@ describe('LevelComponent', () => {
     const values = ['i', 'I', '+'];
     values.forEach((input, x) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
-      expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
+      void expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
       expect(onPinchSpy).toHaveBeenCalledWith('IN', 10);
-      expect(runSpy).not.toHaveBeenCalled();
+      void expect(runSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -251,60 +250,60 @@ describe('LevelComponent', () => {
     const values = ['o', 'O', '-'];
     values.forEach((input, x) => {
       component.keyEvent(new KeyboardEvent('keyup', { key: input }));
-      expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
+      void expect(onPinchSpy).toHaveBeenCalledTimes(x + 1);
       expect(onPinchSpy).toHaveBeenCalledWith('OUT', 10);
-      expect(runSpy).not.toHaveBeenCalled();
+      void expect(runSpy).not.toHaveBeenCalled();
     });
   });
 
-  it('should request next level from service', inject([Router], (router) => {
+  it('should request next level from service', inject([Router], async (router: Router) => {
     const levelServiceSpy = spyOn(levelService, 'getNextLevel');
     const routerSpy = spyOn(router, 'navigate');
     component.next();
-    expect(levelServiceSpy).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalled();
+    await expect(levelServiceSpy).toHaveBeenCalled();
+    await expect(routerSpy).toHaveBeenCalled();
   }));
 
-  it('should request previous level from service', inject([Router], (router) => {
+  it('should request previous level from service', inject([Router], async (router: Router) => {
     const levelServiceSpy = spyOn(levelService, 'getPreviousLevel');
     const routerSpy = spyOn(router, 'navigate');
     component.previous();
-    expect(levelServiceSpy).toHaveBeenCalled();
-    expect(routerSpy).toHaveBeenCalled();
+    await expect(levelServiceSpy).toHaveBeenCalled();
+    await expect(routerSpy).toHaveBeenCalled();
   }));
 
-  it('should push box correctly', () => {
+  it('should push box correctly', async () => {
     const testLevelSerialized1 = `####
 #. @#
 ####`;
     let testLevel = levelService.loadLevel(testLevelSerialized1);
     component.level = testLevel;
-    expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
+    await expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
 
     const testLevelSerialized2 = `####
 #*$@#
 ####`;
     testLevel = levelService.loadLevel(testLevelSerialized2);
     component.level = testLevel;
-    expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
+    await expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeFalsy();
 
     const testLevelSerialized3 = `####
 # *@#
 ####`;
     testLevel = levelService.loadLevel(testLevelSerialized3);
     component.level = testLevel;
-    expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeTruthy();
+    await expect(component.pushBox(new Coordinate(2, 1), Direction.Left)).toBeTruthy();
   });
 
-  it('should not run if cannot move or push box', () => {
+  it('should not run if cannot move or push box', async () => {
     spyOn(component, 'moveCursor').and.returnValue(false);
     spyOn(component, 'pushBox').and.returnValue(false);
     const spy = spyOn(component, 'saveHistory');
     component.run(Direction.Left);
-    expect(spy).not.toHaveBeenCalled();
+    await expect(spy).not.toHaveBeenCalled();
   });
 
-  it('should save the history', () => {
+  it('should save the history', async () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -312,15 +311,15 @@ describe('LevelComponent', () => {
     let i = 0;
     while (i++ < 1000) {
       component.saveHistory(testLevel);
-      expect(component.history.length).toBe(i);
+      await expect(component.history.length).toBe(i);
     }
     component.saveHistory(testLevel);
-    expect(component.history.length).toBe(1000);
+    await expect(component.history.length).toBe(1000);
   });
 
-  it('should undo', () => {
+  it('should undo', async () => {
     component.undo();
-    expect(component.counter).toBe(0);
+    await expect(component.counter).toBe(0);
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -328,27 +327,27 @@ describe('LevelComponent', () => {
     component.level = testLevel;
     component.run(Direction.Left);
     component.undo();
-    expect(component.counter).toBe(2);
-    expect(component.level.serialized).toEqual(testLevelSerialized);
+    await expect(component.counter).toBe(2);
+    await expect(component.level.serialized).toEqual(testLevelSerialized);
   });
 
-  it('should navigate to menu', inject([Router], router => {
+  it('should navigate to menu', inject([Router], async router => {
     localStorage.clear();
     const saveSpy = spyOn(component, 'createSaveGame');
     const routerSpy = spyOn(router, 'navigate');
     const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key) => {
-      expect(key).toBe('savegame');
+      void expect(key).toBe('savegame');
     });
 
     component.showMenu();
-    expect(saveSpy).toHaveBeenCalled();
-    expect(localStorageSpy).toHaveBeenCalled();
+    await expect(saveSpy).toHaveBeenCalled();
+    await expect(localStorageSpy).toHaveBeenCalled();
     expect(routerSpy).toHaveBeenCalledWith(['menu']);
   }));
 
-  it('should quickload', () => {
+  it('should quickload', async () => {
     // should return false, if localStorage has no 'quicksave' key
-    expect(component.quickLoad()).toBeFalsy();
+    await expect(component.quickLoad()).toBeFalsy();
 
     // should return false, if the levelId in the saveGame does not equal the current level
     const testLevelSerialized = `####
@@ -364,30 +363,30 @@ describe('LevelComponent', () => {
       isWin: false
     };
     localStorage.setItem('quicksave', JSON.stringify(savegame));
-    expect(component.quickLoad()).toBeFalsy();
+    await expect(component.quickLoad()).toBeFalsy();
 
     // should load the saved game and return true
     component.levelId = 0;
     savegame.levelId = component.levelId;
     localStorage.setItem('quicksave', JSON.stringify(savegame));
-    expect(component.quickLoad()).toBeTruthy();
-    expect(component.levelTime).toBe(savegame.levelTime);
+    await expect(component.quickLoad()).toBeTruthy();
+    await expect(component.levelTime).toBe(savegame.levelTime);
   });
 
-  it('should quicksave', () => {
+  it('should quicksave', async () => {
     localStorage.clear();
-    expect(component.hasQuicksave).toBeFalsy();
+    await expect(component.hasQuicksave).toBeFalsy();
     const saveSpy = spyOn(component, 'createSaveGame');
     const localStorageSpy = spyOn(localStorage, 'setItem').and.callFake((key) => {
-      expect(key).toBe('quicksave');
+      void expect(key).toBe('quicksave');
     });
     component.quickSave();
-    expect(saveSpy).toHaveBeenCalled();
-    expect(localStorageSpy).toHaveBeenCalled();
-    expect(component.hasQuicksave).toBeTruthy();
+    await expect(saveSpy).toHaveBeenCalled();
+    await expect(localStorageSpy).toHaveBeenCalled();
+    await expect(component.hasQuicksave).toBeTruthy();
   });
 
-  it('should create savegame', () => {
+  it('should create savegame', async () => {
     const testLevelSerialized = `####
 #  @#
 ####`;
@@ -397,15 +396,15 @@ describe('LevelComponent', () => {
     component.levelTime = 456000;
     component.counter = 789;
     const savegame = component.createSaveGame();
-    expect(savegame.levelId).toBe(component.levelId);
-    expect(savegame.moves).toBe(component.counter);
-    expect(savegame.levelTime).toBe(component.levelTime);
-    expect(savegame.history).toEqual(component.history);
+    await expect(savegame.levelId).toBe(component.levelId);
+    await expect(savegame.moves).toBe(component.counter);
+    await expect(savegame.levelTime).toBe(component.levelTime);
+    await expect(savegame.history).toEqual(component.history);
   });
 
-  it('should load savegame', () => {
+  it('should load savegame', async () => {
     // should return false, if localStorage has no 'savegame' key
-    expect(component.loadSaveGame()).toBeFalsy();
+    await expect(component.loadSaveGame()).toBeFalsy();
 
     // should return false, if the levelId in the saveGame does not equal the current level
     const testLevelSerialized = `####
@@ -421,24 +420,24 @@ describe('LevelComponent', () => {
       isWin: false
     };
     localStorage.setItem('savegame', JSON.stringify(savegame));
-    expect(component.loadSaveGame()).toBeFalsy();
+    await expect(component.loadSaveGame()).toBeFalsy();
 
     // should load the saved game and return true
     component.levelId = 0;
     savegame.levelId = component.levelId;
     localStorage.setItem('savegame', JSON.stringify(savegame));
-    expect(component.loadSaveGame()).toBeTruthy();
-    expect(component.levelTime).toBe(savegame.levelTime);
+    await expect(component.loadSaveGame()).toBeTruthy();
+    await expect(component.levelTime).toBe(savegame.levelTime);
   });
 
-  it('should do nothing on click, when the clicked element is a wall', fakeAsync(() => {
+  it('should do nothing on click, when the clicked element is a wall', fakeAsync(async () => {
     const cursor = component.level.cursor;
-    component.moveToClick('wall', cursor.x + 1, cursor.y);
+    await component.moveToClick('wall', cursor.x + 1, cursor.y);
     tick(200);
-    expect(component.level.cursor).toBe(cursor);
+    await expect(component.level.cursor).toBe(cursor);
   }));
 
-  it('should move the cursor and box, when the cursor is next to a box and the box is clicked', fakeAsync(() => {
+  it('should move the cursor and box, when the cursor is next to a box and the box is clicked', fakeAsync(async () => {
     const cursor = component.level.cursor;
     const box = new Coordinate(cursor.x + 1, cursor.y);
     component.level.tiles[box.y][box.x] = Tile.box;
@@ -446,24 +445,24 @@ describe('LevelComponent', () => {
     const spyRun = spyOn(component, 'run');
     spyRun.and.callThrough();
 
-    component.moveToClick('box', box.x, box.y);
+    await component.moveToClick('box', box.x, box.y);
     tick(400);
-    expect(component.level.cursor).toEqual(box);
-    expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.box);
-    expect(spyRun).toHaveBeenCalled();
+    await expect(component.level.cursor).toEqual(box);
+    await expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.box);
+    await expect(spyRun).toHaveBeenCalled();
 
     component.level.tiles[box.y][box.x + 1] = Tile.targetWithBox;
     component.level.cursor = cursor;
     spyRun.and.callThrough();
 
-    component.moveToClick('targetWithBox', box.x, box.y);
+    await component.moveToClick('targetWithBox', box.x, box.y);
     tick(400);
-    expect(component.level.cursor).toEqual(box);
-    expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.targetWithBox);
-    expect(spyRun).toHaveBeenCalled();
+    await expect(component.level.cursor).toEqual(box);
+    await expect(component.level.tiles[box.y][box.x + 1]).toBe(Tile.targetWithBox);
+    await expect(spyRun).toHaveBeenCalled();
   }));
 
-  it('should only move the cursor not the box, when the cursor is not next to a box and the box is clicked', fakeAsync(() => {
+  it('should only move the cursor not the box, when the cursor is not next to a box and the box is clicked', async () => {
     const serialized = `####
   #   #
   #   #
@@ -474,54 +473,52 @@ describe('LevelComponent', () => {
     const box = new Coordinate(cursor.x + 2, cursor.y);
     component.level.tiles[box.y][box.x] = Tile.box;
 
-    component.moveToClick('box', box.x, box.y);
-    tick(400);
-    expect(component.level.cursor).toEqual(new Coordinate(cursor.x + 1, cursor.y));
-    expect(component.level.tiles[box.y][box.x]).toBe(Tile.box);
-  }));
+    await component.moveToClick('box', box.x, box.y);
+    await expect(component.level.cursor).toEqual(new Coordinate(cursor.x + 1, cursor.y));
+    await expect(component.level.tiles[box.y][box.x]).toBe(Tile.box);
+  });
 
-  it('should move the cursor to the clicked target, if a path was found', fakeAsync(() => {
+  it('should move the cursor to the clicked target, if a path was found', async () => {
     const serialized = `####
 #   #
 #   #
 #@  #
 ####`;
     component.level = levelService.loadLevel(serialized);
-    spyOn(pathFinderService, 'findPath').and.returnValue([new Coordinate(2, 1), new Coordinate(1, 1)]);
-    spyOn(component, 'walkAlongPath').and.callThrough();
-    component.moveToClick('floor', 1, 1);
-    tick(400);
-    expect(component.walkAlongPath).toHaveBeenCalled();
-    expect(component.level.cursor).toEqual(new Coordinate(1, 1));
-    expect(pathFinderService.findPath).toHaveBeenCalled();
-  }));
+    const findSpy = spyOn(pathFinderService, 'findPath').and.returnValue([new Coordinate(2, 1), new Coordinate(1, 1)]);
+    const walkSpy = spyOn(component, 'walkAlongPath').and.callThrough();
+    await component.moveToClick('floor', 1, 1);
 
-  it('should not move the cursor to the clicked target, if no path was found', fakeAsync(() => {
+    await expect(walkSpy).toHaveBeenCalled();
+    await expect(component.level.cursor).toEqual(new Coordinate(1, 1));
+    await expect(findSpy).toHaveBeenCalled();
+  });
+
+  it('should not move the cursor to the clicked target, if no path was found', async () => {
     const cursor = component.level.cursor;
-    spyOn(pathFinderService, 'findPath').and.returnValue([]);
-    component.moveToClick('floor', 1, 1);
-    tick(200);
-    expect(component.level.cursor).toEqual(cursor);
-    expect(pathFinderService.findPath).toHaveBeenCalled();
-  }));
+    const findSpy = spyOn(pathFinderService, 'findPath').and.returnValue([]);
+    await component.moveToClick('floor', 1, 1);
 
-  it('should move the cursor to the new target, if clicked again', fakeAsync(() => {
+    await expect(component.level.cursor).toEqual(cursor);
+    await expect(findSpy).toHaveBeenCalled();
+  });
+
+  it('should move the cursor to the new target, if clicked again', async () => {
     const serialized = `####
 #   #
 #   #
 #@  #
 ####`;
     component.level = levelService.loadLevel(serialized);
+    component.moveToClick('floor', 1, 1).catch(() => {
+      fail('should not fail to move');
+    });
+    await component.moveToClick('floor', 3, 2);
 
-    component.moveToClick('floor', 1, 1);
-    tick(100);
-    component.moveToClick('floor', 3, 2);
-    tick(600);
+    await expect(component.level.cursor).toEqual(new Coordinate(3, 2));
+  });
 
-    expect(component.level.cursor).toEqual(new Coordinate(3, 2));
-  }));
-
-  it('should get the right direction for moving a box by click, when the cursor stands next to it', () => {
+  it('should get the right direction for moving a box by click, when the cursor stands next to it', async () => {
     const serialized = `####
 #   #
 #@. #
@@ -530,22 +527,22 @@ describe('LevelComponent', () => {
     component.level = levelService.loadLevel(serialized);
     const box = new Coordinate(2, 2);
     let result = component.getBoxMoveDirection(box);
-    expect(result).toBe(Direction.Right);
+    await expect(result).toBe(Direction.Right);
 
     component.level.cursor = new Coordinate(box.x, box.y + 1);
     result = component.getBoxMoveDirection(box);
-    expect(result).toBe(Direction.Up);
+    await expect(result).toBe(Direction.Up);
 
     component.level.cursor = new Coordinate(box.x + 1, box.y);
     result = component.getBoxMoveDirection(box);
-    expect(result).toBe(Direction.Left);
+    await expect(result).toBe(Direction.Left);
 
     component.level.cursor = new Coordinate(box.x, box.y - 1);
     result = component.getBoxMoveDirection(box);
-    expect(result).toBe(Direction.Down);
+    await expect(result).toBe(Direction.Down);
   });
 
-  it('should not get a direction for moving a box by click, when the cursor does not stand next to it', () => {
+  it('should not get a direction for moving a box by click, when the cursor does not stand next to it', async () => {
     const serialized = `####
 #   #
 # . #
@@ -554,65 +551,61 @@ describe('LevelComponent', () => {
     component.level = levelService.loadLevel(serialized);
     const box = new Coordinate(2, 2);
     const result = component.getBoxMoveDirection(box);
-    expect(result).toBe(null);
+    await expect(result).toBe(null);
   });
 
-  it('should get the correct width of the level', () => {
+  it('should get the correct width of the level', async () => {
     const serialized = `####
 #   #
 # .  #
 #@  #
 ####`;
     component.level = levelService.loadLevel(serialized);
-    spyOn(component, 'setContentAlignment').and.callThrough();
+    const setSpy = spyOn(component, 'setContentAlignment').and.callThrough();
     component.setContentWidth();
-    expect(component.contentWidth).toBe(6 * 50);
-    expect(component.setContentAlignment).toHaveBeenCalled();
+    await expect(component.contentWidth).toBe(6 * 50);
+    await expect(setSpy).toHaveBeenCalled();
   });
 
-  it('should increase the scale value on zoom in', () => {
-    spyOn(component, 'setContentWidth');
+  it('should increase the scale value on zoom in', async () => {
+    const setSpy = spyOn(component, 'setContentWidth');
     component.onPinch('IN');
-    expect(component.scaleValue).toBe(101);
-    expect(component.setContentWidth).toHaveBeenCalled();
+    await expect(component.scaleValue).toBe(101);
+    await expect(setSpy).toHaveBeenCalled();
   });
 
-  it('should reduce the scale value on zoom out', () => {
-    spyOn(component, 'setContentWidth');
+  it('should reduce the scale value on zoom out', async () => {
+    const setSpy = spyOn(component, 'setContentWidth');
     component.onPinch('OUT');
-    expect(component.scaleValue).toBe(99);
-    expect(component.setContentWidth).toHaveBeenCalled();
+    await expect(component.scaleValue).toBe(99);
+    await expect(setSpy).toHaveBeenCalled();
   });
 
-  it('should not reduce the scale value on zoom out, when the new value would be zero', () => {
-    spyOn(component, 'setContentWidth');
+  it('should not reduce the scale value on zoom out, when the new value would be zero', async () => {
+    const setSpy = spyOn(component, 'setContentWidth');
     component.scaleValue = 1;
     component.onPinch('OUT');
-    expect(component.scaleValue).toBe(1);
-    expect(component.setContentWidth).toHaveBeenCalled();
+    await expect(component.scaleValue).toBe(1);
+    await expect(setSpy).toHaveBeenCalled();
   });
 
-  it('should prevent the default event, when two fingers are touching the screen', () => {
+  it('should prevent the default event, when two fingers are touching the screen', async () => {
     const event = {
-      touches: {
-        length: 2
-      },
+      touches: [ 'first', 'second' ],
       preventDefault: (): void => { }
     };
     spyOn(event, 'preventDefault');
     component.preventDefaultZoomEvent(event);
-    expect(event.preventDefault).toHaveBeenCalled();
+    await expect(event.preventDefault).toHaveBeenCalled();
   });
 
-  it('should not prevent the default event, when only one finger is touching the screen', () => {
+  it('should not prevent the default event, when only one finger is touching the screen', async () => {
     const event = {
-      touches: {
-        length: 1
-      },
+      touches: [ 'first' ],
       preventDefault: (): void => { }
     };
     spyOn(event, 'preventDefault');
     component.preventDefaultZoomEvent(event);
-    expect(event.preventDefault).not.toHaveBeenCalled();
+    await expect(event.preventDefault).not.toHaveBeenCalled();
   });
 });

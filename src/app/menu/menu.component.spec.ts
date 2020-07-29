@@ -12,7 +12,7 @@ describe('MenuComponent with save game', () => {
   let fixture: ComponentFixture<MenuComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         ServiceWorkerModule.register('', { enabled: false })
@@ -21,7 +21,7 @@ describe('MenuComponent with save game', () => {
     }).compileComponents();
   }));
 
-  it('should recognize savegame and allow player to continue', inject([Router], router => {
+  it('should recognize savegame and allow player to continue', inject([Router], async (router: Router) => {
     spyOn(router, 'navigate');
     const savegame: Savegame = {
       moves: 123,
@@ -35,7 +35,7 @@ describe('MenuComponent with save game', () => {
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(component.canContinue).toBeTruthy();
+    await expect(component.canContinue).toBeTruthy();
   }));
 });
 
@@ -45,7 +45,7 @@ describe('MenuComponent', () => {
   let service: ServiceWorkerService;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         ServiceWorkerModule.register('', { enabled: false })
@@ -73,31 +73,31 @@ describe('MenuComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-    expect(component.canContinue).toBeFalsy();
+  it('should create', async () => {
+    await expect(component).toBeTruthy();
+    await expect(component.canContinue).toBeFalsy();
   });
 
   it('should check for update', async () => {
     const spy = spyOn(service, 'checkForUpdate');
     await component.checkUpdate();
-    expect(spy).toHaveBeenCalled();
+    await expect(spy).toHaveBeenCalled();
   });
 
   it('should activate update', async () => {
     const spy = spyOn(service, 'activateUpdate');
     await component.applyUpdate();
-    expect(spy).toHaveBeenCalled();
+    await expect(spy).toHaveBeenCalled();
   });
 
-  it('should get the right name', () => {
+  it('should get the right name', async () => {
     const setName = component.getSetName();
-    expect(setName).toBe('Microban');
+    await expect(setName).toBe('Microban');
   });
 
-  it('isSetMenu should indicate if currently a set menu is shown', () => {
+  it('isSetMenu should indicate if currently a set menu is shown', async () => {
     // because current path in test setup is /menu/newgame/ng_Microban/
     // so the parent is ng_Microban
-    expect(component.isSetMenu).toBeFalsy();
+    await expect(component.isSetMenu).toBeFalsy();
   });
 });

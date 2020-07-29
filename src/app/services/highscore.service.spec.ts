@@ -11,11 +11,11 @@ describe('HighscoreService', () => {
     localStorage.clear();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should be created', async () => {
+    await expect(service).toBeTruthy();
   });
 
-  it('should add entry', () => {
+  it('should add entry', async () => {
     const entry1: HighscoreEntry = {
       name: 'Test',
       moves: 123,
@@ -30,22 +30,22 @@ describe('HighscoreService', () => {
     // Add first highscore entry and verify correct setup
     service.addEntry(0, entry1);
     let serialized = localStorage.getItem('highscore_0');
-    expect(serialized).toBeTruthy();
+    await expect(serialized).toBeTruthy();
     let scores: HighscoreEntry[] = JSON.parse(serialized) as HighscoreEntry[];
-    expect(scores.length).toBe(1);
-    expect(scores[0]).toEqual(entry1);
+    await expect(scores.length).toBe(1);
+    await expect(scores[0]).toEqual(entry1);
 
     // Add an additional entry and verify correct order
     service.addEntry(0, entry2);
     serialized = localStorage.getItem('highscore_0');
-    expect(serialized).toBeTruthy();
+    await expect(serialized).toBeTruthy();
     scores = JSON.parse(serialized) as HighscoreEntry[];
-    expect(scores.length).toBe(2);
-    expect(scores[0]).toEqual(entry2);
-    expect(scores[1]).toEqual(entry1);
+    await expect(scores.length).toBe(2);
+    await expect(scores[0]).toEqual(entry2);
+    await expect(scores[1]).toEqual(entry1);
   });
 
-  it('should get highscore for level', () => {
+  it('should get highscore for level', async () => {
     const entry1: HighscoreEntry = {
       name: 'Test',
       moves: 123,
@@ -53,8 +53,8 @@ describe('HighscoreService', () => {
     };
     service.addEntry(0, entry1);
     const scores = service.getLevel(0);
-    expect(scores.length).toBe(1);
-    expect(scores[0]).toEqual(entry1);
-    expect(service.getLevel(1)).toEqual([]);
+    await expect(scores.length).toBe(1);
+    await expect(scores[0]).toEqual(entry1);
+    await expect(service.getLevel(1)).toEqual([]);
   });
 });

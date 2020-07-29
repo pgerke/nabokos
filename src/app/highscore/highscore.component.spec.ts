@@ -11,7 +11,7 @@ describe('HighscoreComponent', () => {
   let levelService: LevelService;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [HighscoreComponent],
       providers: [
@@ -30,19 +30,19 @@ describe('HighscoreComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async() => {
+    await expect(component).toBeTruthy();
   });
 
-  it('should get next level', inject([Router], router => {
+  it('should get next level', inject([Router], async (router: Router) => {
     const routerSpy = spyOn(router, 'navigate');
-    component.next();
+    await component.next();
     expect(routerSpy).toHaveBeenCalledWith(['highscore', 1]);
   }));
 
-  it('should get previous level', inject([Router], router => {
+  it('should get previous level', inject([Router], async (router: Router) => {
     const routerSpy = spyOn(router, 'navigate');
-    component.previous();
+    await component.previous();
     expect(routerSpy).toHaveBeenCalledWith(['highscore', levelService.getLevelCount() - 1]);
   }));
 });

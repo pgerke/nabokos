@@ -6,7 +6,7 @@ describe('TileComponent', () => {
   let fixture: ComponentFixture<TileComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       declarations: [TileComponent]
     }).compileComponents();
   }));
@@ -17,7 +17,7 @@ describe('TileComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async() => {
+    await expect(component).toBeTruthy();
   });
 });

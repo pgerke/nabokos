@@ -8,7 +8,7 @@ describe('CreditsComponent', () => {
   let fixture: ComponentFixture<CreditsComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientModule
@@ -25,7 +25,7 @@ describe('CreditsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async() => {
+    await expect(component).toBeTruthy();
   });
 });

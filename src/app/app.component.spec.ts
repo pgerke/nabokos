@@ -6,7 +6,7 @@ describe('AppComponent', () => {
   let app: AppComponent;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [
         AppComponent
@@ -20,11 +20,11 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the app', () => {
-    expect(app).toBeTruthy();
+  it('should create the app', async() => {
+    await expect(app).toBeTruthy()
   });
 
-  it('should have as title \'nabokos\'', () => {
-    expect(app.title).toEqual('nabokos');
+  it('should have as title \'nabokos\'', async() => {
+    await expect(app.title).toEqual('nabokos');
   });
 });

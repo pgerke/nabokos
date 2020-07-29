@@ -13,12 +13,17 @@ export class CreditsComponent implements OnInit {
   libraries: Library[] = [];
   readonly year = (new Date()).getFullYear();
   authors: string;
+  httpClient: HttpClient;
 
   constructor(http: HttpClient) {
     this.authors = ['Michaela Andermann', 'Philip Gerke'].sort(() => 0.5 - Math.random()).join(', ');
-    http.get('assets/license.json').toPromise().then((response: Response) => {
-      Object.keys(response).forEach(key => {
-        const library: Library = response[key];
+    this.httpClient = http;
+  }
+
+  ngOnInit(): void {
+    void this.httpClient.get('assets/license.json').toPromise().then((response: Response) => {
+      Object.keys(response).forEach((key: string) => {
+        const library: Library = response[key] as Library;
         if (library.licenses !== 'UNLICENSED') {
           this.libraries.push(library);
         }
@@ -26,6 +31,4 @@ export class CreditsComponent implements OnInit {
       console.log(`Loaded ${this.libraries.length} libraries.`);
     });
   }
-
-  ngOnInit(): void { }
 }
