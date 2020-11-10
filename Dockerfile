@@ -16,7 +16,7 @@ RUN npm run ng build -- --prod --output-path=dist
 
 # Stage 2, based on nginx, to have only the production-ready, compiled app
 FROM nginx:1.19
-## Remove default nginx website
+# Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the Nginx config files

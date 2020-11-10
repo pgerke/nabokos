@@ -14,6 +14,7 @@ import { LevelCompletionService } from '../services/level-completion.service';
 export class MenuComponent implements OnInit, OnDestroy {
 
   readonly appVersion: string = version;
+  readonly year = (new Date()).getFullYear();
   canContinue: boolean;
   hasUpdate: boolean;
   savegame: Savegame;
