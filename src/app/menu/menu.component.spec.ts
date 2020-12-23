@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject, waitForAsync } from '@angular/core/testing';
 import { MenuComponent } from './menu.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ describe('MenuComponent with save game', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -44,7 +44,7 @@ describe('MenuComponent', () => {
   let fixture: ComponentFixture<MenuComponent>;
   let service: ServiceWorkerService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

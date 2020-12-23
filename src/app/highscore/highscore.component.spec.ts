@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed, inject, waitForAsync } from '@angular/core/testing';
 import { HighscoreComponent } from './highscore.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HighscoreService, LevelService } from '../services';
@@ -10,7 +10,7 @@ describe('HighscoreComponent', () => {
   let fixture: ComponentFixture<HighscoreComponent>;
   let levelService: LevelService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [HighscoreComponent],

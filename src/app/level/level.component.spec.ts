@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick, fakeAsync, inject, waitForAsync } from '@angular/core/testing';
 import { LevelComponent } from './level.component';
 import { Direction, Savegame, Coordinate, Tile } from '../models';
 import { LevelService, HighscoreService, PathFinderService, LevelCompletionService } from '../services';
@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 describe('LevelComponent (shallow)', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [
@@ -140,7 +140,7 @@ describe('LevelComponent', () => {
   let levelService: LevelService;
   let pathFinderService: PathFinderService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     void TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [

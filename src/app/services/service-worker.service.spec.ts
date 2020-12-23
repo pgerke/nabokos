@@ -56,7 +56,7 @@ describe('ServiceWorkerService with Registration', () => {
     const consoleSpy = spyOn(console, 'log');
     const swUpdate: SwUpdate = TestBed.inject(SwUpdate);
     const updateSpy = spyOn(swUpdate, 'checkForUpdate').and.returnValue(Promise.reject());
-    const appRef = TestBed.get(ApplicationRef) as ApplicationRef;
+    const appRef = TestBed.inject<ApplicationRef>(ApplicationRef);
     service = new ServiceWorkerService(appRef, swUpdate);
     await expect(service).toBeTruthy();
     await expect(swUpdate).toBeDefined();
