@@ -1,98 +1,98 @@
 {
-  "@angular/animations@11.2.5": {
+  "@angular/animations@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/animations",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - animations integration with web-animations",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\animations",
     "licenseFile": "node_modules\\@angular\\animations\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/common@11.2.5": {
+  "@angular/common@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/common",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - commonly needed directives and services",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\common",
     "licenseFile": "node_modules\\@angular\\common\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/compiler@11.2.5": {
+  "@angular/compiler@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/compiler",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - the compiler library",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\compiler",
     "licenseFile": "node_modules\\@angular\\compiler\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/core@11.2.5": {
+  "@angular/core@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/core",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - the core framework",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\core",
     "licenseFile": "node_modules\\@angular\\core\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/forms@11.2.5": {
+  "@angular/forms@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/forms",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - directives and services for creating forms",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\forms",
     "licenseFile": "node_modules\\@angular\\forms\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/platform-browser-dynamic@11.2.5": {
+  "@angular/platform-browser-dynamic@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/platform-browser-dynamic",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - library for using Angular in a web browser with JIT compilation",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\platform-browser-dynamic",
     "licenseFile": "node_modules\\@angular\\platform-browser-dynamic\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/platform-browser@11.2.5": {
+  "@angular/platform-browser@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/platform-browser",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - library for using Angular in a web browser",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\platform-browser",
     "licenseFile": "node_modules\\@angular\\platform-browser\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/router@11.2.5": {
+  "@angular/router@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/router",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - the routing library",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\router",
     "licenseFile": "node_modules\\@angular\\router\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/service-worker@11.2.5": {
+  "@angular/service-worker@11.2.9": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/service-worker",
-    "version": "11.2.5",
+    "version": "11.2.9",
     "description": "Angular - service worker tooling!",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\service-worker",
     "licenseFile": "node_modules\\@angular\\service-worker\\README.md",
@@ -137,11 +137,11 @@
     "licenseText": "Copyright OpenJS Foundation and other contributors <https://openjsf.org/>\n\nBased on Underscore.js, copyright Jeremy Ashkenas,\nDocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>\n\nThis software consists of voluntary contributions made by many\nindividuals. For exact contribution history, see the revision history\navailable at https://github.com/lodash/lodash\n\nThe following license applies to all parts of this software except as\ndocumented below:\n\n====\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n====\n\nCopyright and related rights for sample code are waived via CC0. Sample\ncode is defined as all source code displayed within the prose of the\ndocumentation.\n\nCC0: http://creativecommons.org/publicdomain/zero/1.0/\n\n====\n\nFiles located in the node_modules and vendor directories are externally\nmaintained libraries used by this software which have their own\nlicenses; we recommend you read them, as their terms may differ from the\nterms above.",
     "copyright": "Copyright OpenJS Foundation and other contributors <https://openjsf.org/>"
   },
-  "nabokos@1.4.12": {
+  "nabokos@1.5.0": {
     "licenses": "UNLICENSED",
     "private": true,
     "name": "nabokos",
-    "version": "1.4.12",
+    "version": "1.5.0",
     "description": "A clone of the Sokoban puzzle game for the browser created using Angular 10.",
     "path": "C:\\git\\nabokos",
     "licenseFile": "README.md",
@@ -159,13 +159,13 @@
     "licenseFile": "node_modules\\popper.js\\README.md",
     "licenseText": "<!-- IGNORE THE HTML BLOCK BELOW, THE INTERESTING PART IS AFTER IT -->\n\n<h1 align=\"center\">Popper.js</h1>\n\n<p align=\"center\">\n    <strong>A library used to position poppers in web applications.</strong>\n</p>\n\n<p align=\"center\">\n    <img src=\"http://badge-size.now.sh/https://unpkg.com/popper.js/dist/popper.min.js?compression=brotli\" alt=\"Stable Release Size\"/>\n  <img src=\"http://badge-size.now.sh/https://unpkg.com/popper.js/dist/popper.min.js?compression=gzip\" alt=\"Stable Release Size\"/>\n    <a href=\"https://codeclimate.com/github/FezVrasta/popper.js/coverage\"><img src=\"https://codeclimate.com/github/FezVrasta/popper.js/badges/coverage.svg\" alt=\"Istanbul Code Coverage\"/></a>\n    <a href=\"https://www.npmjs.com/browse/depended/popper.js\"><img src=\"https://badgen.net/npm/dependents/popper.js\" alt=\"Dependents packages\" /></a>\n    <a href=\"https://spectrum.chat/popper-js\" target=\"_blank\"><img src=\"https://img.shields.io/badge/chat-on_spectrum-6833F9.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAgOCI%2BPGRlZnM%2BPHN0eWxlPi5jbHMtMXtmaWxsOiNmZmY7fTwvc3R5bGU%2BPC9kZWZzPjx0aXRsZT5zcGVjdHJ1bTwvdGl0bGU%2BPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNSwwQy40MiwwLDAsLjYzLDAsMy4zNGMwLDEuODQuMTksMi43MiwxLjc0LDMuMWgwVjcuNThhLjQ0LjQ0LDAsMCwwLC42OC4zNUw0LjM1LDYuNjlINWM0LjU4LDAsNS0uNjMsNS0zLjM1UzkuNTgsMCw1LDBaTTIuODMsNC4xOGEuNjMuNjMsMCwxLDEsLjY1LS42M0EuNjQuNjQsMCwwLDEsMi44Myw0LjE4Wk01LDQuMThhLjYzLjYzLDAsMSwxLC42NS0uNjNBLjY0LjY0LDAsMCwxLDUsNC4xOFptMi4xNywwYS42My42MywwLDEsMSwuNjUtLjYzQS42NC42NCwwLDAsMSw3LjE3LDQuMThaIi8%2BPC9zdmc%2B\" alt=\"Get support or discuss\"/></a>\n    <br />\n    <a href=\"https://travis-ci.org/FezVrasta/popper.js/branches\" target=\"_blank\"><img src=\"https://travis-ci.org/FezVrasta/popper.js.svg?branch=master\" alt=\"Build Status\"/></a>\n    <a href=\"https://saucelabs.com/u/popperjs\" target=\"_blank\"><img src=\"https://badges.herokuapp.com/browsers?labels=none&googlechrome=latest&firefox=latest&microsoftedge=latest&iexplore=11,10&safari=latest\" alt=\"SauceLabs Reports\"/></a>\n</p>\n\n<img src=\"https://raw.githubusercontent.com/FezVrasta/popper.js/master/popperjs.png\" align=\"right\" width=250 />\n\n<!-- 🚨 HEY! HERE BEGINS THE INTERESTING STUFF 🚨 -->\n\n## Wut? Poppers?\n\nA popper is an element on the screen which \"pops out\" from the natural flow of your application.  \nCommon examples of poppers are tooltips, popovers and drop-downs.\n\n\n## So, yet another tooltip library?\n\nWell, basically, **no**.  \nPopper.js is a **positioning engine**, its purpose is to calculate the position of an element\nto make it possible to position it near a given reference element.  \n\nThe engine is completely modular and most of its features are implemented as **modifiers**\n(similar to middlewares or plugins).  \nThe whole code base is written in ES2015 and its features are automatically tested on real browsers thanks to [SauceLabs](https://saucelabs.com/) and [TravisCI](https://travis-ci.org/).\n\nPopper.js has zero dependencies. No jQuery, no LoDash, nothing.  \nIt's used by big companies like [Twitter in Bootstrap v4](https://getbootstrap.com/), [Microsoft in WebClipper](https://github.com/OneNoteDev/WebClipper) and [Atlassian in AtlasKit](https://aui-cdn.atlassian.com/atlaskit/registry/).\n\n### Popper.js\n\nThis is the engine, the library that computes and, optionally, applies the styles to\nthe poppers.\n\nSome of the key points are:\n\n- Position elements keeping them in their original DOM context (doesn't mess with your DOM!);\n- Allows to export the computed informations to integrate with React and other view libraries;\n- Supports Shadow DOM elements;\n- Completely customizable thanks to the modifiers based structure;\n\nVisit our [project page](https://fezvrasta.github.io/popper.js) to see a lot of examples of what you can do with Popper.js!\n\nFind [the documentation here](/docs/_includes/popper-documentation.md).\n\n\n### Tooltip.js\n\nSince lots of users just need a simple way to integrate powerful tooltips in their projects,\nwe created **Tooltip.js**.  \nIt's a small library that makes it easy to automatically create tooltips using as engine Popper.js.  \nIts API is almost identical to the famous tooltip system of Bootstrap, in this way it will be\neasy to integrate it in your projects.  \nThe tooltips generated by Tooltip.js are accessible thanks to the `aria` tags.\n\nFind [the documentation here](/docs/_includes/tooltip-documentation.md).\n\n\n## Installation\nPopper.js is available on the following package managers and CDNs:\n\n| Source |                                                                                  |\n|:-------|:---------------------------------------------------------------------------------|\n| npm    | `npm install popper.js --save`                                                   |\n| yarn   | `yarn add popper.js`                                                             |\n| NuGet  | `PM> Install-Package popper.js`                                                  |\n| Bower  | `bower install popper.js --save`                     |\n| unpkg  | [`https://unpkg.com/popper.js`](https://unpkg.com/popper.js)                     |\n| cdnjs  | [`https://cdnjs.com/libraries/popper.js`](https://cdnjs.com/libraries/popper.js) |\n\nTooltip.js as well:\n\n| Source |                                                                                  |\n|:-------|:---------------------------------------------------------------------------------|\n| npm    | `npm install tooltip.js --save`                                                  |\n| yarn   | `yarn add tooltip.js`                                                            |\n| Bower* | `bower install tooltip.js=https://unpkg.com/tooltip.js --save`                   |\n| unpkg  | [`https://unpkg.com/tooltip.js`](https://unpkg.com/tooltip.js)                   |\n| cdnjs  | [`https://cdnjs.com/libraries/popper.js`](https://cdnjs.com/libraries/popper.js) |\n\n\\*: Bower isn't officially supported, it can be used to install Tooltip.js only trough the unpkg.com CDN. This method has the limitation of not being able to define a specific version of the library. Bower and Popper.js suggests to use npm or Yarn for your projects.  \nFor more info, [read the related issue](https://github.com/FezVrasta/popper.js/issues/390).\n\n### Dist targets\n\nPopper.js is currently shipped with 3 targets in mind: UMD, ESM and ESNext.\n\n- UMD - Universal Module Definition: AMD, RequireJS and globals;\n- ESM - ES Modules: For webpack/Rollup or browser supporting the spec;\n- ESNext: Available in `dist/`, can be used with webpack and `babel-preset-env`;\n\nMake sure to use the right one for your needs. If you want to import it with a `<script>` tag, use UMD.\n\n## Usage\n\nGiven an existing popper DOM node, ask Popper.js to position it near its button\n\n```js\nvar reference = document.querySelector('.my-button');\nvar popper = document.querySelector('.my-popper');\nvar anotherPopper = new Popper(\n    reference,\n    popper,\n    {\n        // popper options here\n    }\n);\n```\n\n### Callbacks\n\nPopper.js supports two kinds of callbacks, the `onCreate` callback is called after\nthe popper has been initialized. The `onUpdate` one is called on any subsequent update.\n\n```js\nconst reference = document.querySelector('.my-button');\nconst popper = document.querySelector('.my-popper');\nnew Popper(reference, popper, {\n    onCreate: (data) => {\n        // data is an object containing all the informations computed\n        // by Popper.js and used to style the popper and its arrow\n        // The complete description is available in Popper.js documentation\n    },\n    onUpdate: (data) => {\n        // same as `onCreate` but called on subsequent updates\n    }\n});\n```\n\n### Writing your own modifiers\n\nPopper.js is based on a \"plugin-like\" architecture, most of its features are fully encapsulated \"modifiers\".  \nA modifier is a function that is called each time Popper.js needs to compute the position of the popper. For this reason, modifiers should be very performant to avoid bottlenecks.  \n\nTo learn how to create a modifier, [read the modifiers documentation](docs/_includes/popper-documentation.md#modifiers--object)\n\n\n### React, Vue.js, Angular, AngularJS, Ember.js (etc...) integration\n\nIntegrating 3rd party libraries in React or other libraries can be a pain because\nthey usually alter the DOM and drive the libraries crazy.  \nPopper.js limits all its DOM modifications inside the `applyStyle` modifier,\nyou can simply disable it and manually apply the popper coordinates using\nyour library of choice.  \n\nFor a comprehensive list of libraries that let you use Popper.js into existing\nframeworks, visit the [MENTIONS](/MENTIONS.md) page.\n\nAlternatively, you may even override your own `applyStyles` with your custom one and\nintegrate Popper.js by yourself!\n\n```js\nfunction applyReactStyle(data) {\n    // export data in your framework and use its content to apply the style to your popper\n};\n\nconst reference = document.querySelector('.my-button');\nconst popper = document.querySelector('.my-popper');\nnew Popper(reference, popper, {\n    modifiers: {\n        applyStyle: { enabled: false },\n        applyReactStyle: {\n            enabled: true,\n            fn: applyReactStyle,\n            order: 800,\n        },\n    },\n});\n\n```\n\n### Migration from Popper.js v0\n\nSince the API changed, we prepared some migration instructions to make it easy to upgrade to\nPopper.js v1.  \n\nhttps://github.com/FezVrasta/popper.js/issues/62\n\nFeel free to comment inside the issue if you have any questions.\n\n### Performances\n\nPopper.js is very performant. It usually takes 0.5ms to compute a popper's position (on an iMac with 3.5G GHz Intel Core i5).  \nThis means that it will not cause any [jank](https://www.chromium.org/developers/how-tos/trace-event-profiling-tool/anatomy-of-jank), leading to a smooth user experience.\n\n## Notes\n\n### Libraries using Popper.js\n\nThe aim of Popper.js is to provide a stable and powerful positioning engine ready to\nbe used in 3rd party libraries.  \n\nVisit the [MENTIONS](/MENTIONS.md) page for an updated list of projects.\n\n\n### Credits\nI want to thank some friends and projects for the work they did:\n\n- [@AndreaScn](https://github.com/AndreaScn) for his work on the GitHub Page and the manual testing he did during the development;\n- [@vampolo](https://github.com/vampolo) for the original idea and for the name of the library;\n- [Sysdig](https://github.com/Draios) for all the awesome things I learned during these years that made it possible for me to write this library;\n- [Tether.js](http://github.hubspot.com/tether/) for having inspired me in writing a positioning library ready for the real world;\n- [The Contributors](https://github.com/FezVrasta/popper.js/graphs/contributors) for their much appreciated Pull Requests and bug reports;\n- **you** for the star you'll give to this project and for being so awesome to give this project a try 🙂\n\n### Copyright and license\nCode and documentation copyright 2016 **Federico Zivolo**. Code released under the [MIT license](LICENSE.md). Docs released under Creative Commons."
   },
-  "rxjs@6.6.6": {
+  "rxjs@6.6.7": {
     "licenses": "Apache-2.0",
     "repository": "https://github.com/reactivex/rxjs",
     "publisher": "Ben Lesh",
     "email": "ben@benlesh.com",
     "name": "rxjs",
-    "version": "6.6.6",
+    "version": "6.6.7",
     "description": "Reactive Extensions for modern JavaScript",
     "path": "C:\\git\\nabokos\\node_modules\\rxjs",
     "licenseFile": "node_modules\\rxjs\\LICENSE.txt",
@@ -183,12 +183,12 @@
     "licenseText": "Copyright (c) Microsoft Corporation.\r\n\r\nPermission to use, copy, modify, and/or distribute this software for any\r\npurpose with or without fee is hereby granted.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH\r\nREGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY\r\nAND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,\r\nINDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM\r\nLOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR\r\nOTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR\r\nPERFORMANCE OF THIS SOFTWARE.",
     "copyright": "Copyright (c) Microsoft Corporation."
   },
-  "tslib@2.1.0": {
+  "tslib@2.2.0": {
     "licenses": "0BSD",
     "repository": "https://github.com/Microsoft/tslib",
     "publisher": "Microsoft Corp.",
     "name": "tslib",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "Runtime library for TypeScript helper functions",
     "path": "C:\\git\\nabokos\\node_modules\\tslib",
     "licenseFile": "node_modules\\tslib\\LICENSE.txt",
