@@ -3,8 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Savegame, MenuEntry } from '../models';
 import { Subscription } from 'rxjs';
 import { LevelService, ServiceWorkerService } from '../services';
-import { version } from '../../../package.json';
 import { LevelCompletionService } from '../services/level-completion.service';
+import pkg from '../../../package.json';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +13,7 @@ import { LevelCompletionService } from '../services/level-completion.service';
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  readonly appVersion: string = version;
+  readonly appVersion: string = (pkg as unknown as { version: string }).version;
   readonly year = (new Date()).getFullYear();
   canContinue: boolean;
   hasUpdate: boolean;

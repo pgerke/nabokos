@@ -1,6 +1,6 @@
 # Nabokos
 
-A clone of the Sokoban puzzle game for the browser created using Angular ~~8~~ ~~9~~ ~~10~~ 11.
+A clone of the Sokoban puzzle game for the browser created using Angular ~~8~~ ~~9~~ ~~10~~ ~~11~~ 12.
 
 ## Goal of the Game ##
 

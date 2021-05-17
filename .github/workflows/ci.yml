@@ -10,7 +10,7 @@ jobs:
     - name: Restore dependencies
       run: npm ci
     - name: Run npm build
-      run: npm run build -- --prod
+      run: npm run build -- --configuration production
   lint:
     runs-on: ubuntu-latest
     steps:
