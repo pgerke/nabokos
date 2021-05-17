@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Library } from '../models';
-import { version } from '../../../package.json';
+import pkg from '../../../package.json';
 
 @Component({
   selector: 'app-credits',
@@ -9,7 +9,7 @@ import { version } from '../../../package.json';
   styleUrls: ['./credits.component.scss']
 })
 export class CreditsComponent implements OnInit {
-  readonly appVersion: string = version;
+  readonly appVersion: string = (pkg as unknown as { version: string }).version;
   libraries: Library[] = [];
   readonly year = (new Date()).getFullYear();
   authors: string;
