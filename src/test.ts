@@ -8,8 +8,8 @@ import {
 } from '@angular/platform-browser-dynamic/testing';
 
 interface RequireContext {
-  keys(): string[];
   (id: string): unknown;
+  keys(): string[];
 }
 interface RequireFunction {
   context: (path: string, deep?: boolean, filter?: RegExp) => RequireContext;
