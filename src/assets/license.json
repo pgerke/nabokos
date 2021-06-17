@@ -1,98 +1,98 @@
 {
-  "@angular/animations@12.0.0": {
+  "@angular/animations@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/animations",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - animations integration with web-animations",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\animations",
     "licenseFile": "node_modules\\@angular\\animations\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/common@12.0.0": {
+  "@angular/common@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/common",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - commonly needed directives and services",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\common",
     "licenseFile": "node_modules\\@angular\\common\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/compiler@12.0.0": {
+  "@angular/compiler@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/compiler",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - the compiler library",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\compiler",
     "licenseFile": "node_modules\\@angular\\compiler\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/core@12.0.0": {
+  "@angular/core@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/core",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - the core framework",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\core",
     "licenseFile": "node_modules\\@angular\\core\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/forms@12.0.0": {
+  "@angular/forms@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/forms",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - directives and services for creating forms",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\forms",
     "licenseFile": "node_modules\\@angular\\forms\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/platform-browser-dynamic@12.0.0": {
+  "@angular/platform-browser-dynamic@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/platform-browser-dynamic",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - library for using Angular in a web browser with JIT compilation",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\platform-browser-dynamic",
     "licenseFile": "node_modules\\@angular\\platform-browser-dynamic\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/platform-browser@12.0.0": {
+  "@angular/platform-browser@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/platform-browser",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - library for using Angular in a web browser",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\platform-browser",
     "licenseFile": "node_modules\\@angular\\platform-browser\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/router@12.0.0": {
+  "@angular/router@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/router",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - the routing library",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\router",
     "licenseFile": "node_modules\\@angular\\router\\README.md",
     "licenseText": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nUsage information and reference details can be found in [Angular documentation](https://angular.io/docs).\n\nLicense: MIT"
   },
-  "@angular/service-worker@12.0.0": {
+  "@angular/service-worker@12.0.5": {
     "licenses": "MIT",
     "repository": "https://github.com/angular/angular",
     "publisher": "angular",
     "name": "@angular/service-worker",
-    "version": "12.0.0",
+    "version": "12.0.5",
     "description": "Angular - service worker tooling!",
     "path": "C:\\git\\nabokos\\node_modules\\@angular\\service-worker",
     "licenseFile": "node_modules\\@angular\\service-worker\\README.md",
@@ -137,11 +137,11 @@
     "licenseText": "Copyright OpenJS Foundation and other contributors <https://openjsf.org/>\n\nBased on Underscore.js, copyright Jeremy Ashkenas,\nDocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>\n\nThis software consists of voluntary contributions made by many\nindividuals. For exact contribution history, see the revision history\navailable at https://github.com/lodash/lodash\n\nThe following license applies to all parts of this software except as\ndocumented below:\n\n====\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n\n====\n\nCopyright and related rights for sample code are waived via CC0. Sample\ncode is defined as all source code displayed within the prose of the\ndocumentation.\n\nCC0: http://creativecommons.org/publicdomain/zero/1.0/\n\n====\n\nFiles located in the node_modules and vendor directories are externally\nmaintained libraries used by this software which have their own\nlicenses; we recommend you read them, as their terms may differ from the\nterms above.",
     "copyright": "Copyright OpenJS Foundation and other contributors <https://openjsf.org/>"
   },
-  "nabokos@1.5.3": {
+  "nabokos@1.5.5": {
     "licenses": "UNLICENSED",
     "private": true,
     "name": "nabokos",
-    "version": "1.5.3",
+    "version": "1.5.5",
     "description": "A clone of the Sokoban puzzle game for the browser created using Angular ~~8~~ ~~9~~ ~~10~~ ~~11~~ 12.",
     "path": "C:\\git\\nabokos",
     "licenseFile": "README.md",
@@ -183,12 +183,12 @@
     "licenseText": "Copyright (c) Microsoft Corporation.\r\n\r\nPermission to use, copy, modify, and/or distribute this software for any\r\npurpose with or without fee is hereby granted.\r\n\r\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH\r\nREGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY\r\nAND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,\r\nINDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM\r\nLOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR\r\nOTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR\r\nPERFORMANCE OF THIS SOFTWARE.",
     "copyright": "Copyright (c) Microsoft Corporation."
   },
-  "tslib@2.2.0": {
+  "tslib@2.3.0": {
     "licenses": "0BSD",
     "repository": "https://github.com/Microsoft/tslib",
     "publisher": "Microsoft Corp.",
     "name": "tslib",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "Runtime library for TypeScript helper functions",
     "path": "C:\\git\\nabokos\\node_modules\\tslib",
     "licenseFile": "node_modules\\tslib\\LICENSE.txt",
